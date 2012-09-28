@@ -24,9 +24,6 @@
 			<version>1.6.4</version>
 		</dependency>
 	</dependencies>
-	<build>
-		<finalName>issuetracker</finalName>
-	</build>
 	<developers>
 		<developer>
 			<name>Dzmitry Charnavoki</name>
@@ -40,4 +37,19 @@
 	<issueManagement>
 		<url>https://github.com/mzubok/issuetracker_dcharnavoki/issues</url>
 	</issueManagement>
+    <build>
+    	<finalName>issuetracker</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <encoding>UTF8</encoding>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
