@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+    "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
+    "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
+
+<module name="Checker">
+
+    <!-- Checks that property files contain the same keys.         -->
+    <module name="Translation"/>
+
+    <!-- Checks for long source files                              -->
+    <module name="FileLength"/>
+
+    <module name="RegexpSingleline">
+        <!-- \s matches whitespace character, $ matches end of line  -->
+        <property name="format" value="\s+$"/>
+        <property name="message" value="Line has trailing spaces."/>
+    </module>
+
+    <module name="TreeWalker">
+
+        <property name="cacheFile" value="${checkstyle.cache.file}"/>
+
+        <!-- Checks for Annotations                                       -->
+        <!-- See http://checkstyle.sourceforge.net/config_annotation.html -->
+        <module name="AnnotationUseStyle"/>
+        <module name="MissingDeprecated"/>
+        <module name="MissingOverride">
+            <property name="javaFiveCompatibility" value="true"/>
+        </module>
+
+        <!-- Checks for blocks. You know, those {}'s                  -->
+        <!-- See http://checkstyle.sourceforge.net/config_blocks.html -->
+        <module name="EmptyBlock"/>
+        <module name="LeftCurly">
+            <property name="maxLineLength" value="140"/>
+        </module>
+        <module name="NeedBraces"/>
+        <module name="RightCurly"/>
+        <module name="AvoidNestedBlocks"/>
+        
+        <!-- Checks for class design                                  -->
+        <!-- See http://checkstyle.sourceforge.net/config_design.html -->
+        <module name="VisibilityModifier"/>
+        <module name="FinalClass"/>
+        <module name="InterfaceIsType"/>
+        <module name="HideUtilityClassConstructor"/>
+        
+        <!-- Checks for common coding problems                        -->
+        <!-- See http://checkstyle.sourceforge.net/config_coding.html -->
+        <module name="CovariantEquals"/>
+        <module name="EmptyStatement"/>
+        <module name="EqualsAvoidNull"/>
+        <module name="EqualsHashCode"/>
+        <module name="HiddenField"/>
+        <module name="IllegalInstantiation"/>
+        <module name="InnerAssignment"/>
+        <module name="MagicNumber">
+            <property name="ignoreHashCodeMethod" value="true"/>
+            <property name="ignoreAnnotation" value="true"/>
+        </module>
+        <module name="MissingSwitchDefault"/>
+        <module name="ModifiedControlVariable"/>
+        <module name="RedundantThrows"/>
+        <module name="SimplifyBooleanExpression"/>
+        <module name="SimplifyBooleanReturn"/>
+        <module name="StringLiteralEquality"/>
+        <module name="IllegalThrows"/>
+        <module name="PackageDeclaration"/>
+        <module name="DeclarationOrder"/>
+        <module name="ParameterAssignment"/>
+        <module name="DefaultComesLast"/>
+        <module name="MultipleVariableDeclarations"/>
+        <module name="UnnecessaryParentheses"/>
+        <module name="OneStatementPerLine"/>
+
+        <!-- Checks for imports                                        -->
+        <!-- See http://checkstyle.sourceforge.net/config_imports.html -->
+        <module name="AvoidStarImport"/>
+        <module name="IllegalImport"/>
+        <module name="RedundantImport"/>
+        <module name="UnusedImports"/>
+
+        <!-- Checks for Javadoc comments                               -->
+        <!-- See http://checkstyle.sourceforge.net/config_javadoc.html -->
+        <module name="JavadocMethod">
+            <property name="scope" value="package"/>
+            <property name="allowUndeclaredRTE" value="true"/>
+        </module>
+        <module name="JavadocType">
+            <property name="scope" value="package"/>
+        </module>
+        <module name="JavadocVariable">
+            <property name="scope" value="package"/>
+        </module>
+        <module name="JavadocStyle">
+            <property name="scope" value="package"/>
+        </module>
+
+        <!-- Modifier Checks                                            -->
+        <!-- See http://checkstyle.sourceforge.net/config_modifier.html -->
+        <module name="ModifierOrder"/>
+        <module name="RedundantModifier"/>
+
+        <!-- Checks for Naming Conventions                            -->
+        <!-- See http://checkstyle.sourceforge.net/config_naming.html -->
+        <module name="ConstantName"/>
+        <module name="LocalFinalVariableName"/>
+        <module name="LocalVariableName"/>
+        <module name="MemberName"/>
+        <module name="MethodName"/>
+        <module name="PackageName"/>
+        <module name="ParameterName"/>
+        <module name="StaticVariableName"/>
+        <module name="TypeName"/>
+
+        <!-- Checks for Size Violations                              -->
+        <!-- See http://checkstyle.sourceforge.net/config_sizes.html -->
+		<module name="LineLength">
+			<property name="max" value="140"/>
+		</module>
+        <module name="MethodLength">
+            <property name="max" value="70"/>
+        </module>
+        <module name="ParameterNumber">
+            <property name="max" value="5"/>
+        </module>
+
+        <!-- Checks for whitespace                                        -->
+        <!-- See http://checkstyle.sourceforge.net/config_whitespace.html -->
+        <module name="EmptyForIteratorPad"/>
+        <module name="MethodParamPad"/>
+        <module name="NoWhitespaceAfter"/>
+        <module name="NoWhitespaceBefore"/>
+        <module name="OperatorWrap"/>
+        <module name="ParenPad"/>
+        <module name="TypecastParenPad"/>
+        <module name="WhitespaceAfter"/>
+        <module name="WhitespaceAround"/>
+
+        <!-- Miscellaneous other checks                             -->
+        <!-- See http://checkstyle.sourceforge.net/config_misc.html -->
+        <module name="TodoComment"/>
+        <module name="UpperEll"/>
+        <module name="UncommentedMain"/>
+
+    </module>
+
+</module>
