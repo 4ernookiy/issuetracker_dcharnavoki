@@ -14,4 +14,11 @@
     <d4:role>1</d4:role>
     <d4:password>asd111</d4:password>
   </d4:user>
+  <d4:user id="2">
+  	<d4:firstName>qwre</d4:firstName>
+  	<d4:lastName>wererwe</d4:lastName>
+  	<d4:email>qwer@qwer.com</d4:email>
+  	<d4:role>0</d4:role>
+  	<d4:password>asd123</d4:password>
+  </d4:user>
 </d4:users>
