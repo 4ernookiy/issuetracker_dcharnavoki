@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<d4:users xmlns:d4="http://www.issuetracker.training.org/user" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.issuetracker.training.org/user user.xsd ">
+  <d4:user id="0">
+    <d4:firstName>Ivan</d4:firstName>
+    <d4:lastName>Sidoroff</d4:lastName>
+    <d4:email>sidor@drinkaware.com</d4:email>
+    <d4:role>0</d4:role>
+    <d4:password>asd111</d4:password>
+  </d4:user>
+  <d4:user id="1">
+    <d4:firstName>Petr</d4:firstName>
+    <d4:lastName>Petrov</d4:lastName>
+    <d4:email>pp@tut.by</d4:email>
+    <d4:role>1</d4:role>
+    <d4:password>asd111</d4:password>
+  </d4:user>
+</d4:users>

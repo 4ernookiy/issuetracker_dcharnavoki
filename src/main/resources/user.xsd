@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.issuetracker.training.org/user"
+	xmlns:d4="http://www.issuetracker.training.org/user"
+	elementFormDefault="qualified">
+	<element name="users">
+		<complexType>
+			<sequence>
+				<element name="user" type="d4:User" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<simpleType name="Email">
+		<restriction base="string">
+			<pattern value="(\d?[a-zA-Z\d\.\\_\-])+@([a-zA-Z\d]+(\.)?)+">
+			</pattern>
+		</restriction>
+	</simpleType>
+	<simpleType name="Password">
+		<restriction base="string">
+			<pattern value="[\w\\_@\-\.\\,][\w\\_@\-\.\\,\\ ]{4,}">
+			</pattern>
+		</restriction>
+	</simpleType>
+	<complexType name="TextField">
+		<simpleContent>
+			<extension base="string">
+				<attribute name="id" type="int" use="required" />
+			</extension>
+		</simpleContent>
+	</complexType>
+	<complexType name="User">
+		<sequence>
+			<element name="firstName" type="string" maxOccurs="1"
+				minOccurs="1"></element>
+			<element name="lastName" type="string" maxOccurs="1"
+				minOccurs="1"></element>
+			<element name="email" maxOccurs="1" minOccurs="1" type="d4:Email">
+			</element>
+			<element name="role" maxOccurs="1" minOccurs="1" type="int">
+			</element>
+			<element name="password" type="d4:Password" maxOccurs="1"
+				minOccurs="1"></element>
+		</sequence>
+		<attribute name="id" type="int" use="required"></attribute>
+	</complexType>
+</schema>
