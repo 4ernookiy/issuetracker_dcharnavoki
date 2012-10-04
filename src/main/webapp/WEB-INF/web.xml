@@ -8,11 +8,11 @@
 	<description>JEE training project implementation by Dzmitry Charnavoki</description>
 
 	<servlet>
-		<servlet-name>SampleServlet</servlet-name>
-		<servlet-class>org.training.dcharnavoki.issuetracker.SampleServlet</servlet-class>
+		<servlet-name>StartServlet</servlet-name>
+		<servlet-class>org.training.dcharnavoki.issuetracker.StartServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>SampleServlet</servlet-name>
+		<servlet-name>StartServlet</servlet-name>
 		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
 
