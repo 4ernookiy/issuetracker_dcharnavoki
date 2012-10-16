@@ -1,2 +1,5 @@
 ; реализация xml, (sql)
-dataBase = xMl
+issue = issue.xml
+user = user.xml
+conf = conf.xml
+project = project.xml

@@ -1,39 +1,24 @@
 package org.training.dcharnavoki.issuetracker;
-
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.Servlet;
-import javax.servlet.ServletConfig;
+import java.util.Calendar;
+import java.util.Date;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.training.dcharnavoki.issuetracker.constant.ConstErr;
-import org.training.dcharnavoki.issuetracker.constant.Constant;
+import org.training.dcharnavoki.issuetracker.beans.Issue;
 import org.training.dcharnavoki.issuetracker.controller.AbstractBaseController;
-import org.training.dcharnavoki.issuetracker.dao.FactoryDAO;
-import org.training.dcharnavoki.issuetracker.start.preparing.ConfigApp;
-import org.training.dcharnavoki.issuetracker.start.preparing.LoadConfig;
-
+import org.training.dcharnavoki.issuetracker.dao.impl.FactoryDAO;
+import org.training.dcharnavoki.issuetracker.dao.impl.FactoryDAO.Choice;
+import org.training.dcharnavoki.issuetracker.dao.IIssueDAO;
 /**
  * Sample Servlet interface implementation.
  */
-
-
 public class StartServlet extends AbstractBaseController {
-
-	@Override
-	public void init() throws ServletException {
-		try {
-			ConfigApp configApp = LoadConfig.getConfig(Constant.CONFIG_PROPERTY_FILE);
-			FactoryDAO.setImplementation(configApp.getImplStr());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
+	/* (non-Javadoc)
+	 */
 	@Override
 	protected void performTask(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -43,10 +28,19 @@ public class StartServlet extends AbstractBaseController {
 		out.println("<title>Sample Servlet interface implementation</title>");
 		out.println("</head>");
 		out.println("<body>");
-		out.println("<b>What this ?!</b>");
-		out.println(FactoryDAO.getImplementation().getClass().getCanonicalName());
+		Calendar currentCalendar = Calendar.getInstance();
+		Date date = currentCalendar.getTime();
+		out.println("<b>" + date + "</b><br/>");
+		IIssueDAO issueDao = (IIssueDAO) FactoryDAO.getImplementation(Choice.ISSUE);
+		final int q = 15;
+		for (int i = 0; i < q; i++) {
+			Issue issue = issueDao.getIssue(i);
+			if (issue != null) {
+				out.println(issue.getCreateDate() + "| " + issue.getSummary() + "|" + "<br/>");
+			}
+		}
 		out.println("</body>");
 		out.println("</html>");
-		out.close();		
+		out.close();
 	}
 }

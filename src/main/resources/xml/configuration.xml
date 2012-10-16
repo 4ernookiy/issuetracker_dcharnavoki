@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<d4:configuration xmlns:d4="http://www.issuetracker.training.org/configuration"
+				  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				  xsi:schemaLocation="http://www.issuetracker.training.org/configuration configuration.xsd ">
+  <statuses>
+    <status id="1">New</status>
+    <status id="2">Assigned</status>
+    <status id="3">In Progress</status>
+    <status id="4">Resolved</status>
+    <status id="5">Closed</status>
+    <status id="6">Reopened</status>
+  </statuses>
+  <resolutions>
+    <resolution id="1">Fixed</resolution>
+    <resolution id="2">Invalid</resolution>
+    <resolution id="3">Wontfix</resolution>
+    <resolution id="4">Worksforme</resolution>
+  </resolutions>
+  <priorities>
+    <priority id="1">Critical</priority>
+    <priority id="2">Major</priority>
+    <priority id="3">Important</priority>
+    <priority id="4">Minor</priority>
+  </priorities>
+  <types>
+    <type id="1">Cosmetic</type>
+    <type id="2">Bug</type>
+    <type id="3">Feature</type>
+    <type id="4">Performance</type>
+  </types>
+</d4:configuration>

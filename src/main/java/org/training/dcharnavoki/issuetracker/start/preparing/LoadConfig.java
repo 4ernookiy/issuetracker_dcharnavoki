@@ -7,33 +7,80 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import org.training.dcharnavoki.issuetracker.constant.Constant;
-import org.training.dcharnavoki.issuetracker.constant.ConstErr;
+import org.training.dcharnavoki.issuetracker.dao.impl.DAO;
 
+/**
+ * The Class LoadConfig.
+ */
 public final class LoadConfig {
-	private static final String KEY_IMPL = "dataBase";
+//	/** The Constant KEY_ISSUE. */
+//	private static final String KEY_ISSUE = "issue";
+//	/** The Constant KEY_USER. */
+//	private static final String KEY_USER = "user";
+//	/** The Constant KEY_CONF. */
+//	private static final String KEY_CONF = "conf";
+//	/** The Constant KEY_PROJECT. */
+//	private static final String KEY_PROJECT = "project";
+	/** The Constant EXT_XML. */
+	private static final String EXT_XML = ".xml".toUpperCase();
 
-	private static final String IMPL_VALUE1 = "xml";
-//	private static final String IMPL_VALUE2 = "sql";
+	/** The Constant EXT_PROPERTY. */
+	private static final String EXT_PROPERTY = ".property".toUpperCase();
 
-	private final static String EXT_XML = ".xml".toUpperCase();
-	private final static String EXT_PROPERTY = ".property".toUpperCase();
-	
-	private static Map<String,String> mapAllowedValues = new HashMap<String, String>();
-	
-	static{
-		mapAllowedValues.put(IMPL_VALUE1, Constant.DAO_XML_IMPLEMENTATION);
+	/** The map impl. */
+	private enum KEYS {
+		ISSUE("issue"), USER("user"), CONF("conf"), PROJECT("project");
+		private String string;
+		/**
+		 * Instantiates a new dao.
+		 *
+		 * @param string the string
+		 */
+		private KEYS(String string) {
+			this.string = string;
+		}
+		/**
+		 * Gets the implementation.
+		 *
+		 * @return the implementation
+		 */
+		public String getKeyString() {
+			return string;
+		}
+
 	}
+	private static Map<String, DAO> mapIMPL = new HashMap<String, DAO>();
 
-
-	public static ConfigApp getConfig(String file) throws IOException {
+	static {
+		mapIMPL.put("issue.xml", DAO.XML_ISSUE);
+		mapIMPL.put("user.xml", DAO.XML_USER);
+		mapIMPL.put("conf.xml", DAO.XML_CONF);
+		mapIMPL.put("project.xml", DAO.XML_PROJECT);
+		mapIMPL.put("conf.sql", DAO.SQL_CONF);
+	}
+	/**
+	 *
+	 */
+	private LoadConfig() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	/**
+	 * Gets the config.
+	 *
+	 * @param file
+	 *            the file
+	 * @return the config
+	 */
+	public static ConfigApp getConfig(String file) {
 
 		Properties properties = new Properties();
-		InputStream is = LoadConfig.class.getResourceAsStream(file);
-		if (is == null) {
-			throw new FileNotFoundException("file not found:" + file);
-		}
+
 		try {
+			InputStream is = LoadConfig.class.getResourceAsStream(file);
+			if (is == null) {
+				throw new FileNotFoundException("file not found:" + file);
+			}
 			if (file.toUpperCase().endsWith(EXT_PROPERTY.toUpperCase())) {
 				properties.load(is);
 			} else if (file.toUpperCase().endsWith(EXT_XML.toUpperCase())) {
@@ -42,25 +89,37 @@ public final class LoadConfig {
 				throw new IllegalArgumentException(
 						"this is file is not correct extensions");
 			}
-			
-			String value_impl = properties.getProperty(KEY_IMPL).toLowerCase().trim();
-			String s = mapAllowedValues.get(value_impl);
-			if (mapAllowedValues.get(value_impl) == null){
-				throw new IllegalArgumentException(ConstErr.CONFIG_APP_ILLEGAL);
-			}
-	
-			return new ConfigApp(mapAllowedValues.get(value_impl));
-		} catch (IllegalArgumentException e) {
-			throw e;
-		} catch (FileNotFoundException e) {
-			throw new FileNotFoundException(ConstErr.CONFIG_NOT_FIND);
+			is.close();
+
+			DAO issueImpl;
+			DAO confImpl;
+			DAO userImpl;
+			DAO implProject;
+			issueImpl = getImpl(KEYS.ISSUE, properties);
+			userImpl = getImpl(KEYS.USER, properties);
+			confImpl = getImpl(KEYS.CONF, properties);
+			implProject = getImpl(KEYS.PROJECT, properties);
+			properties.clear();
+			ConfigApp configApp = new ConfigApp(issueImpl, userImpl, confImpl,
+					implProject);
+
+			return configApp;
 		} catch (IOException e) {
-			throw new IOException();
-		} finally {
-			if (is != null) {
-				is.close();
-			}
+			return new ConfigApp();
 		}
+	}
+	/**
+	 * Gets the impl.
+	 *
+	 * @param key
+	 *            the key
+	 * @param properties
+	 *            the properties
+	 * @return the impl
+	 */
+	private static DAO getImpl(KEYS key, Properties properties) {
+		String value = properties.getProperty(key.getKeyString()).toLowerCase().trim();
+		return mapIMPL.get(value);
 	}
 
 }

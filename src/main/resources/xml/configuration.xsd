@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.issuetracker.training.org/configuration" xmlns:d4="http://www.issuetracker.training.org/configuration" elementFormDefault="qualified">
-<element name="configuration">
+<schema targetNamespace="http://www.issuetracker.training.org/configuration"
+		xmlns:d4="http://www.issuetracker.training.org/configuration"
+		xmlns="http://www.w3.org/2001/XMLSchema">
+	<element name="configuration">
 		<complexType>
 			<sequence>
 				<element name="statuses" type="d4:Statuses" maxOccurs="1" minOccurs="1"/>
@@ -19,11 +21,9 @@
 		</simpleContent>
 	</complexType>
 
-	<complexType name="Statuses" mixed="true">
+	<complexType name="Statuses">
 		<sequence>
-			<element name="status" type="d4:TextField"
-				maxOccurs="unbounded" />
-
+			<element name="status" type="d4:TextField" maxOccurs="unbounded" />
 		</sequence>
 	</complexType>
 	<complexType name="Resolutions">
