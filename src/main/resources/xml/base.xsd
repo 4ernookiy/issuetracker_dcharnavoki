@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.issuetracker.training.org/base"
+	xmlns:d4="http://www.issuetracker.training.org/base">
+
+	<element name="base">
+		<complexType>
+			<sequence>
+				<element name="issues" type="d4:Issues" minOccurs="1" maxOccurs="1" />
+				<element name="comments" type="d4:Comments" minOccurs="1" maxOccurs="1" />
+				<element name="attachments" type="d4:Attachments" minOccurs="1" maxOccurs="1" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<complexType name="Issue">
+		<sequence>
+			<element name="createDate" type="dateTime"></element>
+			<element name="createBy" type="int"></element>
+			<element name="modifyDate" type="dateTime"></element>
+			<element name="modifyBy" type="int"></element>
+			<element name="summary" type="string"></element>
+			<element name="description" type="string"></element>
+			<element name="status" type="int"></element>
+			<element name="resolution" type="int"></element>
+			<element name="priority" type="int"></element>
+			<element name="type" type="int"></element>
+			<element name="project" type="int"></element>
+			<element name="buildFound" type="int"></element>
+			<element name="assigned" type="int"></element>
+		</sequence>
+		<attribute name="id" type="int"></attribute>
+	</complexType>
+
+	<complexType name="Comment">
+		<sequence>
+			<element name="id" type="string">
+			</element>
+			<element name="issueId" type="string">
+			</element>
+			<element name="date" type="string">
+			</element>
+			<element name="addedBy" type="string">
+			</element>
+			<element name="addDate" type="string">
+			</element>
+			<element name="comment" type="string">
+			</element>
+		</sequence>
+	</complexType>
+
+
+	<complexType name="Attachment">
+		<sequence>
+			<element name="id" type="string"></element>
+			<element name="issueId" type="string"></element>
+			<element name="link" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="Issues">
+		<sequence>
+			<element name="issue" type="d4:Issue" minOccurs="1"
+				maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="Comments">
+		<sequence>
+			<element name="comment" type="d4:Comment" minOccurs="1"
+				maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="Attachments">
+		<sequence>
+			<element name="attachment" type="d4:Attachment" minOccurs="1"
+				maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+</schema>

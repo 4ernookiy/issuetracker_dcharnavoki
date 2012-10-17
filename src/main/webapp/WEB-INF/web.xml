@@ -6,14 +6,23 @@
 
 	<display-name>Issue Tracker</display-name>
 	<description>JEE training project implementation by Dzmitry Charnavoki</description>
-
 	<servlet>
-		<servlet-name>SampleServlet</servlet-name>
-		<servlet-class>org.training.dcharnavoki.issuetracker.SampleServlet</servlet-class>
+		<servlet-name>StartServlet</servlet-name>
+		<servlet-class>org.training.dcharnavoki.issuetracker.StartServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>LoginController</servlet-name>
+		<servlet-class>org.training.dcharnavoki.issuetracker.controller.LoginController</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>SampleServlet</servlet-name>
-		<url-pattern>/*</url-pattern>
+		<servlet-name>StartServlet</servlet-name>
+		<url-pattern>/StartServlet</url-pattern>
 	</servlet-mapping>
-
+	<servlet-mapping>
+		<servlet-name>LoginController</servlet-name>
+		<url-pattern>/LoginController</url-pattern>
+	</servlet-mapping>
+	<welcome-file-list>
+		<welcome-file>StartServlet</welcome-file>
+	</welcome-file-list>
 </web-app>
