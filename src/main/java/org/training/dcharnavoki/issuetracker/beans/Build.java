@@ -10,11 +10,11 @@ public class Build {
 	/**
 	 * Instantiates a new builds the.
 	 *
-	 * @param id the id
+	 * @param buildId the id
 	 */
-	public Build(final int id) {
+	public Build(final int buildId) {
 		super();
-		this.id = id;
+		this.id = buildId;
 	}
 
 	/**

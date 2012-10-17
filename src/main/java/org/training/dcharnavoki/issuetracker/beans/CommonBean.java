@@ -18,13 +18,13 @@ public class CommonBean {
 	/**
 	 * Instantiates a new common bean.
 	 *
-	 * @param id the id
-	 * @param description the description
+	 * @param beanId the id
+	 * @param beanDescription the description
 	 */
-	public CommonBean(int id, String description) {
+	public CommonBean(int beanId, String beanDescription) {
 		super();
-		this.id = id;
-		this.description = description;
+		this.id = beanId;
+		this.description = beanDescription;
 	}
 	/**
 	 * Gets the id.

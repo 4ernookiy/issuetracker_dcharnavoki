@@ -20,11 +20,11 @@ public class Project {
 	/**
 	 * Instantiates a new project.
 	 *
-	 * @param id the id
+	 * @param projectId the id
 	 */
-	public Project(int id) {
+	public Project(int projectId) {
 		super();
-		this.id = id;
+		this.id = projectId;
 	}
 
 	/**
@@ -115,10 +115,15 @@ public class Project {
 	/**
 	 * Gets the builds the.
 	 *
-	 * @param id the id
+	 * @param buildId the id
 	 * @return the builds the
 	 */
-	public Build getBuild(int id) {
-		return builds.get(id);
+	public Build getBuild(int buildId) {
+		for (Build build: builds) {
+			if (build.getId() == buildId) {
+				return build;
+			}
+		}
+		return null;
 	}
 }

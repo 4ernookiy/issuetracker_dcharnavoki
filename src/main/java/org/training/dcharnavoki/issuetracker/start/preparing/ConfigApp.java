@@ -22,21 +22,21 @@ public class ConfigApp {
 	/**
 	 * Instantiates a new config app.
 	 *
-	 * @param implIssue
+	 * @param issue
 	 *            the impl issue
-	 * @param implUser
+	 * @param user
 	 *            the impl user
-	 * @param implConf
+	 * @param conf
 	 *            the impl conf
-	 * @param implProject
+	 * @param project
 	 *            the impl project
 	 */
-	public ConfigApp(DAO implIssue, DAO implUser, DAO implConf, DAO implProject) {
+	public ConfigApp(DAO issue, DAO user, DAO conf, DAO project) {
 		super();
-		this.implIssue = implIssue;
-		this.implUser = implUser;
-		this.implConf = implConf;
-		this.implProject = implProject;
+		this.implIssue = issue;
+		this.implUser = user;
+		this.implConf = conf;
+		this.implProject = project;
 	}
 
 	/**

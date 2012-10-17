@@ -1,5 +1,7 @@
 package org.training.dcharnavoki.issuetracker.dao;
 
+import java.util.List;
+
 import org.training.dcharnavoki.issuetracker.beans.Issue;
 
 /**
@@ -13,5 +15,11 @@ public interface IIssueDAO extends IDAO {
 	 * @return the issue
 	 */
 	Issue getIssue(int id);
+	/**
+	 * Gets the all issues.
+	 *
+	 * @return the all issues
+	 */
+	List<Issue> getAllIssues();
 
 }

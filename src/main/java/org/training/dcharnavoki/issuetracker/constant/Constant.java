@@ -31,8 +31,8 @@ public final class Constant {
 		 * @param string
 		 *            the string
 		 */
-		private Keys(String string) {
-			this.string = string;
+		private Keys(String key) {
+			this.string = key;
 		}
 
 		/**

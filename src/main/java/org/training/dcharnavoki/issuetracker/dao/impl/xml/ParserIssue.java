@@ -1,11 +1,14 @@
 package org.training.dcharnavoki.issuetracker.dao.impl.xml;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.bind.DatatypeConverter;
 
+import org.training.dcharnavoki.issuetracker.beans.Build;
 import org.training.dcharnavoki.issuetracker.beans.Issue;
 import org.training.dcharnavoki.issuetracker.beans.User;
 import org.training.dcharnavoki.issuetracker.dao.IConfDAO;
@@ -191,11 +194,12 @@ public class ParserIssue extends DefaultParser implements IIssueDAO {
 			break;
 		case BUILDFOUND:
 			id = Integer.parseInt(valueTag);
-			issue.getProject();
+			Build build = issue.getProject().getBuild(id);
+			issue.setBuild(build);
 			break;
 		case ASSIGNED:
-			int id = Integer.parseInt(valueTag);
-			issue.setassigned(userDao.getUser(id));
+			id = Integer.parseInt(valueTag);
+			issue.setAssigned(userDao.getUser(id));
 			break;
 		case ISSUE:
 			issues.put(issue.getId(), issue);
@@ -225,9 +229,9 @@ public class ParserIssue extends DefaultParser implements IIssueDAO {
 	 * @see org.training.dcharnavoki.issuetracker.dao.IIssueDAO#getIssue(int)
 	 */
 	@Override
-	public Issue getIssue(int id) {
+	public Issue getIssue(int idIssue) {
 		waitCompete();
-		return issues.get(id);
+		return issues.get(idIssue);
 	}
 
 	/**
@@ -240,6 +244,11 @@ public class ParserIssue extends DefaultParser implements IIssueDAO {
 	java.util.Date getDateFromString(String dateStr) {
 		Calendar calendar = DatatypeConverter.parseDateTime(dateStr);
 		return calendar.getTime();
+	}
+
+	@Override
+	public List<Issue> getAllIssues() {
+		return 	new ArrayList<Issue>(issues.values());
 	}
 
 }

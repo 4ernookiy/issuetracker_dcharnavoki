@@ -138,9 +138,9 @@ public class ParserConf extends DefaultParser implements IConfDAO {
 	 * @see org.training.dcharnavoki.issuetracker.dao.IConfDAO#getStatus(int)
 	 */
 	@Override
-	public Status getStatus(int id) {
+	public Status getStatus(int sId) {
 		waitCompete();
-		return statuses.get(id);
+		return statuses.get(sId);
 	}
 
 	/*
@@ -149,9 +149,9 @@ public class ParserConf extends DefaultParser implements IConfDAO {
 	 * @see org.training.dcharnavoki.issuetracker.dao.IConfDAO#getPriority(int)
 	 */
 	@Override
-	public Priority getPriority(int id) {
+	public Priority getPriority(int pId) {
 		waitCompete();
-		return priorities.get(id);
+		return priorities.get(pId);
 	}
 
 	/*
@@ -161,9 +161,9 @@ public class ParserConf extends DefaultParser implements IConfDAO {
 	 * org.training.dcharnavoki.issuetracker.dao.IConfDAO#getResolution(int)
 	 */
 	@Override
-	public Resolution getResolution(int id) {
+	public Resolution getResolution(int rId) {
 		waitCompete();
-		return resolutions.get(id);
+		return resolutions.get(rId);
 	}
 
 	/*
@@ -172,9 +172,9 @@ public class ParserConf extends DefaultParser implements IConfDAO {
 	 * @see org.training.dcharnavoki.issuetracker.dao.IConfDAO#getType(int)
 	 */
 	@Override
-	public Type getType(int id) {
+	public Type getType(int tId) {
 		waitCompete();
-		return types.get(id);
+		return types.get(tId);
 	}
 
 }

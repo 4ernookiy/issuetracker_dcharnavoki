@@ -197,9 +197,9 @@ public class ParserProject extends DefaultParser implements IProjectDAO {
 	 * org.training.dcharnavoki.issuetracker.dao.IProjectDAO#getProject(int)
 	 */
 	@Override
-	public Project getProject(int id) {
+	public Project getProject(int pId) {
 		waitCompete();
-		return projects.get(id);
+		return projects.get(pId);
 	}
 
 }

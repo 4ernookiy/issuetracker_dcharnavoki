@@ -13,14 +13,6 @@ import org.training.dcharnavoki.issuetracker.dao.impl.DAO;
  * The Class LoadConfig.
  */
 public final class LoadConfig {
-//	/** The Constant KEY_ISSUE. */
-//	private static final String KEY_ISSUE = "issue";
-//	/** The Constant KEY_USER. */
-//	private static final String KEY_USER = "user";
-//	/** The Constant KEY_CONF. */
-//	private static final String KEY_CONF = "conf";
-//	/** The Constant KEY_PROJECT. */
-//	private static final String KEY_PROJECT = "project";
 	/** The Constant EXT_XML. */
 	private static final String EXT_XML = ".xml".toUpperCase();
 
@@ -34,10 +26,10 @@ public final class LoadConfig {
 		/**
 		 * Instantiates a new dao.
 		 *
-		 * @param string the string
+		 * @param key the string
 		 */
-		private KEYS(String string) {
-			this.string = string;
+		private KEYS(String key) {
+			this.string = key;
 		}
 		/**
 		 * Gets the implementation.

@@ -37,11 +37,11 @@ public class Issue {
 	/**
 	 * Instantiates a new issue.
 	 *
-	 * @param id the id
+	 * @param issueId the id
 	 */
-	public Issue(int id) {
+	public Issue(int issueId) {
 		super();
-		this.id = id;
+		this.id = issueId;
 	}
 
 	/**
@@ -265,7 +265,7 @@ public class Issue {
 	 *
 	 * @return the assigned
 	 */
-	public User getassigned() {
+	public User getAssigned() {
 		return assigned;
 	}
 
@@ -274,7 +274,7 @@ public class Issue {
 	 *
 	 * @param assigned the assigned to set
 	 */
-	public void setassigned(User assigned) {
+	public void setAssigned(User assigned) {
 		this.assigned = assigned;
 	}
 

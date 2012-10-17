@@ -19,11 +19,11 @@ public class User {
 	/**
 	 * Instantiates a new user.
 	 *
-	 * @param id the id
+	 * @param userId the id
 	 */
-	public User(int id) {
+	public User(int userId) {
 		super();
-		this.id = id;
+		this.id = userId;
 	}
 	/**
 	 * Gets the id.

@@ -25,10 +25,10 @@ public enum DAO {
 	/**
 	 * Instantiates a new dao.
 	 *
-	 * @param string the string
+	 * @param key the string
 	 */
-	private DAO(String string) {
-		this.string = string;
+	private DAO(String key) {
+		this.string = key;
 	}
 	/**
 	 * Gets the implementation.

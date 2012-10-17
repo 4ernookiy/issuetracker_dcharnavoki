@@ -168,18 +168,18 @@ public class ParserUser extends DefaultParser implements IUserDAO {
 	 * @see org.training.dcharnavoki.issuetracker.dao.IUserDAO#getUser(int)
 	 */
 	@Override
-	public User getUser(int id) {
+	public User getUser(int uId) {
 		waitCompete();
-		return users.get(id);
+		return users.get(uId);
 	}
 
 	@Override
 	public User getUser(String email, String password) {
 		waitCompete();
 		List<User> usersList = new ArrayList<User>(users.values());
-		for (User user: usersList) {
-			if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
-				return user;
+		for (User userTmp: usersList) {
+			if (userTmp.getEmail().equals(email) && userTmp.getPassword().equals(password)) {
+				return userTmp;
 			}
 		}
 		return null;

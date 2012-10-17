@@ -9,33 +9,35 @@ import org.training.dcharnavoki.issuetracker.beans.Type;
  * The Interface IConfDAO.
  */
 public interface IConfDAO extends IDAO {
-  	/**
-  	 * Gets the status.
-  	 *
-  	 * @param id the id
-  	 * @return the status
-  	 */
-  	Status getStatus(int id);
+
+	  /**
+	   * Gets the status.
+	   *
+	   * @param sId the s id
+	   * @return the status
+	   */
+  	Status getStatus(int sId);
+
 	/**
 	 * Gets the priority.
 	 *
-	 * @param id the id
+	 * @param pId the id
 	 * @return the priority
 	 */
-	Priority getPriority(int id);
+	Priority getPriority(int pId);
   /**
    * Gets the resolution.
    *
-   * @param id the id
+   * @param rId the r id
    * @return the resolution
    */
-  Resolution getResolution(int id);
-    	/**
-    	 * Gets the type.
-    	 *
-    	 * @param id the id
-    	 * @return the type
-    	 */
-    	Type getType(int id);
+  Resolution getResolution(int rId);
+	    /**
+	     * Gets the type.
+	     *
+	     * @param tId the t id
+	     * @return the type
+	     */
+    	Type getType(int tId);
 
 }

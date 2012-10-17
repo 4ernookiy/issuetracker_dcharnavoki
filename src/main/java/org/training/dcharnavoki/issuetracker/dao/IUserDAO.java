@@ -9,10 +9,10 @@ public interface IUserDAO extends IDAO {
 	/**
 	 * Gets the user.
 	 *
-	 * @param id the id
+	 * @param uId the id
 	 * @return the user
 	 */
-	User getUser(int id);
+	User getUser(int uId);
 	/**
 	 * Gets the user.
 	 *
