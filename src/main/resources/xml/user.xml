@@ -18,7 +18,7 @@
   </user>
   <user id="2">
   	<firstName>Vasya</firstName>
-  	<lastName>Ablomov</lastName>
+  	<lastName>Vasilev</lastName>
   	<email>vasya@tut.by</email>
   	<role>1</role>
   	<password>asd111</password>

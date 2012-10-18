@@ -37,37 +37,39 @@ public class LoginController extends AbstractBaseController {
 			String login = request.getParameter(Keys.LOGIN.getKey());
 			String password = request.getParameter(Keys.PASSWORD.getKey());
 
-			if (login == null || password == null) {
-//				jump(Constants.CONTROL_MAIN, request, response);
-				return;
-			}
+			// if (login == null || password == null) {
+			// jump(Constant.CONTROL_MAIN, request, response);
+			// return;
+			// }
 
 			login = login.trim();
 			if (Constant.EMPTY_VALUE.equals(login)) {
-//				request.setAttribute(Constants.KEY_MESSAGE_HEADER, Constants.MESSAGE_LOGIN_EMPTY);
-//				jump(Constants.CONTROL_MAIN, request, response);
+				request.setAttribute(Keys.ERROR_MESSAGE.getKey(),
+						Constant.MESSAGE_LOGIN_EMPTY);
+				jump(Constant.CONTROL_MAIN, request, response);
 				return;
 			}
 
-			IUserDAO userDAO = (IUserDAO) FactoryDAO.getImplementation(Choice.USER);
+			IUserDAO userDAO = (IUserDAO) FactoryDAO
+					.getImplementation(Choice.USER);
 			User user;
 			user = userDAO.getUser(login, password);
 
 			if (user == null) {
-//				request.setAttribute(Constants.KEY_MESSAGE_HEADER,
-//						Constants.ERROR_PASSWORD);
-//				request.setAttribute(Constants.KEY_LOGIN, login);
-//				jump(Constants.CONTROL_MAIN, request, response);
+				request.setAttribute(Keys.ERROR_MESSAGE.getKey(),
+						Constant.MESSAGE_ERROR_PASSWORD);
+				request.setAttribute(Keys.LOGIN.getKey(), login);
+				jump(Constant.CONTROL_MAIN, request, response);
 				return;
 			}
 
 			HttpSession session = request.getSession(true);
 			session.setAttribute(Keys.USER.getKey(), user);
-//			jump(Constants.CONTROL_MAIN, request, response);
+			jump(Constant.CONTROL_MAIN, request, response);
 
 		} catch (Exception e) {
-			// request.setAttribute(Constants.KEY_ERROR_MESSAGE,
-			// e.getMessage());
+			request.setAttribute(Keys.ERROR_MESSAGE.getKey(), e.getMessage());
+			jump(Constant.CONTROL_MAIN, request, response);
 			// jumpErrorPage(e.getMessage(), request, response);
 			System.out.println(e.getMessage());
 		}

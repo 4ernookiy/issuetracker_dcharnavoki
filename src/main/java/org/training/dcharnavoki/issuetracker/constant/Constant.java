@@ -8,6 +8,12 @@ public final class Constant {
 	public static final String CONFIG_PROPERTY_FILE = "/config.property";
 	/** The empty value. */
 	public static final String EMPTY_VALUE = "";
+	/** The empty value. */
+	public static final String CONTROL_MAIN = "/start";
+	/** The Constant MESSAGE_LOGIN_EMPTY. */
+	public static final Object MESSAGE_LOGIN_EMPTY = " Login is empty";
+    /** The Constant ERROR_PASSWORD. */
+    public static final String MESSAGE_ERROR_PASSWORD = "Bad login or password";
 
 	/**
 	 * The Enum Keys.
@@ -21,15 +27,17 @@ public final class Constant {
 		LOGIN("key_login"),
 
 		/** The password. */
-		PASSWORD("key_password");
+		PASSWORD("key_password"),
+
+		/** The error message. */
+		ERROR_MESSAGE("key_errorMessage");
 		/** The string. */
 		private String string;
 
 		/**
 		 * Instantiates a new dao.
 		 *
-		 * @param string
-		 *            the string
+		 * @param key the key
 		 */
 		private Keys(String key) {
 			this.string = key;

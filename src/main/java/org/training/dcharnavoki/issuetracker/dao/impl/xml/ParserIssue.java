@@ -248,6 +248,7 @@ public class ParserIssue extends DefaultParser implements IIssueDAO {
 
 	@Override
 	public List<Issue> getAllIssues() {
+		waitCompete();
 		return 	new ArrayList<Issue>(issues.values());
 	}
 
