@@ -1,12 +1,9 @@
 package org.training.dcharnavoki.issuetracker.dao.impl.xml;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.xml.bind.DatatypeConverter;
 
 import org.training.dcharnavoki.issuetracker.beans.Build;
 import org.training.dcharnavoki.issuetracker.beans.Issue;
@@ -232,18 +229,6 @@ public class ParserIssue extends DefaultParser implements IIssueDAO {
 	public Issue getIssue(int idIssue) {
 		waitCompete();
 		return issues.get(idIssue);
-	}
-
-	/**
-	 * Gets the date from string.
-	 *
-	 * @param dateStr
-	 *            the date str
-	 * @return the date from string
-	 */
-	java.util.Date getDateFromString(String dateStr) {
-		Calendar calendar = DatatypeConverter.parseDateTime(dateStr);
-		return calendar.getTime();
 	}
 
 	@Override

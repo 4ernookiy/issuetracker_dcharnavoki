@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <d4:configuration xmlns:d4="http://www.issuetracker.training.org/configuration"
-				  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-				  xsi:schemaLocation="http://www.issuetracker.training.org/configuration configuration.xsd ">
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://www.issuetracker.training.org/configuration configuration.xsd ">
   <statuses>
     <status id="1">New</status>
     <status id="2">Assigned</status>

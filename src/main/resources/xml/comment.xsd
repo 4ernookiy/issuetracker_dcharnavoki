@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.issuetracker.training.org/base"
+	xmlns:d4="http://www.issuetracker.training.org/base">
+
+	<element name="base">
+		<complexType>
+			<sequence>
+				<element name="comments" type="d4:Comments" minOccurs="1" maxOccurs="1" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<complexType name="Comment">
+		<sequence>
+			<element name="issueId" type="int"></element>
+			<element name="addedBy" type="int"></element>
+			<element name="addDate" type="dateTime"></element>
+			<element name="text" type="string"></element>
+		</sequence>
+		<attribute name="id" type="int" use="required"></attribute>
+	</complexType>
+
+	<complexType name="Comments">
+		<sequence>
+			<element name="comment" type="d4:Comment" minOccurs="1"
+				maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+</schema>

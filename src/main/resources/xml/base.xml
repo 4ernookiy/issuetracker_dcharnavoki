@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <d4:base xmlns:d4="http://www.issuetracker.training.org/base"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.issuetracker.training.org/base base.xsd ">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.issuetracker.training.org/base base.xsd ">
 	<issues>
 		<issue id="0">
 			<createDate>2009-11-12T11:33:00</createDate>
@@ -50,7 +50,7 @@
 		</issue>
 		<issue id="3">
 			<createDate>2010-01-12T08:33:00</createDate>
-			<createBy>1</createBy>
+			<createBy>0</createBy>
 			<modifyDate>2010-02-12T14:33:00</modifyDate>
 			<modifyBy>1</modifyBy>
 			<summary>incorrectly parse object 'arrow'</summary>
@@ -65,7 +65,7 @@
 		</issue>
 		<issue id="4">
 			<createDate>2010-02-12T08:33:00</createDate>
-			<createBy>1</createBy>
+			<createBy>0</createBy>
 			<modifyDate>2010-03-12T14:33:00</modifyDate>
 			<modifyBy>1</modifyBy>
 			<summary>wrong state object 'arrow'</summary>
@@ -125,7 +125,7 @@
 		</issue>
 		<issue id="8">
 			<createDate>2011-03-12T08:33:00</createDate>
-			<createBy>1</createBy>
+			<createBy>2</createBy>
 			<modifyDate>2011-04-12T14:33:00</modifyDate>
 			<modifyBy>1</modifyBy>
 			<summary>error load from config.xml</summary>

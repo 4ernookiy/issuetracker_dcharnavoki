@@ -19,32 +19,77 @@ public class ConfigApp {
 	/** The impl project. */
 	private DAO implProject = DAO.XML_PROJECT;
 
-	/**
-	 * Instantiates a new config app.
-	 *
-	 * @param issue
-	 *            the impl issue
-	 * @param user
-	 *            the impl user
-	 * @param conf
-	 *            the impl conf
-	 * @param project
-	 *            the impl project
-	 */
-	public ConfigApp(DAO issue, DAO user, DAO conf, DAO project) {
-		super();
-		this.implIssue = issue;
-		this.implUser = user;
-		this.implConf = conf;
-		this.implProject = project;
-	}
+	/** The impl project. */
+	private DAO implComment = DAO.XML_COMMENT;
 
 	/**
 	 * Instantiates a new config app.
 	 */
 	public ConfigApp() {
 		super();
-		// TODO Auto-generated constructor stub
+	}
+	/**
+	 * Gets the impl comment.
+	 *
+	 * @return the implComment
+	 */
+	public DAO getImplComment() {
+		return implComment;
+	}
+
+	/**
+	 * Sets the impl comment.
+	 *
+	 * @param implDAO the new impl comment
+	 */
+	public void setImplComment(DAO implDAO) {
+		if (implDAO != null) {
+			this.implComment = implDAO;
+		}
+	}
+
+	/**
+	 * Sets the impl issue.
+	 *
+	 * @param implDAO the new impl issue
+	 */
+	public void setImplIssue(DAO implDAO) {
+		if (implDAO != null) {
+		this.implIssue = implDAO;
+		}
+	}
+
+	/**
+	 * Sets the impl user.
+	 *
+	 * @param implDAO the new impl user
+	 */
+	public void setImplUser(DAO implDAO) {
+		if (implDAO != null) {
+		this.implUser = implDAO;
+		}
+	}
+
+	/**
+	 * Sets the impl conf.
+	 *
+	 * @param implDAO the new impl conf
+	 */
+	public void setImplConf(DAO implDAO) {
+		if (implDAO != null) {
+		this.implConf = implDAO;
+		}
+	}
+
+	/**
+	 * Sets the impl project.
+	 *
+	 * @param implDAO the new impl project
+	 */
+	public void setImplProject(DAO implDAO) {
+		if (implDAO != null) {
+		this.implProject = implDAO;
+		}
 	}
 
 	/**

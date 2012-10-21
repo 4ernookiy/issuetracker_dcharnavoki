@@ -21,6 +21,6 @@ public class LogoutController extends AbstractBaseController {
 	protected void performTask(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		request.getSession().invalidate();
-		jump(Constant.CONTROL_MAIN, request, response);
+		redirect(Constant.REDIRECT_CONTROL_MAIN, request, response);
 	}
 }

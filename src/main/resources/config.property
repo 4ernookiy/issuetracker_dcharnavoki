@@ -1,5 +1,6 @@
 ; реализация xml, (sql)
-issue = issue.xml
-user = user.xml
-conf = conf.xml
-project = project.xml
+issue = xml
+user = xml
+conf = xml
+project = xml
+comment = sql

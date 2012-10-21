@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.training.dcharnavoki.issuetracker.beans.User;
+import org.training.dcharnavoki.issuetracker.constant.ConstErr;
 import org.training.dcharnavoki.issuetracker.constant.Constant;
 import org.training.dcharnavoki.issuetracker.constant.Constant.Keys;
 import org.training.dcharnavoki.issuetracker.dao.IUserDAO;
@@ -44,9 +45,10 @@ public class LoginController extends AbstractBaseController {
 
 			login = login.trim();
 			if (Constant.EMPTY_VALUE.equals(login)) {
-				request.setAttribute(Keys.ERROR_MESSAGE.getKey(),
-						Constant.MESSAGE_LOGIN_EMPTY);
-				jump(Constant.CONTROL_MAIN, request, response);
+				request.getSession().setAttribute(Keys.ERROR_MESSAGE.getKey(),
+						ConstErr.MESSAGE_LOGIN_EMPTY);
+//				jump(Constant.FORWARD_CONTROL_MAIN, request, response);
+				redirect(Constant.REDIRECT_CONTROL_MAIN, request, response);
 				return;
 			}
 
@@ -56,20 +58,23 @@ public class LoginController extends AbstractBaseController {
 			user = userDAO.getUser(login, password);
 
 			if (user == null) {
-				request.setAttribute(Keys.ERROR_MESSAGE.getKey(),
-						Constant.MESSAGE_ERROR_PASSWORD);
-				request.setAttribute(Keys.LOGIN.getKey(), login);
-				jump(Constant.CONTROL_MAIN, request, response);
+				request.getSession().setAttribute(Keys.ERROR_MESSAGE.getKey(),
+						ConstErr.MESSAGE_ERROR_PASSWORD);
+				request.getSession().setAttribute(Keys.LOGIN.getKey(), login);
+				redirect(Constant.REDIRECT_CONTROL_MAIN, request, response);
+//				jump(Constant.FORWARD_CONTROL_MAIN, request, response);
 				return;
 			}
 
 			HttpSession session = request.getSession(true);
 			session.setAttribute(Keys.USER.getKey(), user);
-			jump(Constant.CONTROL_MAIN, request, response);
+			redirect(Constant.REDIRECT_CONTROL_MAIN, request, response);
+//			jump(Constant.FORWARD_CONTROL_MAIN, request, response);
 
 		} catch (Exception e) {
 			request.setAttribute(Keys.ERROR_MESSAGE.getKey(), e.getMessage());
-			jump(Constant.CONTROL_MAIN, request, response);
+			redirect(Constant.REDIRECT_CONTROL_MAIN, request, response);
+//			jump(Constant.FORWARD_CONTROL_MAIN, request, response);
 			// jumpErrorPage(e.getMessage(), request, response);
 			System.out.println(e.getMessage());
 		}

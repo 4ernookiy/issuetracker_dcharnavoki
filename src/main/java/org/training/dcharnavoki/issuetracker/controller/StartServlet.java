@@ -22,7 +22,7 @@ import org.training.dcharnavoki.issuetracker.dao.IIssueDAO;
 public class StartServlet extends AbstractBaseController {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
-//	private static final String PATH_TO_HTTP = "http://localhost:8080/issuetracker/";
+	private static final String PATH_TO_HTTP = "http://localhost:8080/issuetracker/issue";
 
 	private void headPrint(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -47,7 +47,7 @@ public class StartServlet extends AbstractBaseController {
 			out.println("<table align='right' width='280'>");
 			out.println("<tr>");
 			out.println("<td>Login:</td>");
-			String login = request.getParameter(Keys.LOGIN.getKey());
+			String login = (String) request.getSession().getAttribute(Keys.LOGIN.getKey());
 			if (login != null) {
 				out.println("<td><input type='text' name='key_login' value='"
 						+ login + "'></td>");
@@ -103,11 +103,11 @@ public class StartServlet extends AbstractBaseController {
 		Issue issue;
 		while (iterator.hasPrevious() && count++ <= maxLinePrint) {
 			issue = iterator.previous();
-//
-//			out.println("<a href=\"" + PATH_TO_HTTP+("/issue") +
-//                    "\">Check Out</a>      ");
-//
-			out.println("<tr><td>" + issue.getId() + "</td>");
+//?command=mycommand
+			out.println("<tr><td>");
+			out.println("<a href='" + PATH_TO_HTTP + "?issueId=" + issue.getId()
+					+ "'>" + issue.getId() + "</a>");
+			out.println("</td>");
 			out.println("<td>" + issue.getPriority().getDescription() + "</td>");
 			out.println("<td>" + issue.getAssigned().getFirstName() + " " + issue.getAssigned().getLastName() + "</td>");
 //			out.println("<td>" + dateFormat.format(issue.getCreateDate())
@@ -129,11 +129,11 @@ public class StartServlet extends AbstractBaseController {
 	private void errorsPrint(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
-		String errorMessage = (String) request.getAttribute(Keys.ERROR_MESSAGE
-				.getKey());
+		String errorMessage = (String) request.getSession().getAttribute(Keys.ERROR_MESSAGE.getKey());
 		if (errorMessage != null && !Constant.EMPTY_VALUE.equals(errorMessage)) {
 			out.println("<label style='color: red'>" + errorMessage
 					+ "</label><br>");
+			request.getSession().removeAttribute(Keys.ERROR_MESSAGE.getKey());
 		}
 
 	}

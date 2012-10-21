@@ -2,7 +2,9 @@ package org.training.dcharnavoki.issuetracker.dao.impl.xml;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Calendar;
 
+import javax.xml.bind.DatatypeConverter;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -83,4 +85,16 @@ public class DefaultParser extends DefaultHandler {
 				}
 			}
 	}
+
+	/**
+	 * Gets the date from string.
+	 *
+	 * @param dateStr the date str
+	 * @return the date from string
+	 */
+	protected java.util.Date getDateFromString(String dateStr) {
+		Calendar calendar = DatatypeConverter.parseDateTime(dateStr);
+		return calendar.getTime();
+	}
+
 }
