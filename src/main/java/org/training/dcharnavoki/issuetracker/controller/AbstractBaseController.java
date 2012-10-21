@@ -77,4 +77,17 @@ public abstract class AbstractBaseController extends HttpServlet {
 		// request.getRequestDispatcher(url).include(request, response); ??????
 	}
 
+	/**
+	 * Redirect.
+	 *
+	 * @param url the url
+	 * @param request the request
+	 * @param response the response
+	 * @throws ServletException the servlet exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
+	protected void redirect(String url, HttpServletRequest request,
+			HttpServletResponse response)throws ServletException, IOException {
+		response.sendRedirect(url);
+	}
 }

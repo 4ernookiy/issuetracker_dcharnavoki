@@ -6,6 +6,7 @@ import java.util.Map;
 import org.training.dcharnavoki.issuetracker.constant.Constant;
 import org.training.dcharnavoki.issuetracker.dao.IDAO;
 import org.training.dcharnavoki.issuetracker.dao.impl.sql.SqlConf;
+import org.training.dcharnavoki.issuetracker.dao.impl.xml.ParserComment;
 import org.training.dcharnavoki.issuetracker.dao.impl.xml.ParserConf;
 import org.training.dcharnavoki.issuetracker.dao.impl.xml.ParserIssue;
 import org.training.dcharnavoki.issuetracker.dao.impl.xml.ParserProject;
@@ -28,7 +29,9 @@ public final class FactoryDAO {
 		/** The user. */
 		USER,
 		/** The project. */
-		PROJECT;
+		PROJECT,
+		/** The comment. */
+		COMMENT;
 	}
 	/** The config app. */
 	private static ConfigApp configApp = LoadConfig
@@ -43,6 +46,7 @@ public final class FactoryDAO {
 		map.put(ParserProject.class.getCanonicalName(), new ParserProject());
 		map.put(SqlConf.class.getCanonicalName(), new SqlConf());
 		map.put(ParserIssue.class.getCanonicalName(), new ParserIssue());
+		map.put(ParserComment.class.getCanonicalName(), new ParserComment());
 	}
 
 	/**
@@ -75,9 +79,10 @@ public final class FactoryDAO {
 		case PROJECT:
 			return map.get(configApp.getImplProject().getImplementation());
 
+		case COMMENT:
+			return map.get(configApp.getImplComment().getImplementation());
 		default:
-			// throw new IllegalArgumentException();
-			return null;
+			 throw new IllegalArgumentException();
 		}
 	}
 }

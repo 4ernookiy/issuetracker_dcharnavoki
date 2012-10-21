@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <d4:projects xmlns:d4="http://www.issuetracker.training.org/project"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.issuetracker.training.org/project project.xsd ">
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.issuetracker.training.org/project project.xsd ">
 	<project id="0">
 		<name>Visualisation</name>
 		<description>Display of graphic objects according to their description</description>

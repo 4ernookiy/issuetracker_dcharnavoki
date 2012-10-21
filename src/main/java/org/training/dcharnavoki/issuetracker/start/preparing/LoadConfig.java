@@ -16,40 +16,56 @@ public final class LoadConfig {
 	/** The Constant EXT_XML. */
 	private static final String EXT_XML = ".xml".toUpperCase();
 
+	/** The Constant XML_IMPL. */
+	private static final String XML_IMPL = "xml";
+
+	/** The Constant XML_IMPL. */
+	private static final String SQL_IMPL = "sql";
+
+	/** The Constant EXT_XML. */
+	private static final String DOT = ".";
+
 	/** The Constant EXT_PROPERTY. */
 	private static final String EXT_PROPERTY = ".property".toUpperCase();
 
 	/** The map impl. */
 	private enum KEYS {
-		ISSUE("issue"), USER("user"), CONF("conf"), PROJECT("project");
+		ISSUE("issue"), USER("user"), CONF("conf"), PROJECT("project"), COMMENT(
+				"comment");
 		private String string;
+
 		/**
 		 * Instantiates a new dao.
 		 *
-		 * @param key the string
+		 * @param key
+		 *            the string
 		 */
 		private KEYS(String key) {
 			this.string = key;
 		}
+
 		/**
 		 * Gets the implementation.
 		 *
 		 * @return the implementation
 		 */
-		public String getKeyString() {
+		public String getKey() {
 			return string;
 		}
 
 	}
+
 	private static Map<String, DAO> mapIMPL = new HashMap<String, DAO>();
 
 	static {
-		mapIMPL.put("issue.xml", DAO.XML_ISSUE);
-		mapIMPL.put("user.xml", DAO.XML_USER);
-		mapIMPL.put("conf.xml", DAO.XML_CONF);
-		mapIMPL.put("project.xml", DAO.XML_PROJECT);
-		mapIMPL.put("conf.sql", DAO.SQL_CONF);
+		mapIMPL.put(KEYS.ISSUE.getKey() + DOT + XML_IMPL, DAO.XML_ISSUE);
+		mapIMPL.put(KEYS.USER.getKey() + DOT + XML_IMPL, DAO.XML_USER);
+		mapIMPL.put(KEYS.CONF.getKey() + DOT + XML_IMPL, DAO.XML_CONF);
+		mapIMPL.put(KEYS.PROJECT.getKey() + DOT + XML_IMPL, DAO.XML_PROJECT);
+		mapIMPL.put(KEYS.COMMENT.getKey() + DOT + XML_IMPL, DAO.XML_COMMENT);
+		mapIMPL.put(KEYS.CONF.getKey() + DOT + SQL_IMPL, DAO.SQL_CONF);
 	}
+
 	/**
 	 *
 	 */
@@ -57,6 +73,7 @@ public final class LoadConfig {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
 	/**
 	 * Gets the config.
 	 *
@@ -82,24 +99,18 @@ public final class LoadConfig {
 						"this is file is not correct extensions");
 			}
 			is.close();
-
-			DAO issueImpl;
-			DAO confImpl;
-			DAO userImpl;
-			DAO implProject;
-			issueImpl = getImpl(KEYS.ISSUE, properties);
-			userImpl = getImpl(KEYS.USER, properties);
-			confImpl = getImpl(KEYS.CONF, properties);
-			implProject = getImpl(KEYS.PROJECT, properties);
-			properties.clear();
-			ConfigApp configApp = new ConfigApp(issueImpl, userImpl, confImpl,
-					implProject);
-
+			ConfigApp configApp = new ConfigApp();
+			configApp.setImplIssue(getImpl(KEYS.ISSUE, properties));
+			configApp.setImplUser(getImpl(KEYS.USER, properties));
+			configApp.setImplConf(getImpl(KEYS.CONF, properties));
+			configApp.setImplProject(getImpl(KEYS.PROJECT, properties));
+			configApp.setImplComment(getImpl(KEYS.COMMENT, properties));
 			return configApp;
 		} catch (IOException e) {
 			return new ConfigApp();
 		}
 	}
+
 	/**
 	 * Gets the impl.
 	 *
@@ -110,8 +121,9 @@ public final class LoadConfig {
 	 * @return the impl
 	 */
 	private static DAO getImpl(KEYS key, Properties properties) {
-		String value = properties.getProperty(key.getKeyString()).toLowerCase().trim();
-		return mapIMPL.get(value);
+		String value = properties.getProperty(key.getKey()).toLowerCase()
+				.trim();
+		return mapIMPL.get(key.getKey() + DOT + value);
 	}
 
 }

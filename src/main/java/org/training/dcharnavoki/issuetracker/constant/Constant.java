@@ -9,11 +9,9 @@ public final class Constant {
 	/** The empty value. */
 	public static final String EMPTY_VALUE = "";
 	/** The empty value. */
-	public static final String CONTROL_MAIN = "/start";
-	/** The Constant MESSAGE_LOGIN_EMPTY. */
-	public static final Object MESSAGE_LOGIN_EMPTY = " Login is empty";
-    /** The Constant ERROR_PASSWORD. */
-    public static final String MESSAGE_ERROR_PASSWORD = "Bad login or password";
+	public static final String FORWARD_CONTROL_MAIN = "/start";
+	/** The empty value. */
+	public static final String REDIRECT_CONTROL_MAIN = "/issuetracker/start";
 
 	/**
 	 * The Enum Keys.
