@@ -9,9 +9,13 @@ public final class Constant {
 	/** The empty value. */
 	public static final String EMPTY_VALUE = "";
 	/** The empty value. */
-	public static final String FORWARD_CONTROL_MAIN = "/start";
+	public static final String FORWARD_CONTROL_MAIN = "/issuetracker/";
 	/** The empty value. */
-	public static final String REDIRECT_CONTROL_MAIN = "/issuetracker/start";
+	public static final String REDIRECT_CONTROL_MAIN = "/issuetracker/";
+	/** The empty value. */
+	public static final String FORWARD_CONTROL_LOGIN = "/login";
+	/** The MAX_ROWS_FOR_VIEW. */
+	public static final int MAX_ROWS_FOR_VIEW = 7;
 
 	/**
 	 * The Enum Keys.

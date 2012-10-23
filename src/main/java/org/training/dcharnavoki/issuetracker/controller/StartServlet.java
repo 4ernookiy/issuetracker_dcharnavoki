@@ -2,6 +2,7 @@ package org.training.dcharnavoki.issuetracker.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.ListIterator;
 
 import javax.servlet.ServletException;
@@ -40,6 +41,7 @@ public class StartServlet extends AbstractBaseController {
 		out.println("<td align='right'>");
 
 		HttpSession session = request.getSession();
+		errorsPrint(request, response);
 		User user = (User) session.getAttribute(Keys.USER.getKey());
 		if (user == null) {
 			out.println("<form name='LoginForm' method='POST' ACTION='login'>");
@@ -51,6 +53,7 @@ public class StartServlet extends AbstractBaseController {
 			if (login != null) {
 				out.println("<td><input type='text' name='key_login' value='"
 						+ login + "'></td>");
+				request.getSession().removeAttribute(Keys.LOGIN.getKey());
 			} else {
 				out.println("<td><input type='text' name='key_login' value=''></td>");
 			}
@@ -58,6 +61,7 @@ public class StartServlet extends AbstractBaseController {
 			out.println("<td><input type='password' name='key_password' value=''></td>");
 			out.println("<td><input type='submit' value='Enter'></td>");
 			out.println("</tr></table></fieldset></form>");
+			out.println("</td></tr></table>");
 		} else {
 			out.println("<form name='UserForm' method='POST' ACTION='logout'>");
 			out.println("<fieldset>");
@@ -73,6 +77,16 @@ public class StartServlet extends AbstractBaseController {
 			out.println("<td align='right'><input name='submit' type='submit'");
 			out.println("value='Exit'></td>");
 			out.println("</tr></table></fieldset></form>");
+			out.println("</td></tr></table>");
+			IIssueDAO issueDao = (IIssueDAO) FactoryDAO
+					.getImplementation(Choice.ISSUE);
+			List<Issue> listForUser = issueDao.getIssuesForUser(user);
+			if (listForUser != null && listForUser.size() > 0) {
+				out.println("<br><h1>Assigned</h1>");
+				printListIssue(issueDao.getIssuesForUser(user), request, response);
+			} else {
+				out.println("<br><h1>for user not assigned issue</h1>");
+			}
 		}
 	}
 
@@ -84,42 +98,10 @@ public class StartServlet extends AbstractBaseController {
 			HttpServletResponse response) throws ServletException, IOException {
 		headPrint(request, response);
 		PrintWriter out = response.getWriter();
-
-		errorsPrint(request, response);
-		out.println("</td></tr></table>");
+		out.println("<h1>Last " + Constant.MAX_ROWS_FOR_VIEW + " Issues</h1>");
 		IIssueDAO issueDao = (IIssueDAO) FactoryDAO
 				.getImplementation(Choice.ISSUE);
-		out.println("<h1>Issues</h1><br><table>");
-		out.println("<tr>" + "<th>Id</th>" + "<th>Project</th>"
-				+ "<th>Build</th>" + "<th>date create bug</th>"
-				+ "<th>Summary</th>" + "<th>last update</th>" + "</tr>");
-//		DateFormat dateFormat = DateFormat.getDateInstance();
-		ListIterator<Issue> iterator = issueDao.getAllIssues().listIterator(
-				issueDao.getAllIssues().size());
-
-		// for (Issue issue : issues);
-		final int maxLinePrint = 5;
-		int count = 0;
-		Issue issue;
-		while (iterator.hasPrevious() && count++ <= maxLinePrint) {
-			issue = iterator.previous();
-//?command=mycommand
-			out.println("<tr><td>");
-			out.println("<a href='" + PATH_TO_HTTP + "?issueId=" + issue.getId()
-					+ "'>" + issue.getId() + "</a>");
-			out.println("</td>");
-			out.println("<td>" + issue.getPriority().getDescription() + "</td>");
-			out.println("<td>" + issue.getAssigned().getFirstName() + " " + issue.getAssigned().getLastName() + "</td>");
-//			out.println("<td>" + dateFormat.format(issue.getCreateDate())
-//					+ "</td>");
-			out.println("<td>" + issue.getType().getDescription() + "</td>");
-			out.println("<td>" + issue.getStatus().getDescription() + "</td>");
-			out.println("<td>" + issue.getSummary() + "</td>");
-//			out.println("<td>" + dateFormat.format(issue.getModifyDate())
-//					+ "</td>");
-			out.println("</tr>");
-		}
-		out.println("</table>");
+		printListIssue(issueDao.getAllIssues(), request, response);
 
 		out.println("</body>");
 		out.println("</html>");
@@ -135,6 +117,31 @@ public class StartServlet extends AbstractBaseController {
 					+ "</label><br>");
 			request.getSession().removeAttribute(Keys.ERROR_MESSAGE.getKey());
 		}
+	}
 
+	private void printListIssue(List<Issue> listIssue, HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
+
+		out.println("<table cellspacing=0 cellpadding=1 border=1><tr>" + "<th>Id</th>" + "<th>Priority</th>"
+				+ "<th>Assigned</th>" + "<th>Type</th>"
+				+ "<th>Status</th>" + "<th>Summary</th>" + "</tr>");
+		ListIterator<Issue> iterator = listIssue.listIterator(listIssue.size());
+		int count = 1;
+		Issue issue;
+		while (iterator.hasPrevious() && count++ <= Constant.MAX_ROWS_FOR_VIEW) {
+			issue = iterator.previous();
+			out.println("<tr><td>");
+			out.println("<a href='" + PATH_TO_HTTP + "?issueId=" + issue.getId()
+					+ "'>" + issue.getId() + "</a>");
+			out.println("</td>");
+			out.println("<td>" + issue.getPriority().getDescription() + "</td>");
+			out.println("<td>" + issue.getAssigned().getFirstName() + " " + issue.getAssigned().getLastName() + "</td>");
+			out.println("<td>" + issue.getType().getDescription() + "</td>");
+			out.println("<td>" + issue.getStatus().getDescription() + "</td>");
+			out.println("<td>" + issue.getSummary() + "</td>");
+			out.println("</tr>");
+		}
+		out.println("</table><br>");
 	}
 }

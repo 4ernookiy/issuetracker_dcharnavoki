@@ -30,7 +30,7 @@ public class DefaultParser extends DefaultHandler {
 	public DefaultParser(final String fileName) {
 		super();
 		final DefaultParser dp = this;
-		new Thread(new Runnable() {
+		Thread thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -55,8 +55,9 @@ public class DefaultParser extends DefaultHandler {
 					System.out.println(e.getMessage());
 				}
 			}
-		}).start();
-
+		});
+		thread.setName(getClass().getSimpleName());
+		thread.start();
 	}
 
 	/* (non-Javadoc)

@@ -38,10 +38,10 @@ public class LoginController extends AbstractBaseController {
 			String login = request.getParameter(Keys.LOGIN.getKey());
 			String password = request.getParameter(Keys.PASSWORD.getKey());
 
-			// if (login == null || password == null) {
-			// jump(Constant.CONTROL_MAIN, request, response);
-			// return;
-			// }
+//			 if (login == null || password == null) {
+//			 redirect(Constant.REDIRECT_CONTROL_MAIN, request, response);
+//			 return;
+//			 }
 
 			login = login.trim();
 			if (Constant.EMPTY_VALUE.equals(login)) {

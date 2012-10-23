@@ -16,7 +16,7 @@
 			<type>3</type>
 			<project>0</project>
 			<buildFound>1</buildFound>
-			<assigned>2</assigned>
+			<assigned>1</assigned>
 		</issue>
 		<issue id="1">
 			<createDate>2009-12-12T11:33:00</createDate>
@@ -31,7 +31,7 @@
 			<type>3</type>
 			<project>0</project>
 			<buildFound>2</buildFound>
-			<assigned>2</assigned>
+			<assigned>0</assigned>
 		</issue>
 		<issue id="2">
 			<createDate>2010-01-12T08:33:00</createDate>
@@ -46,7 +46,7 @@
 			<type>3</type>
 			<project>0</project>
 			<buildFound>2</buildFound>
-			<assigned>2</assigned>
+			<assigned>1</assigned>
 		</issue>
 		<issue id="3">
 			<createDate>2010-01-12T08:33:00</createDate>
@@ -76,7 +76,7 @@
 			<type>3</type>
 			<project>1</project>
 			<buildFound>2</buildFound>
-			<assigned>2</assigned>
+			<assigned>1</assigned>
 		</issue>
 		<issue id="5">
 			<createDate>2010-02-12T08:33:00</createDate>
@@ -106,7 +106,7 @@
 			<type>2</type>
 			<project>1</project>
 			<buildFound>2</buildFound>
-			<assigned>2</assigned>
+			<assigned>1</assigned>
 		</issue>
 			<issue id="7">
 			<createDate>2011-03-12T08:33:00</createDate>
@@ -136,7 +136,7 @@
 			<type>2</type>
 			<project>2</project>
 			<buildFound>2</buildFound>
-			<assigned>2</assigned>
+			<assigned>0</assigned>
 		</issue>
 		<issue id="9">
 			<createDate>2011-04-12T08:33:00</createDate>
@@ -151,7 +151,7 @@
 			<type>2</type>
 			<project>3</project>
 			<buildFound>1</buildFound>
-			<assigned>2</assigned>
+			<assigned>1</assigned>
 		</issue>
 		<issue id="10">
 			<createDate>2011-05-12T08:33:00</createDate>
