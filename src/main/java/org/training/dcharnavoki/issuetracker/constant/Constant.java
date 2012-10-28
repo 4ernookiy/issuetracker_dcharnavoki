@@ -9,11 +9,11 @@ public final class Constant {
 	/** The empty value. */
 	public static final String EMPTY_VALUE = "";
 	/** The empty value. */
-	public static final String FORWARD_CONTROL_MAIN = "/issuetracker/";
+	public static final String FORWARD_CONTROL_MAIN = "/issuetracker/Main";
 	/** The empty value. */
-	public static final String REDIRECT_CONTROL_MAIN = "/issuetracker/";
+	public static final String REDIRECT_CONTROL_MAIN = "/issuetracker/Main";
 	/** The empty value. */
-	public static final String FORWARD_CONTROL_LOGIN = "/login";
+	public static final String FORWARD_CONTROL_LOGIN = "/issuetracker/Login";
 	/** The MAX_ROWS_FOR_VIEW. */
 	public static final int MAX_ROWS_FOR_VIEW = 7;
 
