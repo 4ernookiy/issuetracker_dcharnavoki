@@ -31,12 +31,12 @@ public final class LoadConfig {
 	/** The map impl. */
 	private enum KEYS {
 		ISSUE("issue"), USER("user"), CONF("conf"), PROJECT("project"), COMMENT(
-				"comment");
+				"comment"), DB_DRIVER("db_driver"), DB_URL("db_url"), DB_USER(
+				"db_user"), DB_PASSWORD("db_password");
 		private String string;
 
 		/**
 		 * Instantiates a new dao.
-		 *
 		 * @param key
 		 *            the string
 		 */
@@ -46,7 +46,6 @@ public final class LoadConfig {
 
 		/**
 		 * Gets the implementation.
-		 *
 		 * @return the implementation
 		 */
 		public String getKey() {
@@ -76,7 +75,6 @@ public final class LoadConfig {
 
 	/**
 	 * Gets the config.
-	 *
 	 * @param file
 	 *            the file
 	 * @return the config
@@ -105,6 +103,11 @@ public final class LoadConfig {
 			configApp.setImplConf(getImpl(KEYS.CONF, properties));
 			configApp.setImplProject(getImpl(KEYS.PROJECT, properties));
 			configApp.setImplComment(getImpl(KEYS.COMMENT, properties));
+			configApp.setDbDriver(properties.getProperty(KEYS.DB_DRIVER.getKey()));
+			configApp.setDbUrl(properties.getProperty(KEYS.DB_URL.getKey()));
+			configApp.setDbUser(properties.getProperty(KEYS.DB_USER.getKey()));
+			configApp.setDbPassword(properties.getProperty(KEYS.DB_PASSWORD.getKey()));
+			properties.clear();
 			return configApp;
 		} catch (IOException e) {
 			return new ConfigApp();
@@ -113,7 +116,6 @@ public final class LoadConfig {
 
 	/**
 	 * Gets the impl.
-	 *
 	 * @param key
 	 *            the key
 	 * @param properties

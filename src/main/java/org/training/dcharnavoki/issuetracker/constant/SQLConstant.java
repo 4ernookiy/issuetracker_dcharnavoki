@@ -3,7 +3,7 @@ package org.training.dcharnavoki.issuetracker.constant;
 /**
  * The Class Constant.
  */
-public final class Constant {
+public final class SQLConstant {
 	/** The config property file. */
 	public static final String CONFIG_PROPERTY_FILE = "/config.property";
 	/** The empty value. */
@@ -21,8 +21,7 @@ public final class Constant {
 	 * The Enum Keys.
 	 */
 	public enum Keys {
-		/** The key_issues. */
-		ISSUES("key_issues"),
+
 		/** The user. */
 		USER("key_user"),
 
@@ -59,7 +58,7 @@ public final class Constant {
 	/**
 	 * Instantiates a new constant.
 	 */
-	private Constant() {
+	private SQLConstant() {
 		super();
 	}
 }

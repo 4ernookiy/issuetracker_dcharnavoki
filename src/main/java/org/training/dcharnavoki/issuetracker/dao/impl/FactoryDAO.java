@@ -34,9 +34,8 @@ public final class FactoryDAO {
 		COMMENT;
 	}
 	/** The config app. */
-	private static ConfigApp configApp = LoadConfig
-			.getConfig(Constant.CONFIG_PROPERTY_FILE);;
-
+	public static final ConfigApp CONFIG_APP = LoadConfig
+			.getConfig(Constant.CONFIG_PROPERTY_FILE);
 	/** The map. */
 	private static Map<String, IDAO> map = new HashMap<String, IDAO>();
 
@@ -55,7 +54,6 @@ public final class FactoryDAO {
 	private FactoryDAO() {
 		super();
 	}
-
 	/**
 	 * Gets the implementation.
 	 *
@@ -68,19 +66,19 @@ public final class FactoryDAO {
 
 		switch (choice) {
 		case CONFIG:
-			return map.get(configApp.getImplConf().getImplementation());
+			return map.get(CONFIG_APP.getImplConf().getImplementation());
 
 		case ISSUE:
-			return map.get(configApp.getImplIssue().getImplementation());
+			return map.get(CONFIG_APP.getImplIssue().getImplementation());
 
 		case USER:
-			return map.get(configApp.getImplUser().getImplementation());
+			return map.get(CONFIG_APP.getImplUser().getImplementation());
 
 		case PROJECT:
-			return map.get(configApp.getImplProject().getImplementation());
+			return map.get(CONFIG_APP.getImplProject().getImplementation());
 
 		case COMMENT:
-			return map.get(configApp.getImplComment().getImplementation());
+			return map.get(CONFIG_APP.getImplComment().getImplementation());
 		default:
 			 throw new IllegalArgumentException();
 		}

@@ -22,6 +22,10 @@ public class ConfigApp {
 	/** The impl project. */
 	private DAO implComment = DAO.XML_COMMENT;
 
+	private String dbDriver;
+	private String dbUrl;
+	private String dbUser;
+	private String dbPassword;
 	/**
 	 * Instantiates a new config app.
 	 */
@@ -126,6 +130,54 @@ public class ConfigApp {
 	 */
 	public DAO getImplProject() {
 		return implProject;
+	}
+	/**
+	 * @return the dbDriver
+	 */
+	public String getDbDriver() {
+		return dbDriver;
+	}
+	/**
+	 * @param dbDriver the dbDriver to set
+	 */
+	public void setDbDriver(String dbDriver) {
+		this.dbDriver = dbDriver;
+	}
+	/**
+	 * @return the dbUrl
+	 */
+	public String getDbUrl() {
+		return dbUrl;
+	}
+	/**
+	 * @param dbUrl the dbUrl to set
+	 */
+	public void setDbUrl(String dbUrl) {
+		this.dbUrl = dbUrl;
+	}
+	/**
+	 * @return the dbUser
+	 */
+	public String getDbUser() {
+		return dbUser;
+	}
+	/**
+	 * @param dbUser the dbUser to set
+	 */
+	public void setDbUser(String dbUser) {
+		this.dbUser = dbUser;
+	}
+	/**
+	 * @return the dbPassword
+	 */
+	public String getDbPassword() {
+		return dbPassword;
+	}
+	/**
+	 * @param dbPassword the dbPassword to set
+	 */
+	public void setDbPassword(String dbPassword) {
+		this.dbPassword = dbPassword;
 	}
 
 }
