@@ -11,10 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.training.dcharnavoki.issuetracker.beans.Comment;
 import org.training.dcharnavoki.issuetracker.beans.Issue;
+import org.training.dcharnavoki.issuetracker.dao.DaoFactory;
 import org.training.dcharnavoki.issuetracker.dao.ICommentDAO;
 import org.training.dcharnavoki.issuetracker.dao.IIssueDAO;
-import org.training.dcharnavoki.issuetracker.dao.impl.FactoryDAO;
-import org.training.dcharnavoki.issuetracker.dao.impl.FactoryDAO.Choice;
 
 
 /**
@@ -32,7 +31,7 @@ public class IssueController extends AbstractBaseController {
 			HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("issueId");
 		int issueId = Integer.parseInt(id);
-		IIssueDAO issueDao = (IIssueDAO) FactoryDAO.getImplementation(Choice.ISSUE);
+		IIssueDAO issueDao = DaoFactory.getFactory().getIssueDAO();
 		Issue issue = issueDao.getIssue(issueId);
 		PrintWriter out = response.getWriter();
 		out.println("<h1>Issue description</h1><br><table>");
@@ -55,7 +54,7 @@ public class IssueController extends AbstractBaseController {
 //					+ "</td>");
 			out.println("</tr>");
 		out.println("</table><br><br><br>");
-		ICommentDAO commentDao = (ICommentDAO) FactoryDAO.getImplementation(Choice.COMMENT);
+		ICommentDAO commentDao = DaoFactory.getFactory().getCommentDAO();
 		List<Comment> comments = commentDao.getCommentsForIssue(issueId);
 		if (comments != null) {
 			printComments(out, comments);

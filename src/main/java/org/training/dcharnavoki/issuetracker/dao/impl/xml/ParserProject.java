@@ -8,10 +8,9 @@ import java.util.Map;
 import org.training.dcharnavoki.issuetracker.beans.Build;
 import org.training.dcharnavoki.issuetracker.beans.Project;
 import org.training.dcharnavoki.issuetracker.beans.User;
+import org.training.dcharnavoki.issuetracker.dao.DaoFactory;
 import org.training.dcharnavoki.issuetracker.dao.IProjectDAO;
 import org.training.dcharnavoki.issuetracker.dao.IUserDAO;
-import org.training.dcharnavoki.issuetracker.dao.impl.FactoryDAO;
-import org.training.dcharnavoki.issuetracker.dao.impl.FactoryDAO.Choice;
 import org.xml.sax.SAXException;
 
 /**
@@ -20,6 +19,8 @@ import org.xml.sax.SAXException;
 public class ParserProject extends DefaultParser implements IProjectDAO {
 	/** The Constant FILE_XML. */
 	private static final String FILE_XML = "/xml/project.xml";
+
+	private final IUserDAO userDao = DaoFactory.getFactory().getUserDAO();
 
 	/** The tag. */
 	private Tags tag;
@@ -149,8 +150,6 @@ public class ParserProject extends DefaultParser implements IProjectDAO {
 			break;
 		case USERID:
 			id = Integer.parseInt(valueTag);
-			IUserDAO userDao = (IUserDAO) FactoryDAO
-					.getImplementation(Choice.USER);
 			User user = userDao.getUser(id);
 			project.setManager(user);
 			break;

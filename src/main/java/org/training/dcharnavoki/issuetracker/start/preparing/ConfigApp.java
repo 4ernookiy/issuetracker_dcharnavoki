@@ -1,183 +1,127 @@
 package org.training.dcharnavoki.issuetracker.start.preparing;
 
-import org.training.dcharnavoki.issuetracker.dao.impl.DAO;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The Class ConfigApp.
  */
 public class ConfigApp {
 
-	/** The impl issue. */
-	private DAO implIssue = DAO.XML_ISSUE;
+	/**
+	 * The Enum ConfKeys.
+	 */
+	public enum ConfKeys {
+		/** The impl. */
+		IMPL("impl"),
+		/** The db driver. */
+		DB_DRIVER("db_driver"),
+		/** The db url. */
+		DB_URL("db_url"),
+		/** The db user. */
+		DB_USER("db_user"),
+		/** The db password. */
+		DB_PASSWORD("db_password");
 
-	/** The impl user. */
-	private DAO implUser = DAO.XML_USER;
+		/** The string. */
+		private static final Map<String, ConfKeys> TO_ENUM = new HashMap<String, ConfKeys>();
+		private String string;
 
-	/** The impl conf. */
-	private DAO implConf = DAO.XML_CONF;
+		static {
+			for (ConfKeys op : values()) {
+				TO_ENUM.put(op.toString(), op);
+			}
+		}
 
-	/** The impl project. */
-	private DAO implProject = DAO.XML_PROJECT;
+		/**
+		 * Instantiates a new dao.
+		 * @param key
+		 *            the string
+		 */
+		private ConfKeys(String key) {
+			this.string = key;
+		}
 
-	/** The impl project. */
-	private DAO implComment = DAO.XML_COMMENT;
+		/**
+		 * From string.
+		 * @param string
+		 *            the string
+		 * @return the tags with attr
+		 */
+		public static ConfKeys fromString(String string) {
+			return TO_ENUM.get(string.toUpperCase());
+		}
 
-	private String dbDriver;
-	private String dbUrl;
-	private String dbUser;
-	private String dbPassword;
+		/**
+		 * Gets the implementation.
+		 * @return the implementation
+		 */
+		public String getKey() {
+			return string;
+		}
+
+	}
+
+	/** The keys. */
+	private HashMap<ConfKeys, String> keys = new HashMap<ConfigApp.ConfKeys, String>();
+
 	/**
 	 * Instantiates a new config app.
 	 */
 	public ConfigApp() {
 		super();
-	}
-	/**
-	 * Gets the impl comment.
-	 *
-	 * @return the implComment
-	 */
-	public DAO getImplComment() {
-		return implComment;
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * Sets the impl comment.
-	 *
-	 * @param implDAO the new impl comment
+	 * Clear.
+	 * @see java.util.HashMap#clear()
 	 */
-	public void setImplComment(DAO implDAO) {
-		if (implDAO != null) {
-			this.implComment = implDAO;
-		}
+	public void clear() {
+		keys.clear();
 	}
 
 	/**
-	 * Sets the impl issue.
-	 *
-	 * @param implDAO the new impl issue
+	 * Gets the.
+	 * @param key
+	 *            the key
+	 * @return the string
+	 * @see java.util.HashMap#get(java.lang.Object)
 	 */
-	public void setImplIssue(DAO implDAO) {
-		if (implDAO != null) {
-		this.implIssue = implDAO;
-		}
+	public String get(Object key) {
+		return keys.get(key);
 	}
 
 	/**
-	 * Sets the impl user.
-	 *
-	 * @param implDAO the new impl user
+	 * Put.
+	 * @param key
+	 *            the key
+	 * @param value
+	 *            the value
+	 * @return the string
+	 * @see java.util.HashMap#put(java.lang.Object, java.lang.Object)
 	 */
-	public void setImplUser(DAO implDAO) {
-		if (implDAO != null) {
-		this.implUser = implDAO;
-		}
+	public String put(ConfKeys key, String value) {
+		return keys.put(key, value);
 	}
 
 	/**
-	 * Sets the impl conf.
-	 *
-	 * @param implDAO the new impl conf
+	 * Size.
+	 * @return the int
+	 * @see java.util.HashMap#size()
 	 */
-	public void setImplConf(DAO implDAO) {
-		if (implDAO != null) {
-		this.implConf = implDAO;
-		}
+	public int size() {
+		return keys.size();
 	}
 
 	/**
-	 * Sets the impl project.
-	 *
-	 * @param implDAO the new impl project
+	 * Values.
+	 * @return the collection
+	 * @see java.util.HashMap#values()
 	 */
-	public void setImplProject(DAO implDAO) {
-		if (implDAO != null) {
-		this.implProject = implDAO;
-		}
-	}
-
-	/**
-	 * Gets the impl issue.
-	 *
-	 * @return the implIssue
-	 */
-	public DAO getImplIssue() {
-		return implIssue;
-	}
-
-	/**
-	 * Gets the impl user.
-	 *
-	 * @return the implUser
-	 */
-	public DAO getImplUser() {
-		return implUser;
-	}
-
-	/**
-	 * Gets the impl conf.
-	 *
-	 * @return the implConf
-	 */
-	public DAO getImplConf() {
-		return implConf;
-	}
-
-	/**
-	 * Gets the impl project.
-	 *
-	 * @return the implProject
-	 */
-	public DAO getImplProject() {
-		return implProject;
-	}
-	/**
-	 * @return the dbDriver
-	 */
-	public String getDbDriver() {
-		return dbDriver;
-	}
-	/**
-	 * @param dbDriver the dbDriver to set
-	 */
-	public void setDbDriver(String dbDriver) {
-		this.dbDriver = dbDriver;
-	}
-	/**
-	 * @return the dbUrl
-	 */
-	public String getDbUrl() {
-		return dbUrl;
-	}
-	/**
-	 * @param dbUrl the dbUrl to set
-	 */
-	public void setDbUrl(String dbUrl) {
-		this.dbUrl = dbUrl;
-	}
-	/**
-	 * @return the dbUser
-	 */
-	public String getDbUser() {
-		return dbUser;
-	}
-	/**
-	 * @param dbUser the dbUser to set
-	 */
-	public void setDbUser(String dbUser) {
-		this.dbUser = dbUser;
-	}
-	/**
-	 * @return the dbPassword
-	 */
-	public String getDbPassword() {
-		return dbPassword;
-	}
-	/**
-	 * @param dbPassword the dbPassword to set
-	 */
-	public void setDbPassword(String dbPassword) {
-		this.dbPassword = dbPassword;
+	public Collection<String> values() {
+		return keys.values();
 	}
 
 }

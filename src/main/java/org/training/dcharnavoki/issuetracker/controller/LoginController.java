@@ -10,9 +10,8 @@ import org.training.dcharnavoki.issuetracker.beans.User;
 import org.training.dcharnavoki.issuetracker.constant.ConstErr;
 import org.training.dcharnavoki.issuetracker.constant.Constant;
 import org.training.dcharnavoki.issuetracker.constant.Constant.Keys;
+import org.training.dcharnavoki.issuetracker.dao.DaoFactory;
 import org.training.dcharnavoki.issuetracker.dao.IUserDAO;
-import org.training.dcharnavoki.issuetracker.dao.impl.FactoryDAO;
-import org.training.dcharnavoki.issuetracker.dao.impl.FactoryDAO.Choice;
 
 /**
  * The Class LoginController.
@@ -52,8 +51,7 @@ public class LoginController extends AbstractBaseController {
 				return;
 			}
 
-			IUserDAO userDAO = (IUserDAO) FactoryDAO
-					.getImplementation(Choice.USER);
+			IUserDAO userDAO = DaoFactory.getFactory().getUserDAO();
 			User user;
 			user = userDAO.getUser(login, password);
 

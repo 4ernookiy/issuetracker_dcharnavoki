@@ -57,7 +57,7 @@
 			<description>Definition of state hands BaseOb :: gxs () - incorrectly recognize arrow which was not in the itinerary, but was controlled by common pulses. Added to the direct control of the field to pass uncontrolled impulses ("op6" = 1).</description>
 			<status>5</status>
 			<resolution>1</resolution>
-			<priority>1</priority>
+			<priority>4</priority>
 			<type>3</type>
 			<project>1</project>
 			<buildFound>2</buildFound>
@@ -72,7 +72,7 @@
 			<description>definition of the state in the absence of provisions of the arrow (to the right or only burned wit or "pants")</description>
 			<status>5</status>
 			<resolution>1</resolution>
-			<priority>2</priority>
+			<priority>3</priority>
 			<type>3</type>
 			<project>1</project>
 			<buildFound>2</buildFound>
@@ -102,7 +102,7 @@
 			<description>log entry if you can not connect to the CEO - entry is made only if a specify + log.</description>
 			<status>5</status>
 			<resolution>1</resolution>
-			<priority>2</priority>
+			<priority>1</priority>
 			<type>2</type>
 			<project>1</project>
 			<buildFound>2</buildFound>
@@ -117,7 +117,7 @@
 			<description>bug in which the protocol was read only from 2010 year. Now you can read and record in 2011 and in 2012. And then depending on the apocalypse :)</description>
 			<status>5</status>
 			<resolution>1</resolution>
-			<priority>2</priority>
+			<priority>4</priority>
 			<type>2</type>
 			<project>2</project>
 			<buildFound>2</buildFound>
@@ -132,7 +132,7 @@
 			<description>bug when loading from config.xml and an error while loading an annual protocol.</description>
 			<status>5</status>
 			<resolution>1</resolution>
-			<priority>2</priority>
+			<priority>3</priority>
 			<type>2</type>
 			<project>2</project>
 			<buildFound>2</buildFound>
@@ -162,7 +162,7 @@
 			<description>no description code of the station in the log</description>
 			<status>5</status>
 			<resolution>1</resolution>
-			<priority>2</priority>
+			<priority>1</priority>
 			<type>2</type>
 			<project>3</project>
 			<buildFound>1</buildFound>

@@ -12,7 +12,7 @@
   <user id="1">
     <firstName>Petr</firstName>
     <lastName>Petrov</lastName>
-    <email>p@tut.by</email>
+    <email>very.long.email.user@longname.com</email>
     <role>1</role>
     <password>asd111</password>
   </user>

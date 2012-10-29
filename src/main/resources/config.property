@@ -1,9 +1,6 @@
 ; реализация xml, (sql)
-issue = xml
-user = xml
-conf = xml
-project = xml
-comment = xml
+; all only lowwer case
+impl = xml
 db_driver=com.mysql.jdbc.Driver
 db_url=jdbc:mysql:/issue_base
 db_user=java

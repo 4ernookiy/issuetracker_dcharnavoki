@@ -5,7 +5,7 @@ import org.training.dcharnavoki.issuetracker.beans.User;
 /**
  * The Interface IUserDAO.
  */
-public interface IUserDAO extends IDAO {
+public interface IUserDAO {
 	/**
 	 * Gets the user.
 	 *

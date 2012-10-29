@@ -6,16 +6,17 @@
 <script src="./bootstrap/js/jquery.js"></script>
 <script src="./bootstrap/js/bootstrap.js"></script>
 <link href="./bootstrap/css/bootstrap.css" rel="stylesheet">
+<title>Issue Tracker</title>
 </head>
 <body>
 	<div class="navbar navbar-inverse navbar-static-top">
 		<div class="navbar-inner">
 			<a class="brand" href="Main">Issue Tracker</a>
-			<ul class="nav">
+			<!-- <ul class="nav">
 				<li class="active"><a href="#">Last Issue</a></li>
 				<li><a href="#">Link</a></li>
 				<li><a href="#">Link</a></li>
-			</ul>
+			</ul> -->
 			<c:choose>
 				<c:when test="${empty sessionScope.key_user}">
 					<form class="navbar-form pull-right" method="post" action="Login">

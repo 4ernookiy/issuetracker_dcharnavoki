@@ -7,10 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.training.dcharnavoki.issuetracker.beans.Comment;
+import org.training.dcharnavoki.issuetracker.dao.DaoFactory;
 import org.training.dcharnavoki.issuetracker.dao.ICommentDAO;
 import org.training.dcharnavoki.issuetracker.dao.IUserDAO;
-import org.training.dcharnavoki.issuetracker.dao.impl.FactoryDAO;
-import org.training.dcharnavoki.issuetracker.dao.impl.FactoryDAO.Choice;
 import org.xml.sax.SAXException;
 
 /**
@@ -20,9 +19,7 @@ public class ParserComment extends DefaultParser implements ICommentDAO {
 
 	/** The Constant FILE_XML. */
 	private static final String FILE_XML = "/xml/comment.xml";
-	private final IUserDAO userDao = (IUserDAO) FactoryDAO
-			.getImplementation(Choice.USER);
-
+	private final IUserDAO userDao = DaoFactory.getFactory().getUserDAO();
 
 	private Tags tag;
 

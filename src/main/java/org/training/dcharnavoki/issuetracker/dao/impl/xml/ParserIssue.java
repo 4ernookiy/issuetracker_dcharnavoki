@@ -8,12 +8,11 @@ import java.util.Map;
 import org.training.dcharnavoki.issuetracker.beans.Build;
 import org.training.dcharnavoki.issuetracker.beans.Issue;
 import org.training.dcharnavoki.issuetracker.beans.User;
+import org.training.dcharnavoki.issuetracker.dao.DaoFactory;
 import org.training.dcharnavoki.issuetracker.dao.IConfDAO;
 import org.training.dcharnavoki.issuetracker.dao.IIssueDAO;
 import org.training.dcharnavoki.issuetracker.dao.IProjectDAO;
 import org.training.dcharnavoki.issuetracker.dao.IUserDAO;
-import org.training.dcharnavoki.issuetracker.dao.impl.FactoryDAO;
-import org.training.dcharnavoki.issuetracker.dao.impl.FactoryDAO.Choice;
 import org.xml.sax.SAXException;
 
 /**
@@ -23,14 +22,11 @@ public class ParserIssue extends DefaultParser implements IIssueDAO {
 	/** The Constant FILE_XML. */
 	private static final String FILE_XML = "/xml/base.xml";
 	/** The user dao. */
-	private final IUserDAO userDao = (IUserDAO) FactoryDAO
-			.getImplementation(Choice.USER);
+	private final IUserDAO userDao = DaoFactory.getFactory().getUserDAO();
 	/** The conf dao. */
-	private final IConfDAO confDao = (IConfDAO) FactoryDAO
-			.getImplementation(Choice.CONFIG);
+	private final IConfDAO confDao = DaoFactory.getFactory().getConfDAO();
 	/** The project dao. */
-	private final IProjectDAO projectDao = (IProjectDAO) FactoryDAO
-			.getImplementation(Choice.PROJECT);
+	private final IProjectDAO projectDao = DaoFactory.getFactory().getProjectDAO();
 	/** The tag. */
 	private Tags tag;
 	/** The value tag. */

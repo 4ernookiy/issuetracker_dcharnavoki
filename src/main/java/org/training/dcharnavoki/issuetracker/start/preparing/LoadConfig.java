@@ -3,11 +3,11 @@ package org.training.dcharnavoki.issuetracker.start.preparing;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
-import org.training.dcharnavoki.issuetracker.dao.impl.DAO;
+import org.training.dcharnavoki.issuetracker.start.preparing.ConfigApp.ConfKeys;
 
 /**
  * The Class LoadConfig.
@@ -16,54 +16,8 @@ public final class LoadConfig {
 	/** The Constant EXT_XML. */
 	private static final String EXT_XML = ".xml".toUpperCase();
 
-	/** The Constant XML_IMPL. */
-	private static final String XML_IMPL = "xml";
-
-	/** The Constant XML_IMPL. */
-	private static final String SQL_IMPL = "sql";
-
-	/** The Constant EXT_XML. */
-	private static final String DOT = ".";
-
 	/** The Constant EXT_PROPERTY. */
 	private static final String EXT_PROPERTY = ".property".toUpperCase();
-
-	/** The map impl. */
-	private enum KEYS {
-		ISSUE("issue"), USER("user"), CONF("conf"), PROJECT("project"), COMMENT(
-				"comment"), DB_DRIVER("db_driver"), DB_URL("db_url"), DB_USER(
-				"db_user"), DB_PASSWORD("db_password");
-		private String string;
-
-		/**
-		 * Instantiates a new dao.
-		 * @param key
-		 *            the string
-		 */
-		private KEYS(String key) {
-			this.string = key;
-		}
-
-		/**
-		 * Gets the implementation.
-		 * @return the implementation
-		 */
-		public String getKey() {
-			return string;
-		}
-
-	}
-
-	private static Map<String, DAO> mapIMPL = new HashMap<String, DAO>();
-
-	static {
-		mapIMPL.put(KEYS.ISSUE.getKey() + DOT + XML_IMPL, DAO.XML_ISSUE);
-		mapIMPL.put(KEYS.USER.getKey() + DOT + XML_IMPL, DAO.XML_USER);
-		mapIMPL.put(KEYS.CONF.getKey() + DOT + XML_IMPL, DAO.XML_CONF);
-		mapIMPL.put(KEYS.PROJECT.getKey() + DOT + XML_IMPL, DAO.XML_PROJECT);
-		mapIMPL.put(KEYS.COMMENT.getKey() + DOT + XML_IMPL, DAO.XML_COMMENT);
-		mapIMPL.put(KEYS.CONF.getKey() + DOT + SQL_IMPL, DAO.SQL_CONF);
-	}
 
 	/**
 	 *
@@ -98,34 +52,19 @@ public final class LoadConfig {
 			}
 			is.close();
 			ConfigApp configApp = new ConfigApp();
-			configApp.setImplIssue(getImpl(KEYS.ISSUE, properties));
-			configApp.setImplUser(getImpl(KEYS.USER, properties));
-			configApp.setImplConf(getImpl(KEYS.CONF, properties));
-			configApp.setImplProject(getImpl(KEYS.PROJECT, properties));
-			configApp.setImplComment(getImpl(KEYS.COMMENT, properties));
-			configApp.setDbDriver(properties.getProperty(KEYS.DB_DRIVER.getKey()));
-			configApp.setDbUrl(properties.getProperty(KEYS.DB_URL.getKey()));
-			configApp.setDbUser(properties.getProperty(KEYS.DB_USER.getKey()));
-			configApp.setDbPassword(properties.getProperty(KEYS.DB_PASSWORD.getKey()));
+			List<ConfKeys> keys = Arrays.asList(ConfKeys.values());
+			for (ConfKeys key: keys) {
+				String value = properties.getProperty(key.getKey());
+				if (value != null) {
+					value = value.toLowerCase().trim();
+					configApp.put(key, value);
+				}
+			}
 			properties.clear();
 			return configApp;
 		} catch (IOException e) {
 			return new ConfigApp();
 		}
-	}
-
-	/**
-	 * Gets the impl.
-	 * @param key
-	 *            the key
-	 * @param properties
-	 *            the properties
-	 * @return the impl
-	 */
-	private static DAO getImpl(KEYS key, Properties properties) {
-		String value = properties.getProperty(key.getKey()).toLowerCase()
-				.trim();
-		return mapIMPL.get(key.getKey() + DOT + value);
 	}
 
 }

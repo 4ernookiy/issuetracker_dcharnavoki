@@ -8,7 +8,7 @@ import org.training.dcharnavoki.issuetracker.beans.User;
 /**
  * The Interface IIssueDAO.
  */
-public interface IIssueDAO extends IDAO {
+public interface IIssueDAO {
 	/**
 	 * Gets the issue.
 	 *

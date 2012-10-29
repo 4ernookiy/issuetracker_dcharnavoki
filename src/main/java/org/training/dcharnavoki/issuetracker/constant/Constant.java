@@ -16,7 +16,8 @@ public final class Constant {
 	public static final String FORWARD_CONTROL_LOGIN = "/issuetracker/Login";
 	/** The MAX_ROWS_FOR_VIEW. */
 	public static final int MAX_ROWS_FOR_VIEW = 7;
-
+	/** The Constant MAIN_JSP. */
+	public static final String MAIN_JSP = "/main.jsp";
 	/**
 	 * The Enum Keys.
 	 */

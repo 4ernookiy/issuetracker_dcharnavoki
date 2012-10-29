@@ -7,7 +7,7 @@ import org.training.dcharnavoki.issuetracker.beans.Comment;
 /**
  * The Interface ICommentDAO.
  */
-public interface ICommentDAO extends IDAO {
+public interface ICommentDAO {
 	/**
 	 * Gets the comments for issue.
 	 *

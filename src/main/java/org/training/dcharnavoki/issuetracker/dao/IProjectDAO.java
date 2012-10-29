@@ -5,7 +5,7 @@ import org.training.dcharnavoki.issuetracker.beans.Project;
 /**
  * The Interface IProjectDAO.
  */
-public interface IProjectDAO extends IDAO {
+public interface IProjectDAO {
 
 	/**
 	 * Gets the project.

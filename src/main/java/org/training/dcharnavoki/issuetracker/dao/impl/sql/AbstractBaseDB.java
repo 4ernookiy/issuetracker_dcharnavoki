@@ -7,8 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.apache.log4j.Logger;
-import org.training.dcharnavoki.issuetracker.dao.impl.FactoryDAO;
+import org.training.dcharnavoki.issuetracker.dao.DaoFactory;
 import org.training.dcharnavoki.issuetracker.start.preparing.ConfigApp;
+import org.training.dcharnavoki.issuetracker.start.preparing.ConfigApp.ConfKeys;
 
 /**
  * The Class AbstractBaseDB.
@@ -18,11 +19,11 @@ public abstract class AbstractBaseDB {
 			+ AbstractBaseDB.class.getName());
 	private static Logger errorLog = Logger.getLogger("error."
 			+ AbstractBaseDB.class.getName());
-	private static final ConfigApp CONFIG = FactoryDAO.CONFIG_APP;
+	private static final ConfigApp CONFIG = DaoFactory.CONFIG_APP;
 	static {
 		try {
-			log.info("Loading JDBC driver '" + CONFIG.getDbDriver() + "'");
-			Class.forName(CONFIG.getDbDriver()).newInstance();
+			log.info("Loading JDBC driver '" + CONFIG.get(ConfKeys.DB_DRIVER) + "'");
+			Class.forName(CONFIG.get(ConfKeys.DB_DRIVER)).newInstance();
 			log.info("JDBC Driver loaded.");
 		} catch (Throwable ex) {
 			// Make sure you log the exception, as it might be swallowed
@@ -38,8 +39,8 @@ public abstract class AbstractBaseDB {
 	public AbstractBaseDB() {
 		super();
 		try {
-			connection = DriverManager.getConnection(CONFIG.getDbUrl(),
-					CONFIG.getDbUser(), CONFIG.getDbPassword());
+			connection = DriverManager.getConnection(CONFIG.get(ConfKeys.DB_URL),
+					CONFIG.get(ConfKeys.DB_USER), CONFIG.get(ConfKeys.DB_PASSWORD));
 		} catch (SQLException e) {
 			log.fatal("Datasource acquiring failed!");
 			errorLog.fatal("Datasource acquiring failed! " + e.getMessage());

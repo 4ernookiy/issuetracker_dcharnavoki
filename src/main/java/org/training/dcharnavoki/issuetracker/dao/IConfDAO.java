@@ -8,7 +8,7 @@ import org.training.dcharnavoki.issuetracker.beans.Type;
 /**
  * The Interface IConfDAO.
  */
-public interface IConfDAO extends IDAO {
+public interface IConfDAO {
 
 	  /**
 	   * Gets the status.
