@@ -7,10 +7,11 @@ public class Resolution extends CommonBean {
 
 	/**
 	 * Instantiates a new resolution.
+	 *
+	 * @param id the id
 	 */
-	public Resolution() {
-		super();
-		// TODO Auto-generated constructor stub
+	public Resolution(int id) {
+		super(id);
 	}
 
 	/**

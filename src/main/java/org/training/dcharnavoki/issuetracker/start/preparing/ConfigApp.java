@@ -16,13 +16,13 @@ public class ConfigApp {
 		/** The impl. */
 		IMPL("impl"),
 		/** The db driver. */
-		DB_DRIVER("db_driver"),
+		DB_DRIVER("db.driver"),
 		/** The db url. */
-		DB_URL("db_url"),
+		DB_URL("db.url"),
 		/** The db user. */
-		DB_USER("db_user"),
+		DB_USER("db.user"),
 		/** The db password. */
-		DB_PASSWORD("db_password");
+		DB_PASSWORD("db.password");
 
 		/** The string. */
 		private static final Map<String, ConfKeys> TO_ENUM = new HashMap<String, ConfKeys>();

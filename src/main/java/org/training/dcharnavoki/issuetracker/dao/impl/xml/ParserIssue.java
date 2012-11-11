@@ -5,9 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.training.dcharnavoki.issuetracker.beans.Build;
 import org.training.dcharnavoki.issuetracker.beans.Issue;
 import org.training.dcharnavoki.issuetracker.beans.User;
+import org.training.dcharnavoki.issuetracker.dao.DaoException;
 import org.training.dcharnavoki.issuetracker.dao.DaoFactory;
 import org.training.dcharnavoki.issuetracker.dao.IConfDAO;
 import org.training.dcharnavoki.issuetracker.dao.IIssueDAO;
@@ -27,6 +30,8 @@ public class ParserIssue extends DefaultParser implements IIssueDAO {
 	private final IConfDAO confDao = DaoFactory.getFactory().getConfDAO();
 	/** The project dao. */
 	private final IProjectDAO projectDao = DaoFactory.getFactory().getProjectDAO();
+	/** The Constant LOGGER. */
+	private final Logger log = Logger.getLogger(getClass());
 	/** The tag. */
 	private Tags tag;
 	/** The value tag. */
@@ -42,8 +47,10 @@ public class ParserIssue extends DefaultParser implements IIssueDAO {
 
 	/**
 	 * Instantiates a new parser issue.
+	 *
+	 * @throws DaoException the dao exception
 	 */
-	public ParserIssue() {
+	public ParserIssue() throws DaoException {
 		super(FILE_XML);
 	}
 
@@ -139,6 +146,7 @@ public class ParserIssue extends DefaultParser implements IIssueDAO {
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException {
 		super.endElement(uri, localName, qName);
+		try {
 		tag = Tags.fromString(qName);
 		if (tag == null) {
 			return;
@@ -149,7 +157,8 @@ public class ParserIssue extends DefaultParser implements IIssueDAO {
 			break;
 		case CREATEBY:
 			id = Integer.parseInt(valueTag);
-			User user = userDao.getUser(id);
+			User user = null;
+				user = userDao.getUser(id);
 			issue.setCreatedBy(user);
 			break;
 		case MODIFYDATE:
@@ -157,7 +166,7 @@ public class ParserIssue extends DefaultParser implements IIssueDAO {
 			break;
 		case MODIFYBY:
 			id = Integer.parseInt(valueTag);
-			issue.setModifiedBy(userDao.getUser(id));
+				issue.setModifiedBy(userDao.getUser(id));
 			break;
 		case SUMMARY:
 			issue.setSummary(valueTag);
@@ -167,23 +176,23 @@ public class ParserIssue extends DefaultParser implements IIssueDAO {
 			break;
 		case STATUS:
 			id = Integer.parseInt(valueTag);
-			issue.setStatus(confDao.getStatus(id));
+				issue.setStatus(confDao.getStatus(id));
 			break;
 		case RESOLUTION:
 			id = Integer.parseInt(valueTag);
-			issue.setResolution(confDao.getResolution(id));
+				issue.setResolution(confDao.getResolution(id));
 			break;
 		case PRIORITY:
 			id = Integer.parseInt(valueTag);
-			issue.setPriority(confDao.getPriority(id));
+				issue.setPriority(confDao.getPriority(id));
 			break;
 		case TYPE:
 			id = Integer.parseInt(valueTag);
-			issue.setType(confDao.getType(id));
+				issue.setType(confDao.getType(id));
 			break;
 		case PROJECT:
 			id = Integer.parseInt(valueTag);
-			issue.setProject(projectDao.getProject(id));
+				issue.setProject(projectDao.getProject(id));
 			break;
 		case BUILDFOUND:
 			id = Integer.parseInt(valueTag);
@@ -192,7 +201,7 @@ public class ParserIssue extends DefaultParser implements IIssueDAO {
 			break;
 		case ASSIGNED:
 			id = Integer.parseInt(valueTag);
-			issue.setAssigned(userDao.getUser(id));
+				issue.setAssigned(userDao.getUser(id));
 			break;
 		case ISSUE:
 			issues.put(issue.getId(), issue);
@@ -200,6 +209,13 @@ public class ParserIssue extends DefaultParser implements IIssueDAO {
 		default:
 		}
 		tag = null;
+		} catch (DaoException e) {
+			if (log.isEnabledFor(Level.ERROR)) {
+				log.error(e);
+			}
+			throw new SAXException(e);
+		}
+
 	}
 
 	/*
@@ -222,19 +238,25 @@ public class ParserIssue extends DefaultParser implements IIssueDAO {
 	 * @see org.training.dcharnavoki.issuetracker.dao.IIssueDAO#getIssue(int)
 	 */
 	@Override
-	public Issue getIssue(int idIssue) {
+	public Issue getIssue(int idIssue) throws DaoException {
 		waitCompete();
 		return issues.get(idIssue);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.training.dcharnavoki.issuetracker.dao.IIssueDAO#getAllIssues()
+	 */
 	@Override
-	public List<Issue> getAllIssues() {
+	public List<Issue> getAllIssues() throws DaoException {
 		waitCompete();
 		return new ArrayList<Issue>(issues.values());
 	}
 
+	/* (non-Javadoc)
+	 * @see org.training.dcharnavoki.issuetracker.dao.IIssueDAO#getIssuesForUser(org.training.dcharnavoki.issuetracker.beans.User)
+	 */
 	@Override
-	public List<Issue> getIssuesForUser(User user) {
+	public List<Issue> getIssuesForUser(User user) throws DaoException {
 		waitCompete();
 		List<Issue> listForUser = new ArrayList<Issue>();
 		for (Issue issueTmp : issues.values()) {

@@ -5,14 +5,17 @@ package org.training.dcharnavoki.issuetracker.beans;
  */
 public class CommonBean {
 	/** The id. */
-	private int id;
+	private final int id;
 	/** The description. */
 	private String description;
 	/**
 	 * Instantiates a new common bean.
+	 *
+	 * @param beanId the bean id
 	 */
-	public CommonBean() {
+	public CommonBean(int beanId) {
 		super();
+		this.id = beanId;
 		// TODO Auto-generated constructor stub
 	}
 	/**
@@ -33,14 +36,6 @@ public class CommonBean {
 	 */
 	public int getId() {
 		return id;
-	}
-	/**
-	 * Sets the id.
-	 *
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
 	}
 	/**
 	 * Gets the description.

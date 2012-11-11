@@ -1,5 +1,6 @@
 package org.training.dcharnavoki.issuetracker.dao.impl;
 
+import org.training.dcharnavoki.issuetracker.dao.DaoException;
 import org.training.dcharnavoki.issuetracker.dao.DaoFactory;
 import org.training.dcharnavoki.issuetracker.dao.ICommentDAO;
 import org.training.dcharnavoki.issuetracker.dao.IConfDAO;
@@ -32,7 +33,7 @@ public class XMLDaoFactory extends DaoFactory {
 	 * @see org.training.dcharnavoki.issuetracker.dao.DaoFactory#getCommentDAO()
 	 */
 	@Override
-	public ICommentDAO getCommentDAO() {
+	public ICommentDAO getCommentDAO() throws DaoException {
 		if (commentDAO == null) {
 			commentDAO = new ParserComment();
 		}
@@ -44,7 +45,7 @@ public class XMLDaoFactory extends DaoFactory {
 	 * @see org.training.dcharnavoki.issuetracker.dao.DaoFactory#getConfDAO()
 	 */
 	@Override
-	public IConfDAO getConfDAO() {
+	public IConfDAO getConfDAO()  throws DaoException {
 		if (confDAO == null) {
 			confDAO = new ParserConf();
 		}
@@ -56,7 +57,7 @@ public class XMLDaoFactory extends DaoFactory {
 	 * @see org.training.dcharnavoki.issuetracker.dao.DaoFactory#getIssueDAO()
 	 */
 	@Override
-	public IIssueDAO getIssueDAO() {
+	public IIssueDAO getIssueDAO() throws DaoException {
 		if (issueDAO == null) {
 			issueDAO = new ParserIssue();
 		}
@@ -68,7 +69,7 @@ public class XMLDaoFactory extends DaoFactory {
 	 * @see org.training.dcharnavoki.issuetracker.dao.DaoFactory#getProjectDAO()
 	 */
 	@Override
-	public IProjectDAO getProjectDAO() {
+	public IProjectDAO getProjectDAO() throws DaoException {
 		if (projectDAO == null) {
 			projectDAO = new ParserProject();
 		}
@@ -80,7 +81,7 @@ public class XMLDaoFactory extends DaoFactory {
 	 * @see org.training.dcharnavoki.issuetracker.dao.DaoFactory#getUserDAO()
 	 */
 	@Override
-	public IUserDAO getUserDAO() {
+	public IUserDAO getUserDAO() throws DaoException {
 		if (userDAO == null) {
 			userDAO = new ParserUser();
 		}

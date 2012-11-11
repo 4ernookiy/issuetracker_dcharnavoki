@@ -5,9 +5,7 @@ import java.util.Date;
 /**
  * The Class Issue.
  */
-public class Issue {
-	/** The id. */
-	private final int id;
+public class Issue extends CommonBean {
 	/** The create date. */
 	private Date createDate;
 	/** The modify date. */
@@ -18,8 +16,6 @@ public class Issue {
 	private User modifiedBy;
 	/** The summary. */
 	private String summary;
-	/** The description. */
-	private String description;
 	/** The status. */
 	private Status status;
 	/** The resolution. */
@@ -40,8 +36,7 @@ public class Issue {
 	 * @param issueId the id
 	 */
 	public Issue(int issueId) {
-		super();
-		this.id = issueId;
+		super(issueId);
 	}
 
 	/**
@@ -134,23 +129,6 @@ public class Issue {
 		this.summary = summary;
 	}
 
-	/**
-	 * Gets the description.
-	 *
-	 * @return the description
-	 */
-	public String getDescription() {
-		return description;
-	}
-
-	/**
-	 * Sets the description.
-	 *
-	 * @param description the description to set
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
 
 	/**
 	 * Gets the status.
@@ -278,24 +256,16 @@ public class Issue {
 		this.assigned = assigned;
 	}
 
-	/**
-	 * Gets the id.
-	 *
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Issue [id=" + id + ", createDate=" + createDate
+		return "Issue [id=" + getId() + ", createDate=" + createDate
 				+ ", modifyDate=" + modifyDate + ", createdBy=" + createdBy
 				+ ", modifiedBy=" + modifiedBy + ", summary=" + summary
-				+ ", description=" + description + ", status=" + status
+				+ ", description=" + getDescription() + ", status=" + status
 				+ ", resolution=" + resolution + ", type=" + type
 				+ ", priority=" + priority + ", project=" + project
 				+ ", build=" + build + ", assigned=" + assigned + "]";

@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.training.dcharnavoki.issuetracker.beans.User;
-import org.training.dcharnavoki.issuetracker.constant.ConstErr;
 import org.training.dcharnavoki.issuetracker.constant.Constant;
 import org.training.dcharnavoki.issuetracker.constant.Constant.Keys;
 
@@ -69,7 +68,7 @@ public class Identification implements Filter {
 	    	}
 			User user = (User) session.getAttribute(Keys.USER.getKey());
 	        if (null == user) {
-	            session.setAttribute(Keys.ERROR_MESSAGE.getKey(), ConstErr.MESSAGE_MISSING_LINK);
+	            session.setAttribute(Keys.ALERT_WARNING.getKey(), "ConstErr.MESSAGE_MISSING_LINK");
 				jump(Constant.FORWARD_CONTROL_MAIN, req, res);
 	            return;
 	        }

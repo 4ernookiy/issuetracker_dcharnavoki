@@ -1,16 +1,19 @@
 package org.training.dcharnavoki.issuetracker.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.DateFormat;
 import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.training.dcharnavoki.issuetracker.beans.Comment;
 import org.training.dcharnavoki.issuetracker.beans.Issue;
+import org.training.dcharnavoki.issuetracker.constant.ConstJsp;
+import org.training.dcharnavoki.issuetracker.constant.Constant;
+import org.training.dcharnavoki.issuetracker.constant.Constant.Keys;
+import org.training.dcharnavoki.issuetracker.dao.DaoException;
 import org.training.dcharnavoki.issuetracker.dao.DaoFactory;
 import org.training.dcharnavoki.issuetracker.dao.ICommentDAO;
 import org.training.dcharnavoki.issuetracker.dao.IIssueDAO;
@@ -22,6 +25,7 @@ import org.training.dcharnavoki.issuetracker.dao.IIssueDAO;
 public class IssueController extends AbstractBaseController {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	private static final Logger LOG = Logger.getLogger(IssueController.class);
 
 	/* (non-Javadoc)
 	 * @see org.training.dcharnavoki.issuetracker.controller.AbstractBaseController
@@ -29,54 +33,27 @@ public class IssueController extends AbstractBaseController {
 	@Override
 	protected void performTask(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String id = request.getParameter("issueId");
-		int issueId = Integer.parseInt(id);
-		IIssueDAO issueDao = DaoFactory.getFactory().getIssueDAO();
-		Issue issue = issueDao.getIssue(issueId);
-		PrintWriter out = response.getWriter();
-		out.println("<h1>Issue description</h1><br><table>");
-		out.println("<tr>" + "<th>Id</th>" + "<th>Project</th>"
-				+ "<th>Build</th>" + "<th>date create bug</th>"
-				+ "<th>Summary</th>" + "<th>last update</th>" + "</tr>");
-//		DateFormat dateFormat = DateFormat.getDateInstance();
 
-			out.println("<tr><td>");
-			out.println("" + issue.getId());
-			out.println("</td>");
-			out.println("<td>" + issue.getPriority().getDescription() + "</td>");
-			out.println("<td>" + issue.getAssigned().getFirstName() + " " + issue.getAssigned().getLastName() + "</td>");
-//			out.println("<td>" + dateFormat.format(issue.getCreateDate())
-//					+ "</td>");
-			out.println("<td>" + issue.getType().getDescription() + "</td>");
-			out.println("<td>" + issue.getStatus().getDescription() + "</td>");
-			out.println("<td>" + issue.getSummary() + "</td>");
-//			out.println("<td>" + dateFormat.format(issue.getModifyDate())
-//					+ "</td>");
-			out.println("</tr>");
-		out.println("</table><br><br><br>");
-		ICommentDAO commentDao = DaoFactory.getFactory().getCommentDAO();
-		List<Comment> comments = commentDao.getCommentsForIssue(issueId);
-		if (comments != null) {
-			printComments(out, comments);
+		try {
+			String id = request.getParameter(Constant.ISSUE_ID);
+			int issueId = Integer.parseInt(id);
+			IIssueDAO issueDao = DaoFactory.getFactory().getIssueDAO();
+			Issue issue = issueDao.getIssue(issueId);
+			if (null == issue) {
+				throw new DaoException("issue from id(" + issueId + ") not found");
+			}
+			ICommentDAO commentDao = DaoFactory.getFactory().getCommentDAO();
+			List<Comment> comments = commentDao.getCommentsForIssue(issueId);
+			request.setAttribute(Keys.ISSUE.getKey(), issue);
+			request.setAttribute(Keys.COMMENTS.getKey(), comments);
+			jump(ConstJsp.URL_ISSUE_JSP, request, response);
+		} catch (DaoException e) {
+			LOG.error(e);
+			request.getSession().setAttribute(Keys.ALERT_ERROR.getKey(),
+					e.getLocalizedMessage());
+			jump(ConstJsp.URL_ERROR_JSP, request, response);
 		}
-	}
 
-	/**
-	 * Prints the comments.
-	 *
-	 * @param out the out
-	 * @param comments the comments
-	 */
-	private void printComments(PrintWriter out,  List<Comment> comments) {
-		out.println("<h1>comments:</h1><br>");
-		DateFormat dateFormat = DateFormat.getDateInstance();
-		for (Comment comment: comments) {
-			out.println("<table><tr><td>");
-			out.println("" + comment.getUser().getFirstName() + " " + comment.getUser().getLastName());
-			out.println(" add: " + dateFormat.format(comment.getDate()) + "</td></tr>");
-			out.println("<tr><td>" + comment.getText() + "</td></tr>");
-			out.println("</table><br><br>");
-		}
 	}
 
 }

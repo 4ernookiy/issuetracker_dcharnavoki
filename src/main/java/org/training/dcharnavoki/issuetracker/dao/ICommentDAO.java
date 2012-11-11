@@ -13,6 +13,7 @@ public interface ICommentDAO {
 	 *
 	 * @param issueId the issue id
 	 * @return the comments for issue
+	 * @throws DaoException the dao exception
 	 */
-	List<Comment> getCommentsForIssue(int issueId);
+	List<Comment> getCommentsForIssue(int issueId) throws DaoException;
 }

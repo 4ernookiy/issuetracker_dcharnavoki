@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.training.dcharnavoki.issuetracker.beans.Comment;
+import org.training.dcharnavoki.issuetracker.dao.DaoException;
 import org.training.dcharnavoki.issuetracker.dao.DaoFactory;
 import org.training.dcharnavoki.issuetracker.dao.ICommentDAO;
 import org.training.dcharnavoki.issuetracker.dao.IUserDAO;
@@ -19,26 +20,34 @@ public class ParserComment extends DefaultParser implements ICommentDAO {
 
 	/** The Constant FILE_XML. */
 	private static final String FILE_XML = "/xml/comment.xml";
+
+	/** The user dao. */
 	private final IUserDAO userDao = DaoFactory.getFactory().getUserDAO();
 
+	/** The tag. */
 	private Tags tag;
 
+	/** The value tag. */
 	private String valueTag;
 
+	/** The comment. */
 	private Comment comment;
 
 	/** The id. */
 	private int id;
 
+	/** The tmp. */
 	private String tmp;
 
-
+	/** The map bean. */
 	private Map<Integer, Comment> mapBean = new HashMap<Integer, Comment>();
 
 	/**
 	 * Instantiates a new parser comment.
+	 * @throws DaoException
+	 *             the dao exception
 	 */
-	public ParserComment() {
+	public ParserComment() throws DaoException {
 		super(FILE_XML);
 	}
 
@@ -47,12 +56,18 @@ public class ParserComment extends DefaultParser implements ICommentDAO {
 	 */
 	private static enum Tags {
 
+		/** The comment. */
 		COMMENT,
 		/** The id. */
 		ID,
+		/** The issueid. */
 		ISSUEID,
+		/** The addedby. */
 		ADDEDBY,
+		/** The adddate. */
 		ADDDATE,
+
+		/** The text. */
 		TEXT;
 		/** The Constant TO_ENUM. */
 		private static final Map<String, Tags> TO_ENUM = new HashMap<String, Tags>();
@@ -64,8 +79,8 @@ public class ParserComment extends DefaultParser implements ICommentDAO {
 
 		/**
 		 * From string.
-		 *
-		 * @param string the string
+		 * @param string
+		 *            the string
 		 * @return the tags
 		 */
 		public static Tags fromString(String string) {
@@ -73,7 +88,8 @@ public class ParserComment extends DefaultParser implements ICommentDAO {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see org.xml.sax.helpers.DefaultHandler#startElement
 	 */
 	@Override
@@ -96,8 +112,10 @@ public class ParserComment extends DefaultParser implements ICommentDAO {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see org.xml.sax.helpers.DefaultHandler#endElement(java.lang.String, java.lang.String, java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * @see org.xml.sax.helpers.DefaultHandler#endElement(java.lang.String,
+	 * java.lang.String, java.lang.String)
 	 */
 	@Override
 	public void endElement(String uri, String localName, String qName)
@@ -115,7 +133,11 @@ public class ParserComment extends DefaultParser implements ICommentDAO {
 			break;
 		case ADDEDBY:
 			id = Integer.parseInt(valueTag);
-			comment.setUser(userDao.getUser(id));
+			try {
+				comment.setUser(userDao.getUser(id));
+			} catch (DaoException e) {
+				throw new SAXException(e);
+			}
 			break;
 		case ADDDATE:
 			comment.setDate(getDateFromString(valueTag));
@@ -132,7 +154,8 @@ public class ParserComment extends DefaultParser implements ICommentDAO {
 		tag = null;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see org.xml.sax.helpers.DefaultHandler#characters(char[], int, int)
 	 */
 	@Override
@@ -151,18 +174,24 @@ public class ParserComment extends DefaultParser implements ICommentDAO {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see
+	 * org.training.dcharnavoki.issuetracker.dao.ICommentDAO#getCommentsForIssue
+	 * (int)
+	 */
 	@Override
-	public List<Comment> getCommentsForIssue(int issueId) {
+	public List<Comment> getCommentsForIssue(int issueId) throws DaoException {
 		waitCompete();
-		 List<Comment> lists = new ArrayList<Comment>();
-		 Iterator<Comment> iter = mapBean.values().iterator();
-		 Comment commentTmp;
-		 while (iter.hasNext()) {
-			 commentTmp = iter.next();
-			 if (commentTmp.getIssueId() == issueId) {
-				 lists.add(commentTmp);
-			 }
-		 }
+		List<Comment> lists = new ArrayList<Comment>();
+		Iterator<Comment> iter = mapBean.values().iterator();
+		Comment commentTmp;
+		while (iter.hasNext()) {
+			commentTmp = iter.next();
+			if (commentTmp.getIssueId() == issueId) {
+				lists.add(commentTmp);
+			}
+		}
 		return lists;
 	}
 

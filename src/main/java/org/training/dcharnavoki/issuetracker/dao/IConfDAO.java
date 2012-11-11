@@ -10,34 +10,44 @@ import org.training.dcharnavoki.issuetracker.beans.Type;
  */
 public interface IConfDAO {
 
-	  /**
-	   * Gets the status.
-	   *
-	   * @param sId the s id
-	   * @return the status
-	   */
-  	Status getStatus(int sId);
+	/**
+	 * Gets the status.
+	 * @param sId
+	 *            the s id
+	 * @return the status
+	 * @throws DaoException
+	 *             the dao exception
+	 */
+	Status getStatus(int sId) throws DaoException;
 
 	/**
 	 * Gets the priority.
-	 *
-	 * @param pId the id
+	 * @param pId
+	 *            the id
 	 * @return the priority
+	 * @throws DaoException
+	 *             the dao exception
 	 */
-	Priority getPriority(int pId);
-  /**
-   * Gets the resolution.
-   *
-   * @param rId the r id
-   * @return the resolution
-   */
-  Resolution getResolution(int rId);
-	    /**
-	     * Gets the type.
-	     *
-	     * @param tId the t id
-	     * @return the type
-	     */
-    	Type getType(int tId);
+	Priority getPriority(int pId) throws DaoException;
+
+	/**
+	 * Gets the resolution.
+	 * @param rId
+	 *            the r id
+	 * @return the resolution
+	 * @throws DaoException
+	 *             the dao exception
+	 */
+	Resolution getResolution(int rId) throws DaoException;
+
+	/**
+	 * Gets the type.
+	 * @param tId
+	 *            the t id
+	 * @return the type
+	 * @throws DaoException
+	 *             the dao exception
+	 */
+	Type getType(int tId) throws DaoException;
 
 }

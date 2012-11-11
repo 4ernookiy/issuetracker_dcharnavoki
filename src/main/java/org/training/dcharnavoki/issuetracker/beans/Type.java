@@ -7,9 +7,11 @@ public class Type extends CommonBean {
 
 	/**
 	 * Instantiates a new type.
+	 *
+	 * @param id the id
 	 */
-	public Type() {
-		super();
+	public Type(int id) {
+		super(id);
 		// TODO Auto-generated constructor stub
 	}
 

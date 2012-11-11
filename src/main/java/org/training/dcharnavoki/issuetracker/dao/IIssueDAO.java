@@ -14,20 +14,23 @@ public interface IIssueDAO {
 	 *
 	 * @param id the id
 	 * @return the issue
+	 * @throws DaoException the dao exception
 	 */
-	Issue getIssue(int id);
+	Issue getIssue(int id) throws DaoException;
 	/**
 	 * Gets the all issues.
 	 *
 	 * @return the all issues
+	 * @throws DaoException the dao exception
 	 */
-	List<Issue> getAllIssues();
+	List<Issue> getAllIssues() throws DaoException;
 	/**
 	 * Gets the issues for user.
 	 *
 	 * @param user the user
 	 * @return the issues for user
+	 * @throws DaoException the dao exception
 	 */
-	List<Issue> getIssuesForUser(User user);
+	List<Issue> getIssuesForUser(User user) throws DaoException;
 
 }

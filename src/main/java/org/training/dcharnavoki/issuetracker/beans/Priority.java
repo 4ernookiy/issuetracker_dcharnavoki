@@ -7,9 +7,11 @@ public class Priority extends CommonBean {
 
 	/**
 	 * Instantiates a new priority.
+	 *
+	 * @param id the id
 	 */
-	public Priority() {
-		super();
+	public Priority(int id) {
+		super(id);
 		// TODO Auto-generated constructor stub
 	}
 

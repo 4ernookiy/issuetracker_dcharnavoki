@@ -7,6 +7,7 @@ import org.training.dcharnavoki.issuetracker.beans.Priority;
 import org.training.dcharnavoki.issuetracker.beans.Resolution;
 import org.training.dcharnavoki.issuetracker.beans.Status;
 import org.training.dcharnavoki.issuetracker.beans.Type;
+import org.training.dcharnavoki.issuetracker.dao.DaoException;
 import org.training.dcharnavoki.issuetracker.dao.IConfDAO;
 import org.xml.sax.SAXException;
 
@@ -50,9 +51,9 @@ public class ParserConf extends DefaultParser implements IConfDAO {
 				TO_ENUM.put(op.toString(), op);
 			}
 		}
+
 		/**
 		 * From string.
-		 *
 		 * @param string
 		 *            the string
 		 * @return the tags with attr
@@ -64,14 +65,15 @@ public class ParserConf extends DefaultParser implements IConfDAO {
 
 	/**
 	 * Instantiates a new parser conf.
+	 * @throws DaoException
+	 *             the dao exception
 	 */
-	public ParserConf() {
+	public ParserConf() throws DaoException {
 		super(FILE_XML);
 	}
 
 	/*
 	 * (non-Javadoc)
-	 *
 	 * @see org.xml.sax.helpers.DefaultHandler#startElement(java.lang.String,
 	 * java.lang.String, java.lang.String, org.xml.sax.Attributes)
 	 */
@@ -88,7 +90,6 @@ public class ParserConf extends DefaultParser implements IConfDAO {
 
 	/*
 	 * (non-Javadoc)
-	 *
 	 * @see org.xml.sax.helpers.DefaultHandler#endElement(java.lang.String,
 	 * java.lang.String, java.lang.String)
 	 */
@@ -120,7 +121,6 @@ public class ParserConf extends DefaultParser implements IConfDAO {
 
 	/*
 	 * (non-Javadoc)
-	 *
 	 * @see org.xml.sax.helpers.DefaultHandler#characters(char[], int, int)
 	 */
 	@Override
@@ -134,45 +134,44 @@ public class ParserConf extends DefaultParser implements IConfDAO {
 
 	/*
 	 * (non-Javadoc)
-	 *
 	 * @see org.training.dcharnavoki.issuetracker.dao.IConfDAO#getStatus(int)
 	 */
 	@Override
-	public Status getStatus(int sId) {
+	public Status getStatus(int sId) throws DaoException {
 		waitCompete();
 		return statuses.get(sId);
 	}
 
 	/*
 	 * (non-Javadoc)
-	 *
 	 * @see org.training.dcharnavoki.issuetracker.dao.IConfDAO#getPriority(int)
 	 */
 	@Override
-	public Priority getPriority(int pId) {
+	public Priority getPriority(int pId) throws DaoException {
 		waitCompete();
 		return priorities.get(pId);
 	}
 
 	/*
 	 * (non-Javadoc)
-	 *
 	 * @see
 	 * org.training.dcharnavoki.issuetracker.dao.IConfDAO#getResolution(int)
 	 */
 	@Override
-	public Resolution getResolution(int rId) {
+	public Resolution getResolution(int rId) throws DaoException {
 		waitCompete();
-		return resolutions.get(rId);
+		if (resolutions.get(rId) != null) {
+			return resolutions.get(rId);
+		}
+		throw new DaoException("getResolution fail - null");
 	}
 
 	/*
 	 * (non-Javadoc)
-	 *
 	 * @see org.training.dcharnavoki.issuetracker.dao.IConfDAO#getType(int)
 	 */
 	@Override
-	public Type getType(int tId) {
+	public Type getType(int tId) throws DaoException {
 		waitCompete();
 		return types.get(tId);
 	}

@@ -1,16 +1,15 @@
 package org.training.dcharnavoki.issuetracker.dao.impl.xml;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Calendar;
 
 import javax.xml.bind.DatatypeConverter;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.training.dcharnavoki.issuetracker.dao.DaoException;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -19,48 +18,30 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class DefaultParser extends DefaultHandler {
 	/** The Constant LOGGER. */
-	private static final Logger LOGGER = Logger.getLogger(DefaultParser.class);
+	private final Logger log = Logger.getLogger(getClass());
 	/** The complete. */
 	private boolean complete = false;
+
+	/** The file name. */
+	private InputStream file;
+
 	/**
 	 * Instantiates a new default parser.
-	 *
-	 * @param fileName the file name
+	 * @param fileName
+	 *            the file name the dao exception
+	 * @throws DaoException
+	 *             the dao exception
 	 */
-	public DefaultParser(final String fileName) {
+	public DefaultParser(final String fileName) throws DaoException {
 		super();
-		final DefaultParser dp = this;
-		Thread thread = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				SAXParserFactory factory = SAXParserFactory.newInstance();
-				try {
-					SAXParser parser = null;
-					try {
-						parser = factory.newSAXParser();
-					} catch (ParserConfigurationException e) {
-						e.printStackTrace();
-					}
-					InputStream file = DefaultParser.class.getResourceAsStream(fileName);
-					parser.parse(file, dp);
-				} catch (SAXException e) {
-					if (LOGGER.isEnabledFor(Level.ERROR)) {
-						LOGGER.error(e);
-					}
-					System.out.println(e.getMessage());
-				} catch (IOException e) {
-					if (LOGGER.isEnabledFor(Level.ERROR)) {
-						LOGGER.error(e);
-					}
-					System.out.println(e.getMessage());
-				}
-			}
-		});
-		thread.setName(getClass().getSimpleName());
-		thread.start();
+		file = DefaultParser.class.getResourceAsStream(fileName);
+		if (file == null) {
+			throw new DaoException("file not found:" + fileName);
+		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see org.xml.sax.helpers.DefaultHandler#endDocument()
 	 */
 	@Override
@@ -68,29 +49,23 @@ public class DefaultParser extends DefaultHandler {
 		// TODO Auto-generated method stub
 		super.endDocument();
 		complete = true;
-		synchronized (this) {
-			notifyAll();
-		}
 	}
+
 	/**
 	 * Wait compete.
+	 * @throws DaoException
+	 *             the dao exception
 	 */
-	protected synchronized void waitCompete() {
-			while (!complete) {
-				try {
-					wait();
-				} catch (InterruptedException e) {
-					if (LOGGER.isEnabledFor(Level.ERROR)) {
-						LOGGER.error(e);
-					}
-				}
-			}
+	protected void waitCompete() throws DaoException {
+		if (!complete) {
+			parseDocument();
+		}
 	}
 
 	/**
 	 * Gets the date from string.
-	 *
-	 * @param dateStr the date str
+	 * @param dateStr
+	 *            the date str
 	 * @return the date from string
 	 */
 	protected java.util.Date getDateFromString(String dateStr) {
@@ -98,4 +73,24 @@ public class DefaultParser extends DefaultHandler {
 		return calendar.getTime();
 	}
 
+	/**
+	 * Parses the document.
+	 * @throws DaoException
+	 *             the dao exception
+	 */
+	void parseDocument() throws DaoException {
+		try {
+			SAXParserFactory factory = SAXParserFactory.newInstance();
+			SAXParser parser = null;
+			parser = factory.newSAXParser();
+			if (file != null) {
+				parser.parse(file, this);
+			}
+		} catch (Exception e) {
+			if (log.isEnabledFor(Level.ERROR)) {
+				log.error(e);
+			}
+			throw new DaoException(e);
+		}
+	}
 }

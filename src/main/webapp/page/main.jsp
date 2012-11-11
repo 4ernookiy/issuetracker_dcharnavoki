@@ -1,13 +1,11 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF8">
-<jsp:include page="header.jsp"></jsp:include>
-<title>Issue Tracker</title>
-</head>
-<body>
+<c:import url="header.jsp">
+	<c:param name="title" value="title.main" />
+	<c:param name="page" value="1" />
+</c:import>
+<fmt:message key="welcom"/>
 	<table class="table table-hover">
 		<thead>
 			<tr>
@@ -34,7 +32,17 @@
 					<c:set var="priorityColor" value="success"/>
 				</c:if>
 				<tr class="${priorityColor}">
-					<td>${oneissue.id}</td>
+					<c:choose>
+						<c:when test="${not empty key_user}">
+							<c:url value="Issue" var="IssueLink">
+								<c:param name="issueId" value="${oneissue.getId()}" />
+							</c:url>
+							<td><a href="${IssueLink}"><c:out value="${oneissue.getId()}"/></a></td>
+						</c:when>
+						<c:otherwise>
+							<td>${oneissue.id}</td>
+						</c:otherwise>
+					</c:choose>
 					<td>${oneissue.priority.description}</td>
 					<td>${oneissue.assigned.email}</td>
 					<td>${oneissue.type.description}</td>
@@ -44,5 +52,5 @@
 			</c:forEach>
 		</tbody>
 	</table>
-</body>
-</html>
+<br>
+<jsp:include page="footer.jsp"></jsp:include>

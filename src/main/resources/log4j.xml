@@ -1,16 +1,44 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
-<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
-
+<log4j:configuration debug="false"
+	xmlns:log4j="http://jakarta.apache.org/log4j/">
 	<appender name="stdout" class="org.apache.log4j.ConsoleAppender">
 		<param name="Target" value="System.out" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d %p [%c] %X{server.context} %m%n" />
+			<param name="ConversionPattern" value="%d %p %c %X{server.context} %m%n" />
 		</layout>
 	</appender>
-
-	<root>
-		<level value="info" />
+	<appender name="a_events" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="d:\events.log" />
+		<param name="MaxFileSize" value="1MB" />
+		<param name="MaxBackupIndex" value="5" />
+		<param name="Encoding" value="UTF-8" />
+		<layout class="org.apache.log4j.EnhancedPatternLayout">
+			<param name="ConversionPattern" value="%d{ISO8601} [%-5p][%-10.10t][%12c{-5}] - %m%n" />
+		</layout>
+	</appender>
+	<appender name="a_error" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="d:\errors.log" />
+		<param name="MaxFileSize" value="1MB" />
+		<param name="MaxBackupIndex" value="5" />
+		<param name="Encoding" value="UTF-8" />
+		<layout class="org.apache.log4j.EnhancedPatternLayout">
+			<param name="ConversionPattern" value="%d{ISO8601} [%-5p][%-10.10t][%12c{-5}] %X{server.context} - %m%n" />
+		</layout>
+	</appender>
+	<logger name="org.training.dcharnavoki.issuetracker" additivity="false">
+		<level value="DEBUG" />
+		<appender-ref ref="a_error" />
+		<appender-ref ref="a_events" />
 		<appender-ref ref="stdout" />
+	</logger>
+	<logger name="events" additivity="false">
+		<level value="DEBUG" />
+		<appender-ref ref="a_events" />
+	</logger>
+	<root>
+		<priority value="debug" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="a_error" />
 	</root>
 </log4j:configuration>

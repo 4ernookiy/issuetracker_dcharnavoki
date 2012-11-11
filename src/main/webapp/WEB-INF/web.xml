@@ -42,7 +42,7 @@
 	</servlet-mapping>
 	<error-page>
 		<error-code>404</error-code>
-		<location>/errors/e404.html</location>
+		<location>/page/e404.jsp</location>
 	</error-page>
 <!--	<filter>
 		<display-name>Identification</display-name>

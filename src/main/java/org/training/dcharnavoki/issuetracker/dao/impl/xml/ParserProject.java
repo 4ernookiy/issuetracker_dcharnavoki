@@ -8,6 +8,7 @@ import java.util.Map;
 import org.training.dcharnavoki.issuetracker.beans.Build;
 import org.training.dcharnavoki.issuetracker.beans.Project;
 import org.training.dcharnavoki.issuetracker.beans.User;
+import org.training.dcharnavoki.issuetracker.dao.DaoException;
 import org.training.dcharnavoki.issuetracker.dao.DaoFactory;
 import org.training.dcharnavoki.issuetracker.dao.IProjectDAO;
 import org.training.dcharnavoki.issuetracker.dao.IUserDAO;
@@ -20,6 +21,7 @@ public class ParserProject extends DefaultParser implements IProjectDAO {
 	/** The Constant FILE_XML. */
 	private static final String FILE_XML = "/xml/project.xml";
 
+	/** The user dao. */
 	private final IUserDAO userDao = DaoFactory.getFactory().getUserDAO();
 
 	/** The tag. */
@@ -48,8 +50,10 @@ public class ParserProject extends DefaultParser implements IProjectDAO {
 
 	/**
 	 * Instantiates a new parser project.
+	 * @throws DaoException
+	 *             the dao exception
 	 */
-	public ParserProject() {
+	public ParserProject() throws DaoException {
 		super(FILE_XML);
 	}
 
@@ -83,7 +87,6 @@ public class ParserProject extends DefaultParser implements IProjectDAO {
 
 		/**
 		 * From string.
-		 *
 		 * @param string
 		 *            the string
 		 * @return the tags
@@ -95,7 +98,6 @@ public class ParserProject extends DefaultParser implements IProjectDAO {
 
 	/*
 	 * (non-Javadoc)
-	 *
 	 * @see org.xml.sax.helpers.DefaultHandler#startElement(java.lang.String,
 	 * java.lang.String, java.lang.String, org.xml.sax.Attributes)
 	 */
@@ -128,7 +130,6 @@ public class ParserProject extends DefaultParser implements IProjectDAO {
 
 	/*
 	 * (non-Javadoc)
-	 *
 	 * @see org.xml.sax.helpers.DefaultHandler#endElement(java.lang.String,
 	 * java.lang.String, java.lang.String)
 	 */
@@ -150,14 +151,19 @@ public class ParserProject extends DefaultParser implements IProjectDAO {
 			break;
 		case USERID:
 			id = Integer.parseInt(valueTag);
-			User user = userDao.getUser(id);
+			User user;
+			try {
+				user = userDao.getUser(id);
+			} catch (DaoException e) {
+				throw new SAXException(e);
+			}
 			project.setManager(user);
 			break;
 		case BUILDS:
 			project.setBuilds(builds);
 			break;
 		case BUILD:
-			build.setName(valueTag);
+			build.setDescription(valueTag);
 			builds.add(build);
 			break;
 		case PROJECT:
@@ -170,7 +176,6 @@ public class ParserProject extends DefaultParser implements IProjectDAO {
 
 	/*
 	 * (non-Javadoc)
-	 *
 	 * @see org.xml.sax.helpers.DefaultHandler#characters(char[], int, int)
 	 */
 	@Override
@@ -191,12 +196,11 @@ public class ParserProject extends DefaultParser implements IProjectDAO {
 
 	/*
 	 * (non-Javadoc)
-	 *
 	 * @see
 	 * org.training.dcharnavoki.issuetracker.dao.IProjectDAO#getProject(int)
 	 */
 	@Override
-	public Project getProject(int pId) {
+	public Project getProject(int pId) throws DaoException {
 		waitCompete();
 		return projects.get(pId);
 	}

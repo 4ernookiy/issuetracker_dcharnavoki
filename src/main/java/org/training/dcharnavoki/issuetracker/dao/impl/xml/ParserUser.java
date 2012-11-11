@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.training.dcharnavoki.issuetracker.beans.Role;
 import org.training.dcharnavoki.issuetracker.beans.User;
+import org.training.dcharnavoki.issuetracker.dao.DaoException;
 import org.training.dcharnavoki.issuetracker.dao.IUserDAO;
 import org.xml.sax.SAXException;
 
@@ -32,8 +33,10 @@ public class ParserUser extends DefaultParser implements IUserDAO {
 
 	/**
 	 * Instantiates a new parser user.
+	 * @throws DaoException
+	 *             the dao exception
 	 */
-	public ParserUser() {
+	public ParserUser() throws DaoException {
 		super(FILE_XML);
 	}
 
@@ -65,7 +68,6 @@ public class ParserUser extends DefaultParser implements IUserDAO {
 
 		/**
 		 * From string.
-		 *
 		 * @param string
 		 *            the string
 		 * @return the tags
@@ -77,7 +79,6 @@ public class ParserUser extends DefaultParser implements IUserDAO {
 
 	/*
 	 * (non-Javadoc)
-	 *
 	 * @see org.xml.sax.helpers.DefaultHandler#startElement(java.lang.String,
 	 * java.lang.String, java.lang.String, org.xml.sax.Attributes)
 	 */
@@ -103,7 +104,6 @@ public class ParserUser extends DefaultParser implements IUserDAO {
 
 	/*
 	 * (non-Javadoc)
-	 *
 	 * @see org.xml.sax.helpers.DefaultHandler#endElement(java.lang.String,
 	 * java.lang.String, java.lang.String)
 	 */
@@ -143,7 +143,6 @@ public class ParserUser extends DefaultParser implements IUserDAO {
 
 	/*
 	 * (non-Javadoc)
-	 *
 	 * @see org.xml.sax.helpers.DefaultHandler#characters(char[], int, int)
 	 */
 	@Override
@@ -164,21 +163,26 @@ public class ParserUser extends DefaultParser implements IUserDAO {
 
 	/*
 	 * (non-Javadoc)
-	 *
 	 * @see org.training.dcharnavoki.issuetracker.dao.IUserDAO#getUser(int)
 	 */
 	@Override
-	public User getUser(int uId) {
+	public User getUser(int uId) throws DaoException {
 		waitCompete();
 		return users.get(uId);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see
+	 * org.training.dcharnavoki.issuetracker.dao.IUserDAO#getUser(java.lang.
+	 * String)
+	 */
 	@Override
-	public User getUser(String email, String password) {
+	public User getUser(String email) throws DaoException {
 		waitCompete();
 		List<User> usersList = new ArrayList<User>(users.values());
-		for (User userTmp: usersList) {
-			if (userTmp.getEmail().equals(email) && userTmp.getPassword().equals(password)) {
+		for (User userTmp : usersList) {
+			if (userTmp.getEmail().equals(email)) {
 				return userTmp;
 			}
 		}

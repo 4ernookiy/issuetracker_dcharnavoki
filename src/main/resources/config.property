@@ -1,7 +1,7 @@
 ; реализация xml, (sql)
 ; all only lowwer case
 impl = xml
-db_driver=com.mysql.jdbc.Driver
-db_url=jdbc:mysql:/issue_base
-db_user=java
-db_password=pass
+db.driver=com.mysql.jdbc.Driver
+db.url=jdbc:mysql:/issue_base
+db.user=java
+db.password=pass

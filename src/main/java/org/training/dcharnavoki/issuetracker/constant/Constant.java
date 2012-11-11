@@ -4,40 +4,48 @@ package org.training.dcharnavoki.issuetracker.constant;
  * The Class Constant.
  */
 public final class Constant {
-	/** The config property file. */
-	public static final String CONFIG_PROPERTY_FILE = "/config.property";
-	/** The empty value. */
-	public static final String EMPTY_VALUE = "";
-	/** The empty value. */
+	/** The Constant FORWARD_CONTROL_MAIN. */
 	public static final String FORWARD_CONTROL_MAIN = "/issuetracker/Main";
-	/** The empty value. */
+	/** The Constant REDIRECT_CONTROL_MAIN. */
 	public static final String REDIRECT_CONTROL_MAIN = "/issuetracker/Main";
-	/** The empty value. */
+	/** The Constant FORWARD_CONTROL_LOGIN. */
 	public static final String FORWARD_CONTROL_LOGIN = "/issuetracker/Login";
-	/** The MAX_ROWS_FOR_VIEW. */
-	public static final int MAX_ROWS_FOR_VIEW = 7;
+	/** The Constant MAX_ROWS_FOR_VIEW. */
+	public static final int MAX_ROWS_FOR_VIEW = 13;
 	/** The Constant MAIN_JSP. */
 	public static final String MAIN_JSP = "/main.jsp";
+	/** The Constant LOG_EVENTS. */
+	public static final String LOG_EVENTS = "events.";
+	/** The Constant ISSUE_ID. */
+	public static final String ISSUE_ID = "issueId";
 	/**
 	 * The Enum Keys.
 	 */
 	public enum Keys {
+		/** The key_issue. */
+		ISSUE("key_issue"),
 		/** The key_issues. */
 		ISSUES("key_issues"),
-		/** The user. */
+		/** The key_issue. */
+		COMMENTS("key_comments"),
+		/** The key_issue. */
 		USER("key_user"),
-
+		/** The LOCALE. */
+		LOCALE("key_locale"),
 		/** The login. */
 		LOGIN("key_login"),
-
 		/** The password. */
 		PASSWORD("key_password"),
-
 		/** The error message. */
-		ERROR_MESSAGE("key_errorMessage");
+		ALERT_ERROR("key_alert_error"),
+		/** The error message. */
+		ALERT_WARNING("key_alert_warning"),
+		/** The error message. */
+		ALERT_SUCCESS("key_alert_success"),
+		/** The error message. */
+		ALERT_INFO("key_alert_info");
 		/** The string. */
 		private String string;
-
 		/**
 		 * Instantiates a new dao.
 		 *

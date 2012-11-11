@@ -18,9 +18,11 @@ public class Status extends CommonBean {
 
 	/**
 	 * Instantiates a new status.
+	 *
+	 * @param id the id
 	 */
-	public Status() {
-		super();
+	public Status(int id) {
+		super(id);
 		// TODO Auto-generated constructor stub
 	}
 
