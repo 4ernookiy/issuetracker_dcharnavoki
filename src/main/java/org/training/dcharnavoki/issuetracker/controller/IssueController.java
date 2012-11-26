@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.training.dcharnavoki.issuetracker.beans.Comment;
 import org.training.dcharnavoki.issuetracker.beans.Issue;
+import org.training.dcharnavoki.issuetracker.beans.Message4Jsp;
 import org.training.dcharnavoki.issuetracker.constant.ConstJsp;
 import org.training.dcharnavoki.issuetracker.constant.Constant;
 import org.training.dcharnavoki.issuetracker.constant.Constant.Keys;
@@ -40,17 +41,20 @@ public class IssueController extends AbstractBaseController {
 			IIssueDAO issueDao = DaoFactory.getFactory().getIssueDAO();
 			Issue issue = issueDao.getIssue(issueId);
 			if (null == issue) {
-				throw new DaoException("issue from id(" + issueId + ") not found");
+				throw new DaoException("issue from id(" + issueId + ") not found"); // ?????????????
 			}
 			ICommentDAO commentDao = DaoFactory.getFactory().getCommentDAO();
 			List<Comment> comments = commentDao.getCommentsForIssue(issueId);
 			request.setAttribute(Keys.ISSUE.getKey(), issue);
 			request.setAttribute(Keys.COMMENTS.getKey(), comments);
 			jump(ConstJsp.URL_ISSUE_JSP, request, response);
+		} catch (NumberFormatException e) {
+			response.sendError(HttpServletResponse.SC_NOT_FOUND, e.getMessage());
+			LOG.error(e);
 		} catch (DaoException e) {
 			LOG.error(e);
-			request.getSession().setAttribute(Keys.ALERT_ERROR.getKey(),
-					e.getLocalizedMessage());
+			request.setAttribute(Constant.MESSAGE,
+					new Message4Jsp(Message4Jsp.ERROR, e.getLocalizedMessage()));
 			jump(ConstJsp.URL_ERROR_JSP, request, response);
 		}
 

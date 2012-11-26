@@ -126,7 +126,7 @@
             <property name="max" value="100"/>
         </module>
         <module name="ParameterNumber">
-            <property name="max" value="5"/>
+            <property name="max" value="6"/>
             <property name="tokens" value="METHOD_DEF"/>
         </module>
 

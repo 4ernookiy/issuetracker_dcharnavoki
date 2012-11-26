@@ -1,0 +1,28 @@
+@CHARSET "UTF-8";
+
+* {
+	margin: 0;
+}
+
+html,body {
+	height: 100%;
+	/* The html and body elements cannot have any padding or margin. */
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	/* Negative indent footer by it's height */
+	margin: 0 auto -100px; /* the bottom margin is the negative value of the footer's height */
+}
+
+/* Set the fixed height of the footer here */
+#push,#footer {
+	height: 100px; /* .push must be the same height as .footer */
+}
+
+#footer {
+	background-color: #f5f5f5;
+}

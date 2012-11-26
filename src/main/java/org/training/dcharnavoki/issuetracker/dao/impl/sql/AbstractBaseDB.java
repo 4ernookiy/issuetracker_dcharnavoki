@@ -15,54 +15,52 @@ import org.training.dcharnavoki.issuetracker.start.preparing.ConfigApp.ConfKeys;
 /**
  * The Class AbstractBaseDB.
  */
-public abstract class AbstractBaseDB {
-	private static Logger log = Logger.getLogger("log."
-			+ AbstractBaseDB.class.getName());
-	private static Logger errorLog = Logger.getLogger("error."
-			+ AbstractBaseDB.class.getName());
-	static {
-		try {
-			ConfigApp config = DaoFactory.getConfigAplication();
-			log.info("Loading JDBC driver '" + config.get(ConfKeys.DB_DRIVER) + "'");
-			Class.forName(config.get(ConfKeys.DB_DRIVER)).newInstance();
-			log.info("JDBC Driver loaded.");
-		} catch (Throwable ex) {
-			// Make sure you log the exception, as it might be swallowed
-			log.fatal("DBDriver loading failed!");
-			errorLog.fatal("DBDriver loading failed! " + ex.getMessage());
-		}
-	}
+public class AbstractBaseDB {
 
+	/** The log. */
+	private static final Logger LOG = Logger.getLogger(AbstractBaseDB.class);
+
+	/** The connection. */
 	private Connection connection;
+	private String driver;
+	private String url;
+	private String login;
+	private String password;
 
 	/**
+	 * Instantiates a new abstract base db.
+	 * @throws DaoException
+	 *             the dao exception
 	 */
-	public AbstractBaseDB() {
+	public AbstractBaseDB() throws DaoException {
 		super();
+		ConfigApp config;
 		try {
-			ConfigApp config = null;
-			try {
-				config = DaoFactory.getConfigAplication();
-			} catch (DaoException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			connection = DriverManager.getConnection(config.get(ConfKeys.DB_URL),
-					config.get(ConfKeys.DB_USER), config.get(ConfKeys.DB_PASSWORD));
-		} catch (SQLException e) {
-			log.fatal("Datasource acquiring failed!");
-			errorLog.fatal("Datasource acquiring failed! " + e.getMessage());
+			config = DaoFactory.getConfigAplication();
+			driver = config.get(ConfKeys.DB_DRIVER);
+			url = config.get(ConfKeys.DB_URL);
+			login = config.get(ConfKeys.DB_USER);
+			password = config.get(ConfKeys.DB_PASSWORD);
+		} catch (DaoException e) {
+			throw e;
 		}
 	}
 
 	/**
 	 * Gets the connection.
 	 * @return the connection
-	 * @throws Exception
+	 * @throws DaoException
 	 *             the dao exception
 	 */
-	public Connection getConnection() throws Exception {
-			return connection;
+	public Connection getConnection() throws DaoException {
+		try {
+			Class.forName(driver);
+			return DriverManager.getConnection(url, login, password);
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		} catch (ClassNotFoundException e) {
+			throw new DaoException(e);
+		}
 	}
 
 	/**
@@ -70,7 +68,7 @@ public abstract class AbstractBaseDB {
 	 * @param dbConnection
 	 *            the db connection
 	 */
-	public static void closeConnection(Connection dbConnection) {
+	public static void closeResource(Connection dbConnection) {
 		try {
 			if (dbConnection != null) {
 				if (!dbConnection.getAutoCommit()) {
@@ -83,8 +81,7 @@ public abstract class AbstractBaseDB {
 				dbConnection.close();
 			}
 		} catch (SQLException e) {
-			log.error("Can't close connection.");
-			errorLog.error("Can't close connection. " + e.getMessage());
+			LOG.error("Can't close connection. " + e.getMessage());
 		}
 	}
 
@@ -100,8 +97,7 @@ public abstract class AbstractBaseDB {
 					r.close();
 				}
 			} catch (SQLException e) {
-				log.error("ResultSet cannot be closed");
-				errorLog.error("ResultSet cannot be closed", e);
+				LOG.error("ResultSet cannot be closed", e);
 			}
 		}
 	}
@@ -118,8 +114,7 @@ public abstract class AbstractBaseDB {
 					s.close();
 				}
 			} catch (SQLException e) {
-				log.error("Statement cannot be closed");
-				errorLog.error("Statement cannot be closed", e);
+				LOG.error("Statement cannot be closed", e);
 			}
 		}
 	}

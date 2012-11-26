@@ -1,4 +1,4 @@
-package org.training.dcharnavoki.issuetracker.controller;
+package org.training.dcharnavoki.issuetracker.controller.user;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.training.dcharnavoki.issuetracker.beans.User;
 import org.training.dcharnavoki.issuetracker.constant.Constant;
 import org.training.dcharnavoki.issuetracker.constant.Constant.Keys;
+import org.training.dcharnavoki.issuetracker.controller.AbstractBaseController;
 
 /**
  * Servlet implementation class LogoutController.

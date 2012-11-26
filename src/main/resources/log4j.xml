@@ -11,7 +11,7 @@
 	<appender name="a_events" class="org.apache.log4j.RollingFileAppender">
 		<param name="File" value="d:\events.log" />
 		<param name="MaxFileSize" value="1MB" />
-		<param name="MaxBackupIndex" value="5" />
+		<param name="MaxBackupIndex" value="1" />
 		<param name="Encoding" value="UTF-8" />
 		<layout class="org.apache.log4j.EnhancedPatternLayout">
 			<param name="ConversionPattern" value="%d{ISO8601} [%-5p][%-10.10t][%12c{-5}] - %m%n" />
@@ -20,7 +20,7 @@
 	<appender name="a_error" class="org.apache.log4j.RollingFileAppender">
 		<param name="File" value="d:\errors.log" />
 		<param name="MaxFileSize" value="1MB" />
-		<param name="MaxBackupIndex" value="5" />
+		<param name="MaxBackupIndex" value="1" />
 		<param name="Encoding" value="UTF-8" />
 		<layout class="org.apache.log4j.EnhancedPatternLayout">
 			<param name="ConversionPattern" value="%d{ISO8601} [%-5p][%-10.10t][%12c{-5}] %X{server.context} - %m%n" />
@@ -29,16 +29,17 @@
 	<logger name="org.training.dcharnavoki.issuetracker" additivity="false">
 		<level value="DEBUG" />
 		<appender-ref ref="a_error" />
-		<appender-ref ref="a_events" />
 		<appender-ref ref="stdout" />
 	</logger>
 	<logger name="events" additivity="false">
-		<level value="DEBUG" />
+		<level value="INFO" />
 		<appender-ref ref="a_events" />
+		<appender-ref ref="stdout" />
 	</logger>
 	<root>
-		<priority value="debug" />
+		<priority value="DEBUG" />
 		<appender-ref ref="stdout" />
 		<appender-ref ref="a_error" />
+		<appender-ref ref="a_events" />
 	</root>
 </log4j:configuration>

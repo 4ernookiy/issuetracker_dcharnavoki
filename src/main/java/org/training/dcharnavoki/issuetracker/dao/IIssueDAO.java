@@ -11,26 +11,46 @@ import org.training.dcharnavoki.issuetracker.beans.User;
 public interface IIssueDAO {
 	/**
 	 * Gets the issue.
-	 *
-	 * @param id the id
+	 * @param id
+	 *            the id
 	 * @return the issue
-	 * @throws DaoException the dao exception
+	 * @throws DaoException
+	 *             the dao exception
 	 */
 	Issue getIssue(int id) throws DaoException;
+
 	/**
 	 * Gets the all issues.
-	 *
 	 * @return the all issues
-	 * @throws DaoException the dao exception
+	 * @throws DaoException
+	 *             the dao exception
 	 */
 	List<Issue> getAllIssues() throws DaoException;
+
 	/**
 	 * Gets the issues for user.
-	 *
-	 * @param user the user
+	 * @param user
+	 *            the user
 	 * @return the issues for user
-	 * @throws DaoException the dao exception
+	 * @throws DaoException
+	 *             the dao exception
 	 */
 	List<Issue> getIssuesForUser(User user) throws DaoException;
 
+	/**
+	 * Gets the id for new issue.
+	 * @return the id for new issue
+	 * @throws DaoException
+	 *             the dao exception
+	 */
+	int getIdForNewIssue() throws DaoException;
+
+	/**
+	 * Adds the issue.
+	 * @param newIssue
+	 *            the new issue
+	 * @throws DaoException
+	 *             the dao exception
+	 */
+	void addIssue(Issue newIssue) throws DaoException;
 }

@@ -189,4 +189,29 @@ public class ParserUser extends DefaultParser implements IUserDAO {
 		return null;
 	}
 
+	@Override
+	public int getIdForNewUser() throws DaoException {
+		// TODO Auto-generated method stub
+		waitCompete();
+		int maxId = 0;
+		List<User> usersList = new ArrayList<User>(users.values());
+		for (User userTmp : usersList) {
+			if (userTmp.getId() > maxId) {
+				maxId = userTmp.getId();
+			}
+		}
+		return maxId + 1;
+	}
+
+	@Override
+	public void addUser(User newUser) throws DaoException {
+		users.put(newUser.getId(), newUser);
+	}
+
+	@Override
+	public List<User> getAllUsers() throws DaoException {
+		waitCompete();
+		return new ArrayList<User>(users.values());
+	}
+
 }

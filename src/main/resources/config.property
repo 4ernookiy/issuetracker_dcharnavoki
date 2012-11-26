@@ -1,7 +1,18 @@
 ; реализация xml, (sql)
-; all only lowwer case
-impl = xml
-db.driver=com.mysql.jdbc.Driver
-db.url=jdbc:mysql:/issue_base
-db.user=java
-db.password=pass
+; all sensitive case
+; impl: sql, xml
+impl = sql
+; jdbc:mysql://localhost/issuetracker?useUnicode=true&characterEncoding=UTF-8
+db.driver2 = org.gjt.mm.mysql.Driver
+db.driver = com.mysql.jdbc.Driver
+db.url=jdbc:mysql://localhost/issuetracker?useUnicode=true&characterEncoding=UTF-8
+db.user=kjuby
+db.password=gfhjkm
+pattern.email = (\d?[a-zA-Z\d\.\\_\-])+@([a-zA-Z\d]+(\.)?)+
+message.length = 10
+; запросы
+; issue
+SQL.SELECT.ALL.ISSUES = SELECT * FROM issues;
+SQL.SELECT.ISSUE.FROM.ID = SELECT * FROM issues WHERE id =?;
+SQL.SELECT.ISSUE.FROM.ID.ASSIGNED = SELECT * FROM issues WHERE assignedId =?;
+SQL.INSERT.NEW.ISSUE = INSERT INTO issues VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);

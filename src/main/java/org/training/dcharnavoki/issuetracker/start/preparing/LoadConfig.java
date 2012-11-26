@@ -64,7 +64,7 @@ public final class LoadConfig {
 			for (ConfKeys key: keys) {
 				String value = properties.getProperty(key.getKey());
 				if (value != null) {
-					value = value.toLowerCase().trim();
+					value = value.trim();
 					configApp.put(key, value);
 				}
 			}

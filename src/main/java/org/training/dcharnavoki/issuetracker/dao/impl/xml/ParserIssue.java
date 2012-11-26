@@ -267,4 +267,23 @@ public class ParserIssue extends DefaultParser implements IIssueDAO {
 		return listForUser;
 	}
 
+	@Override
+	public int getIdForNewIssue() throws DaoException {
+		waitCompete();
+		int maxId = 0;
+		List<Issue> list = new ArrayList<Issue>(issues.values());
+		for (Issue issueTmp : list) {
+			if (issueTmp.getId() > maxId) {
+				maxId = issueTmp.getId();
+			}
+		}
+		return maxId + 1;
+	}
+
+	@Override
+	public void addIssue(Issue newIssue) throws DaoException {
+		waitCompete();
+		issues.put(newIssue.getId(), newIssue);
+	}
+
 }

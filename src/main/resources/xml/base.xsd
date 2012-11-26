@@ -6,8 +6,6 @@
 		<complexType>
 			<sequence>
 				<element name="issues" type="d4:Issues" minOccurs="1" maxOccurs="1" />
-				<element name="comments" type="d4:Comments" minOccurs="1" maxOccurs="1" />
-				<element name="attachments" type="d4:Attachments" minOccurs="1" maxOccurs="1" />
 			</sequence>
 		</complexType>
 	</element>
@@ -31,31 +29,8 @@
 		<attribute name="id" type="int"></attribute>
 	</complexType>
 
-	<complexType name="Comment">
-		<sequence>
-			<element name="id" type="string">
-			</element>
-			<element name="issueId" type="string">
-			</element>
-			<element name="date" type="string">
-			</element>
-			<element name="addedBy" type="string">
-			</element>
-			<element name="addDate" type="string">
-			</element>
-			<element name="comment" type="string">
-			</element>
-		</sequence>
-	</complexType>
 
 
-	<complexType name="Attachment">
-		<sequence>
-			<element name="id" type="string"></element>
-			<element name="issueId" type="string"></element>
-			<element name="link" type="string"></element>
-		</sequence>
-	</complexType>
 
 	<complexType name="Issues">
 		<sequence>
@@ -64,18 +39,6 @@
 		</sequence>
 	</complexType>
 
-	<complexType name="Comments">
-		<sequence>
-			<element name="comment" type="d4:Comment" minOccurs="1"
-				maxOccurs="unbounded" />
-		</sequence>
-	</complexType>
 
-	<complexType name="Attachments">
-		<sequence>
-			<element name="attachment" type="d4:Attachment" minOccurs="1"
-				maxOccurs="unbounded" />
-		</sequence>
-	</complexType>
 
 </schema>

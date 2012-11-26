@@ -8,8 +8,17 @@ public final class Constant {
 	public static final String FORWARD_CONTROL_MAIN = "/issuetracker/Main";
 	/** The Constant REDIRECT_CONTROL_MAIN. */
 	public static final String REDIRECT_CONTROL_MAIN = "/issuetracker/Main";
+	/** The Constant REDIRECT_REGISTER_JSP. */
+	public static final String REDIRECT_REGISTER_JSP = "/issuetracker/pageRegister";
+	/** The Constant REDIRECT_SAVE_ISSUE_JSP. */
+	public static final String REDIRECT_SAVE_ISSUE_JSP = "/issuetracker/SaveIssue";
 	/** The Constant FORWARD_CONTROL_LOGIN. */
 	public static final String FORWARD_CONTROL_LOGIN = "/issuetracker/Login";
+	/** The Constant FORWARD_CONTROL_LOGIN. */
+	/** The Constant REDIRECT_SAVE_ISSUE_JSP. */
+	public static final String REDIRECT_CONTROL_CREATE_ISSUE = "/issuetracker/CreateIssue";
+	/** The Constant FORWARD_CONTROL_CREATE_ISSUE. */
+	public static final String JUMP_CONTROL_CREATE_ISSUE = "/CreateIssue";
 	/** The Constant MAX_ROWS_FOR_VIEW. */
 	public static final int MAX_ROWS_FOR_VIEW = 13;
 	/** The Constant MAIN_JSP. */
@@ -18,6 +27,14 @@ public final class Constant {
 	public static final String LOG_EVENTS = "events.";
 	/** The Constant ISSUE_ID. */
 	public static final String ISSUE_ID = "issueId";
+	/** The Constant Message. */
+	public static final String MESSAGE = "message4jsp";
+	/** The Constant STATUS_NEW. */
+	public static final int STATUS_NEW = 1;
+	/** The Constant STATUS_ASSIGNED. */
+	public static final int STATUS_ASSIGNED = 2;
+	/** The Delimiter Message. */
+	public static final String DELIMETER = ":";
 	/**
 	 * The Enum Keys.
 	 */
@@ -35,16 +52,8 @@ public final class Constant {
 		/** The login. */
 		LOGIN("key_login"),
 		/** The password. */
-		PASSWORD("key_password"),
+		PASSWORD("key_password");
 		/** The error message. */
-		ALERT_ERROR("key_alert_error"),
-		/** The error message. */
-		ALERT_WARNING("key_alert_warning"),
-		/** The error message. */
-		ALERT_SUCCESS("key_alert_success"),
-		/** The error message. */
-		ALERT_INFO("key_alert_info");
-		/** The string. */
 		private String string;
 		/**
 		 * Instantiates a new dao.

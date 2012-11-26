@@ -1,5 +1,7 @@
 package org.training.dcharnavoki.issuetracker.dao;
 
+import java.util.List;
+
 import org.training.dcharnavoki.issuetracker.beans.User;
 
 /**
@@ -26,5 +28,27 @@ public interface IUserDAO {
 	 *             the dao exception
 	 */
 	User getUser(String email) throws DaoException;
+
+	/**
+	 * Gets the id for new user.
+	 *
+	 * @return the id for new user
+	 * @throws DaoException the dao exception
+	 */
+	int getIdForNewUser() throws DaoException;
+	/**
+	 * Adds the user.
+	 *
+	 * @param newUser the new user
+	 * @throws DaoException the dao exception
+	 */
+	void addUser(User newUser) throws DaoException;
+	/**
+	 * Gets the all users.
+	 *
+	 * @return the all users
+	 * @throws DaoException the dao exception
+	 */
+	List<User> getAllUsers() throws DaoException;
 
 }

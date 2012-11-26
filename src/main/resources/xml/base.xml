@@ -16,7 +16,7 @@
 			<type>3</type>
 			<project>0</project>
 			<buildFound>1</buildFound>
-			<assigned>1</assigned>
+			<assigned>2</assigned>
 		</issue>
 		<issue id="1">
 			<createDate>2009-12-12T11:33:00</createDate>
@@ -619,21 +619,4 @@
 			<assigned>2</assigned>
 		</issue>
 	</issues>
-	<comments>
-		<comment>
-      <id>id</id>
-      <issueId>issueId</issueId>
-      <date>date</date>
-      <addedBy>addedBy</addedBy>
-      <addDate>addDate</addDate>
-      <comment>comment</comment>
-    </comment>
-	</comments>
-	<attachments>
-		<attachment>
-			<id>id</id>
-			<issueId>issueId</issueId>
-			<link>link</link>
-		</attachment>
-	</attachments>
 </d4:base>

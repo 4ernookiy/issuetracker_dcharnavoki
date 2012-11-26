@@ -4,19 +4,19 @@
          xsi:schemaLocation="http://www.issuetracker.training.org/base comment.xsd ">
   <comments>
     <comment id="1">
-      <issueId>10</issueId>
+      <issueId>40</issueId>
       <addedBy>0</addedBy>
       <addDate>2002-01-01T12:00:00</addDate>
       <text>comment 1 need to do to set the variable parameter description of the application window need to do to set the variable parameter description of the application window</text>
     </comment>
     <comment id="2">
-      <issueId>9</issueId>
+      <issueId>40</issueId>
       <addedBy>0</addedBy>
       <addDate>2002-12-31T12:00:00</addDate>
       <text>comment 2</text>
     </comment>
     <comment id="3">
-      <issueId>10</issueId>
+      <issueId>40</issueId>
       <addedBy>0</addedBy>
       <addDate>2003-12-31T12:00:00</addDate>
       <text>comment 3</text>

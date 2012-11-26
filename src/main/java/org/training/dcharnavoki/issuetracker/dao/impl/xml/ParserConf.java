@@ -1,6 +1,8 @@
 package org.training.dcharnavoki.issuetracker.dao.impl.xml;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.training.dcharnavoki.issuetracker.beans.Priority;
@@ -160,10 +162,10 @@ public class ParserConf extends DefaultParser implements IConfDAO {
 	@Override
 	public Resolution getResolution(int rId) throws DaoException {
 		waitCompete();
-		if (resolutions.get(rId) != null) {
-			return resolutions.get(rId);
-		}
-		throw new DaoException("getResolution fail - null");
+//		if (resolutions.get(rId) != null) {
+//		}
+//		throw new DaoException("getResolution fail - null");
+		return resolutions.get(rId);
 	}
 
 	/*
@@ -174,6 +176,30 @@ public class ParserConf extends DefaultParser implements IConfDAO {
 	public Type getType(int tId) throws DaoException {
 		waitCompete();
 		return types.get(tId);
+	}
+
+	@Override
+	public List<Status> getStatuses() throws DaoException {
+		waitCompete();
+		return new ArrayList<Status>(statuses.values());
+	}
+
+	@Override
+	public List<Priority> getPriorities() throws DaoException {
+		waitCompete();
+		return new ArrayList<Priority>(priorities.values());
+	}
+
+	@Override
+	public List<Resolution> getResolutions() throws DaoException {
+		waitCompete();
+		return new ArrayList<Resolution>(resolutions.values());
+	}
+
+	@Override
+	public List<Type> getTypes() throws DaoException {
+		waitCompete();
+		return new ArrayList<Type>(types.values());
 	}
 
 }

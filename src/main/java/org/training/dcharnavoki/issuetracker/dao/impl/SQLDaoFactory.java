@@ -1,60 +1,91 @@
 package org.training.dcharnavoki.issuetracker.dao.impl;
 
+import org.training.dcharnavoki.issuetracker.dao.DaoException;
 import org.training.dcharnavoki.issuetracker.dao.DaoFactory;
 import org.training.dcharnavoki.issuetracker.dao.ICommentDAO;
 import org.training.dcharnavoki.issuetracker.dao.IConfDAO;
 import org.training.dcharnavoki.issuetracker.dao.IIssueDAO;
 import org.training.dcharnavoki.issuetracker.dao.IProjectDAO;
 import org.training.dcharnavoki.issuetracker.dao.IUserDAO;
+import org.training.dcharnavoki.issuetracker.dao.impl.sql.IssueImplSql;
+import org.training.dcharnavoki.issuetracker.dao.impl.xml.ParserComment;
+import org.training.dcharnavoki.issuetracker.dao.impl.xml.ParserConf;
+import org.training.dcharnavoki.issuetracker.dao.impl.xml.ParserProject;
+import org.training.dcharnavoki.issuetracker.dao.impl.xml.ParserUser;
 
 /**
  * A factory for creating SQLDao objects.
  */
 public class SQLDaoFactory extends DaoFactory {
+	/** The comment dao. */
+	private ICommentDAO commentDAO = null;
+	/** The conf dao. */
+	private IConfDAO confDAO = null;
+	/** The issue dao. */
+	private IIssueDAO issueDAO = null;
+	/** The project dao. */
+	private IProjectDAO projectDAO = null;
+	/** The user dao. */
+	private IUserDAO userDAO = null;
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see org.training.dcharnavoki.issuetracker.dao.DaoFactory#getCommentDAO()
 	 */
 	@Override
-	public ICommentDAO getCommentDAO() {
-		// TODO Auto-generated method stub
-		return null;
+	public ICommentDAO getCommentDAO() throws DaoException {
+		if (commentDAO == null) {
+			commentDAO = new ParserComment();
+		}
+		return commentDAO;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see org.training.dcharnavoki.issuetracker.dao.DaoFactory#getConfDAO()
 	 */
 	@Override
-	public IConfDAO getConfDAO() {
-		// TODO Auto-generated method stub
-		return null;
+	public IConfDAO getConfDAO()  throws DaoException {
+		if (confDAO == null) {
+			confDAO = new ParserConf();
+		}
+		return confDAO;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see org.training.dcharnavoki.issuetracker.dao.DaoFactory#getIssueDAO()
 	 */
 	@Override
-	public IIssueDAO getIssueDAO() {
-		// TODO Auto-generated method stub
-		return null;
+	public IIssueDAO getIssueDAO() throws DaoException {
+		if (issueDAO == null) {
+			issueDAO = new IssueImplSql();
+		}
+		return issueDAO;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see org.training.dcharnavoki.issuetracker.dao.DaoFactory#getProjectDAO()
 	 */
 	@Override
-	public IProjectDAO getProjectDAO() {
-		// TODO Auto-generated method stub
-		return null;
+	public IProjectDAO getProjectDAO() throws DaoException {
+		if (projectDAO == null) {
+			projectDAO = new ParserProject();
+		}
+		return projectDAO;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see org.training.dcharnavoki.issuetracker.dao.DaoFactory#getUserDAO()
 	 */
 	@Override
-	public IUserDAO getUserDAO() {
-		// TODO Auto-generated method stub
-		return null;
+	public IUserDAO getUserDAO() throws DaoException {
+		if (userDAO == null) {
+			userDAO = new ParserUser();
+		}
+		return userDAO;
 	}
 
 }

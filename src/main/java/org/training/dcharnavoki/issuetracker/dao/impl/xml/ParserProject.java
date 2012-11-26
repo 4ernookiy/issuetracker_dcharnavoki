@@ -205,4 +205,10 @@ public class ParserProject extends DefaultParser implements IProjectDAO {
 		return projects.get(pId);
 	}
 
+	@Override
+	public List<Project> getProjects() throws DaoException {
+		waitCompete();
+		return new ArrayList<Project>(projects.values());
+	}
+
 }

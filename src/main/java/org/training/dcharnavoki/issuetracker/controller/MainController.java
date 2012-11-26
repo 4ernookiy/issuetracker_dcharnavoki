@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.training.dcharnavoki.issuetracker.beans.Issue;
+import org.training.dcharnavoki.issuetracker.beans.Message4Jsp;
 import org.training.dcharnavoki.issuetracker.constant.ConstJsp;
 import org.training.dcharnavoki.issuetracker.constant.Constant;
 import org.training.dcharnavoki.issuetracker.constant.Constant.Keys;
@@ -46,8 +47,8 @@ public class MainController extends AbstractBaseController {
 			jump(ConstJsp.URL_MAIN_JSP, request, response);
 		} catch (DaoException e) {
 			LOG.error(e);
-			request.getSession().setAttribute(Keys.ALERT_ERROR.getKey(),
-					e.getLocalizedMessage());
+			request.setAttribute(Constant.MESSAGE,
+					new Message4Jsp(Message4Jsp.ERROR, e.getLocalizedMessage()));
 			jump(ConstJsp.URL_ERROR_JSP, request, response);
 		}
 	}

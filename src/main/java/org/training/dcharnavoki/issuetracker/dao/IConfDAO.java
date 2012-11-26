@@ -1,5 +1,7 @@
 package org.training.dcharnavoki.issuetracker.dao;
 
+import java.util.List;
+
 import org.training.dcharnavoki.issuetracker.beans.Priority;
 import org.training.dcharnavoki.issuetracker.beans.Resolution;
 import org.training.dcharnavoki.issuetracker.beans.Status;
@@ -21,6 +23,14 @@ public interface IConfDAO {
 	Status getStatus(int sId) throws DaoException;
 
 	/**
+	 * Gets the statuses.
+	 *
+	 * @return the statuses
+	 * @throws DaoException the dao exception
+	 */
+	List<Status> getStatuses() throws DaoException;
+
+	/**
 	 * Gets the priority.
 	 * @param pId
 	 *            the id
@@ -29,6 +39,14 @@ public interface IConfDAO {
 	 *             the dao exception
 	 */
 	Priority getPriority(int pId) throws DaoException;
+
+	/**
+	 * Gets the priorities.
+	 *
+	 * @return the priorities
+	 * @throws DaoException the dao exception
+	 */
+	List<Priority> getPriorities() throws DaoException;
 
 	/**
 	 * Gets the resolution.
@@ -41,6 +59,14 @@ public interface IConfDAO {
 	Resolution getResolution(int rId) throws DaoException;
 
 	/**
+	 * Gets the resolutions.
+	 *
+	 * @return the resolutions
+	 * @throws DaoException the dao exception
+	 */
+	List<Resolution> getResolutions() throws DaoException;
+
+	/**
 	 * Gets the type.
 	 * @param tId
 	 *            the t id
@@ -49,5 +75,13 @@ public interface IConfDAO {
 	 *             the dao exception
 	 */
 	Type getType(int tId) throws DaoException;
+
+	/**
+	 * Gets the types.
+	 *
+	 * @return the types
+	 * @throws DaoException the dao exception
+	 */
+	List<Type> getTypes() throws DaoException;
 
 }

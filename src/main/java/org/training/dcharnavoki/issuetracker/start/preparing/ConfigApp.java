@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.training.dcharnavoki.issuetracker.dao.DaoException;
+
 /**
  * The Class ConfigApp.
  */
@@ -22,10 +24,23 @@ public class ConfigApp {
 		/** The db user. */
 		DB_USER("db.user"),
 		/** The db password. */
-		DB_PASSWORD("db.password");
+		DB_PASSWORD("db.password"),
+		/** The db password. */
+		MESSAGE_LENGTH("message.length"),
+		/** The db password. */
+		PATTERN_EMAIL("pattern.email"),
+		/** The sql select all issues. */
+		SQL_SELECT_ALL_ISSUES ("SQL.SELECT.ALL.ISSUES"),
+		/** The sql select all issues. */
+		SQL_INSERT_NEW_ISSUE ("SQL.INSERT.NEW.ISSUE"),
+		/** The sql select issue from id. */
+		SQL_SELECT_ISSUE_FROM_ID("SQL.SELECT.ISSUE.FROM.ID"),
+		/** The sql select issue from user. */
+		SQL_SELECT_ISSUE_FROM_ID_ASSIGNED("SQL.SELECT.ISSUE.FROM.ID.ASSIGNED");
 
 		/** The string. */
 		private static final Map<String, ConfKeys> TO_ENUM = new HashMap<String, ConfKeys>();
+		/** The string. */
 		private String string;
 
 		static {
@@ -84,13 +99,18 @@ public class ConfigApp {
 
 	/**
 	 * Gets the.
-	 * @param key
-	 *            the key
+	 *
+	 * @param key the key
 	 * @return the string
+	 * @throws DaoException the dao exception
 	 * @see java.util.HashMap#get(java.lang.Object)
 	 */
-	public String get(Object key) {
-		return keys.get(key);
+	public String get(Object key) throws DaoException {
+		String value = keys.get(key);
+		if (null == value) {
+			throw new DaoException("key not found:" + key);
+		}
+		return value;
 	}
 
 	/**
@@ -124,4 +144,23 @@ public class ConfigApp {
 		return keys.values();
 	}
 
+	/**
+	 * Gets the int.
+	 *
+	 * @param key the key
+	 * @return the int
+	 * @throws DaoException the dao exception
+	 */
+	public int getInt(Object key) throws DaoException {
+		String tmp = keys.get(key);
+		int number = Integer.MIN_VALUE;
+		if (null != tmp) {
+			try {
+				number = Integer.parseInt(tmp);
+			} catch (NumberFormatException e) {
+				throw new DaoException("key not found:" + key);
+			}
+		}
+		return number;
+	}
 }

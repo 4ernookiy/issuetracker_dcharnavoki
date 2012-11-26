@@ -1,5 +1,7 @@
 package org.training.dcharnavoki.issuetracker.dao;
 
+import java.util.List;
+
 import org.training.dcharnavoki.issuetracker.beans.Project;
 
 /**
@@ -15,4 +17,12 @@ public interface IProjectDAO {
 	 * @throws DaoException the dao exception
 	 */
 	Project getProject(int pId) throws DaoException;
+
+	/**
+	 * Gets the projects.
+	 *
+	 * @return the projects
+	 * @throws DaoException the dao exception
+	 */
+	List<Project> getProjects() throws DaoException;
 }

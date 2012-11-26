@@ -5,72 +5,95 @@
 <c:import url="header.jsp">
 	<c:param name="title" value="title.issue.description" />
 </c:import>
-<!-- 	<c:if test="${not empty sessionScope.key_user}">
-	<div class="navbar">
-		<div class="navbar-inner">
-			<a class="brand" href="#">Title</a>
-			<ul class="nav">
-				<li class="active"><a href="#">Home</a>
-				</li>
-				<li><a href="#">Link</a>
-				</li>
-				<li><a href="#">Link</a>
-				</li>
-			</ul>
+<div class="span12">
+	<div class='hero'>
+		<div class="page-header">
+			<h4>
+				<c:url value="EditIssue" var="EditIssueLink">
+					<c:param name="issueId" value="${key_issue.id}" />
+				</c:url>
+				<a href="${EditIssueLink}"><fmt:message key="view.menu.issue" />&nbsp
+					<fmt:message key="view.issue.id" /> &nbsp:&nbsp${key_issue.id}
+					- <fmt:message key="view.issue.edit" /></a>
+			</h4>
 		</div>
 	</div>
-	</c:if> -->
-<div class="container-fluid">
-	<div class="row-fluid">
-		<div class="span2">
-			<button class="btn" type="button">Edit</button>
-		</div>
-		<div class="span10">
-			<!--Body content-->
-			<fmt:message key="view.menu.issue" />
-			<fmt:message key="view.issue.id" />
-			:${key_issue.id}
-			<table class="table table-striped table-bordered">
-				<tbody>
-					<tr>
-						<td><fmt:message key="view.issue.project" /></td>
-						<td>${key_issue.project.name}</td>
-						<td><fmt:message key="view.issue.build" /></td>
-						<td>${key_issue.build.description}</td>
-					</tr>
-					<tr>
-						<td><fmt:message key="view.issue.added" /></td>
-						<td>${key_issue.createDate}</td>
-						<td><fmt:message key="view.issue.create" /></td>
-						<td>${key_issue.createdBy.email}</td>
-					</tr>
-					<tr>
-						<td><fmt:message key="view.issue.last-update" /></td>
-						<td>${key_issue.modifyDate}</td>
-						<td><fmt:message key="view.issue.assigned" /></td>
-						<td>${key_issue.assigned.email}</td>
-					</tr>
-					<tr>
-						<td><fmt:message key="view.issue.type" /></td>
-						<td>${key_issue.type.description}</td>
-						<td><fmt:message key="view.issue.status" /></td>
-						<td>${key_issue.status.description}</td>
-					</tr>
-					<tr>
-						<td><fmt:message key="view.issue.priority" /></td>
-						<td>${key_issue.priority.description}</td>
-						<td><fmt:message key="view.issue.resolution" /></td>
-						<td>${key_issue.resolution.description}</td>
-					</tr>
-					<tr>
-						<td><fmt:message key="view.issue.description" /></td>
-						<td colspan="3">${key_issue.description}</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
+	<table class="table table-striped table-bordered">
+		<tbody>
+			<tr>
+				<td><fmt:message key="view.issue.project" />
+				</td>
+				<td>${key_issue.project.name}</td>
+				<td><fmt:message key="view.issue.build" />
+				</td>
+				<td>${key_issue.build.description}</td>
+			</tr>
+			<tr>
+				<td><fmt:message key="view.issue.added" />
+				</td>
+				<td><fmt:formatDate value="${key_issue.createDate}"
+						dateStyle="full" />
+				</td>
+				<td><fmt:message key="view.issue.create" />
+				</td>
+				<td>${key_issue.createdBy.email}</td>
+			</tr>
+			<tr>
+				<td><fmt:message key="view.issue.last-update" />
+				</td>
+				<td><fmt:formatDate value="${key_issue.modifyDate}"
+						dateStyle="full" />
+				</td>
+				<td><fmt:message key="view.issue.changed" />
+				</td>
+				<td>${key_issue.modifiedBy.email}</td>
+			</tr>
+			<tr>
+				<td><fmt:message key="view.issue.type" />
+				</td>
+				<td>${key_issue.type.description}</td>
+				<td><fmt:message key="view.issue.status" />
+				</td>
+				<td>${key_issue.status.description}</td>
+			</tr>
+			<tr>
+				<td><fmt:message key="view.issue.priority" />
+				</td>
+				<td>${key_issue.priority.description}</td>
+				<td><fmt:message key="view.issue.resolution" />
+				</td>
+				<td>${key_issue.resolution.description}</td>
+			</tr>
+			<tr>
+				<td><fmt:message key="view.issue.assigned" />
+				</td>
+				<td colspan="3">${key_issue.assigned.email}</td>
+			</tr>
+			<tr>
+				<td><fmt:message key="view.issue.summary" />
+				</td>
+				<td colspan="3">${key_issue.summary}</td>
+			</tr>
+			<tr>
+				<td><fmt:message key="view.issue.description" />
+				</td>
+				<td colspan="3">${key_issue.description}</td>
+			</tr>
+		</tbody>
+	</table>
+	<c:if test="${not empty key_comments}">
+	<hr>
+		<span class="label label-success">Comments</span>
+		<br>
+		<c:forEach var="comment" items="${key_comments}">
+			<p style='padding: 20px'>
+				<i class="icon-comment"></i> ${comment.user.firstName}
+				${comment.user.lastName},
+				<fmt:formatDate value="${comment.date}" type="both"
+					pattern="EEEE, dd MMMM yyyy, HH:mm" />
+				<br> ${comment.text}
+			</p>
+		</c:forEach>
+	</c:if>
 </div>
-
-
 <jsp:include page="footer.jsp"></jsp:include>
