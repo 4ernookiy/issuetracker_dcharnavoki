@@ -2,10 +2,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 </div>
+	<br>
 	<footer class="footer">
 		<div class="container row-fluid">
 			<div class="span12">
-				<a class="pull-right" href="Main?changeLang=en_US">En</a>|<a
+				<a class="pull-right" href="Main?changeLang=en_US">En</a><a
 					class="pull-right" href="Main?changeLang=ru_RU">Ру</a>
 			</div>
 		</div>

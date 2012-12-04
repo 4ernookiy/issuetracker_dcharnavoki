@@ -214,4 +214,10 @@ public class ParserUser extends DefaultParser implements IUserDAO {
 		return new ArrayList<User>(users.values());
 	}
 
+	@Override
+	public void updateUser(User update) throws DaoException {
+		waitCompete();
+		users.put(update.getId(), update);
+	}
+
 }

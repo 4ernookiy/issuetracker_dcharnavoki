@@ -3,6 +3,7 @@ package org.training.dcharnavoki.issuetracker.controller;
 import java.io.IOException;
 import java.util.Date;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,41 +31,26 @@ public class SaveIssueController extends AbstractBaseController {
 
 	/** The Constant LOG. */
 	private static final Logger LOG = Logger.getLogger(SaveIssueController.class);
-	private static final int MIN_LENGTH;
-	static {
-		int min = 0;
-		try {
-			min = DaoFactory.getConfigAplication().getInt(ConfigApp.ConfKeys.MESSAGE_LENGTH);
-		} catch (DaoException e) {
-			LOG.error(e);
-		}
-		MIN_LENGTH = min;
-	}
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/** The Constant SUMMARY. */
 	private static final String SUMMARY = "newSummary";
-
 	/** The Constant DESCRIPTION. */
 	private static final String DESCRIPTION = "newDescription";
-
 	/** The Constant PRIORITY. */
 	private static final String PRIORITY = "newPriority";
-
 	/** The Constant PROJECT_AND_BILD. */
 	private static final String PROJECT_AND_BILD = "newProject";
-
 	/** The Constant ASSIGNED. */
 	private static final String ASSIGNED = "newAssigned";
-
 	/** The Constant TYPE. */
 	private static final String TYPE = "newType";
-
 	/** The Constant STATUS. */
 	private static final String STATUS = "newStatus";
 
+	private int minLenght;
 	/*
 	 * (non-Javadoc)
 	 */
@@ -110,12 +96,11 @@ public class SaveIssueController extends AbstractBaseController {
 				response.sendError(HttpServletResponse.SC_NOT_FOUND, "request.bad");
 				return;
 			}
-			if (summary.length() <= MIN_LENGTH || description.length() <= MIN_LENGTH) {
+			if (summary.length() <= minLenght || description.length() <= minLenght) {
 				message = new Message4Jsp(Message4Jsp.WARNING, "create-issue.min-length-text");
-				message.addParam("" + MIN_LENGTH);
+				message.addParam("" + minLenght);
 			}
-			if (status == factory.getConfDAO().getStatus(Constant.STATUS_ASSIGNED)
-					&& null == assigned) {
+			if (status.getId() == Constant.STATUS_ASSIGNED && null == assigned) {
 				message = new Message4Jsp(Message4Jsp.WARNING, "create-issue.who-assigned");
 			}
 			if (null != message) {
@@ -164,4 +149,20 @@ public class SaveIssueController extends AbstractBaseController {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see javax.servlet.GenericServlet#init(javax.servlet.ServletConfig)
+	 */
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		// TODO Auto-generated method stub
+		super.init(config);
+		try {
+			minLenght = DaoFactory.getConfigAplication().getInt(
+					ConfigApp.ConfKeys.MESSAGE_LENGTH_MIN);
+		} catch (DaoException e) {
+			minLenght = 1;
+			LOG.error(e);
+		}
+	}
 }

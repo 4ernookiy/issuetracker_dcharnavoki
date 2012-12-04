@@ -1,0 +1,23 @@
+		<!-- 		<c:set var="roleAdmin" value="<%=Role.ADMIN%>" />
+		<c:if test="${roleAdmin eq key_user.role}">
+			<c:set var="roles" value="<%=Role.values()%>" />
+			<c:set var="roleGuest" value="<%=Role.GUEST%>" />
+			<div class="control-group">
+				<label class="control-label" for="newEmail"><fmt:message
+						key="edit-user.role" /> </label>
+				<div class="controls">
+					<select name="newRole">
+						<c:forEach var="role" items="${roles}">
+							<c:if test="${role != roleGuest}">
+								<c:set var="selectOption"
+									value="${role eq key_user.role ? 'selected':''}"></c:set>
+								<option value="${role}"${selectOption}>
+									<c:out value="${role }" />
+								</option>
+							</c:if>
+						</c:forEach>
+					</select>
+				</div>
+			</div>
+		</c:if>
+ -->

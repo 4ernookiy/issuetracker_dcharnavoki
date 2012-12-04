@@ -12,6 +12,7 @@ import javax.servlet.ServletResponse;
  * Servlet Filter implementation class SetCharFilter.
  */
 public class SetCharFilter implements Filter {
+//	private static final String FILTERABLE_CONTENT_TYPE = "application/x-www-form-urlencoded";
 	private String encoding = "UTF-8";
 
 	/**
@@ -43,14 +44,17 @@ public class SetCharFilter implements Filter {
 	 *             the servlet exception
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
-	public void doFilter(ServletRequest request, ServletResponse response,
-			FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
 		// place your code here
-
-		String requestEncoding = request.getCharacterEncoding();
-		if (!encoding.equalsIgnoreCase(requestEncoding)) {
-			request.setCharacterEncoding(encoding);
-		}
+//		String contentType = request.getContentType();
+//		if (contentType != null && contentType.startsWith(FILTERABLE_CONTENT_TYPE)) {
+//			request.setCharacterEncoding(encoding);
+//		}
+		 String requestEncoding = request.getCharacterEncoding();
+		 if (!encoding.equalsIgnoreCase(requestEncoding)) {
+		 request.setCharacterEncoding(encoding);
+		 }
 
 		// pass the request along the filter chain
 		chain.doFilter(request, response);

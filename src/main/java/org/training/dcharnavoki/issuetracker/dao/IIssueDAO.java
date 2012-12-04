@@ -53,4 +53,13 @@ public interface IIssueDAO {
 	 *             the dao exception
 	 */
 	void addIssue(Issue newIssue) throws DaoException;
+
+	/**
+	 * Update issue.
+	 * @param update
+	 *            the update
+	 * @throws DaoException
+	 *             the dao exception
+	 */
+	void updateIssue(Issue update) throws DaoException;
 }

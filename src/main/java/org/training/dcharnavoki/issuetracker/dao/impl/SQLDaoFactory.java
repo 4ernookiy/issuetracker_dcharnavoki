@@ -7,11 +7,11 @@ import org.training.dcharnavoki.issuetracker.dao.IConfDAO;
 import org.training.dcharnavoki.issuetracker.dao.IIssueDAO;
 import org.training.dcharnavoki.issuetracker.dao.IProjectDAO;
 import org.training.dcharnavoki.issuetracker.dao.IUserDAO;
+import org.training.dcharnavoki.issuetracker.dao.impl.sql.CommentImplSql;
+import org.training.dcharnavoki.issuetracker.dao.impl.sql.ConfImplSql;
 import org.training.dcharnavoki.issuetracker.dao.impl.sql.IssueImplSql;
-import org.training.dcharnavoki.issuetracker.dao.impl.xml.ParserComment;
-import org.training.dcharnavoki.issuetracker.dao.impl.xml.ParserConf;
-import org.training.dcharnavoki.issuetracker.dao.impl.xml.ParserProject;
-import org.training.dcharnavoki.issuetracker.dao.impl.xml.ParserUser;
+import org.training.dcharnavoki.issuetracker.dao.impl.sql.ProjectImplSql;
+import org.training.dcharnavoki.issuetracker.dao.impl.sql.UserImplSql;
 
 /**
  * A factory for creating SQLDao objects.
@@ -35,7 +35,7 @@ public class SQLDaoFactory extends DaoFactory {
 	@Override
 	public ICommentDAO getCommentDAO() throws DaoException {
 		if (commentDAO == null) {
-			commentDAO = new ParserComment();
+			commentDAO = new CommentImplSql();
 		}
 		return commentDAO;
 	}
@@ -47,7 +47,7 @@ public class SQLDaoFactory extends DaoFactory {
 	@Override
 	public IConfDAO getConfDAO()  throws DaoException {
 		if (confDAO == null) {
-			confDAO = new ParserConf();
+			confDAO = new ConfImplSql();
 		}
 		return confDAO;
 	}
@@ -71,7 +71,7 @@ public class SQLDaoFactory extends DaoFactory {
 	@Override
 	public IProjectDAO getProjectDAO() throws DaoException {
 		if (projectDAO == null) {
-			projectDAO = new ParserProject();
+			projectDAO = new ProjectImplSql();
 		}
 		return projectDAO;
 	}
@@ -83,7 +83,7 @@ public class SQLDaoFactory extends DaoFactory {
 	@Override
 	public IUserDAO getUserDAO() throws DaoException {
 		if (userDAO == null) {
-			userDAO = new ParserUser();
+			userDAO = new UserImplSql();
 		}
 		return userDAO;
 	}

@@ -1,6 +1,7 @@
 package org.training.dcharnavoki.issuetracker.dao.impl.sql;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,12 +13,10 @@ import org.apache.log4j.Logger;
 import org.training.dcharnavoki.issuetracker.beans.Issue;
 import org.training.dcharnavoki.issuetracker.beans.User;
 import org.training.dcharnavoki.issuetracker.dao.DaoException;
-import org.training.dcharnavoki.issuetracker.dao.DaoFactory;
 import org.training.dcharnavoki.issuetracker.dao.IConfDAO;
 import org.training.dcharnavoki.issuetracker.dao.IIssueDAO;
 import org.training.dcharnavoki.issuetracker.dao.IProjectDAO;
 import org.training.dcharnavoki.issuetracker.dao.IUserDAO;
-import org.training.dcharnavoki.issuetracker.start.preparing.ConfigApp;
 import org.training.dcharnavoki.issuetracker.start.preparing.ConfigApp.ConfKeys;
 
 /**
@@ -25,9 +24,6 @@ import org.training.dcharnavoki.issuetracker.start.preparing.ConfigApp.ConfKeys;
  */
 public class IssueImplSql extends AbstractBaseDB implements IIssueDAO {
 	private static final Logger LOG = Logger.getLogger(IssueImplSql.class);
-	private DaoFactory factory = DaoFactory.getFactory();
-
-	private ConfigApp config;
 
 	/**
 	 * Instantiates a new issue impl sql.
@@ -36,14 +32,12 @@ public class IssueImplSql extends AbstractBaseDB implements IIssueDAO {
 	 */
 	public IssueImplSql() throws DaoException {
 		super();
-		factory = DaoFactory.getFactory();
-		config = factory.getConfigAplication();
 	}
 
 	private Issue getIssue(ResultSet resultSet) throws DaoException, SQLException {
-		IUserDAO userDAO = factory.getUserDAO();
-		IProjectDAO projectDAO = factory.getProjectDAO();
-		IConfDAO confDAO = factory.getConfDAO();
+		IUserDAO userDAO = getFactory().getUserDAO();
+		IProjectDAO projectDAO = getFactory().getProjectDAO();
+		IConfDAO confDAO = getFactory().getConfDAO();
 		int id = 0;
 		Issue issue = null;
 		issue = new Issue(resultSet.getInt("id"));
@@ -84,7 +78,7 @@ public class IssueImplSql extends AbstractBaseDB implements IIssueDAO {
 		PreparedStatement pstmt = null;
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement(config.get(ConfKeys.SQL_SELECT_ISSUE_FROM_ID));
+			pstmt = conn.prepareStatement(getConfig().get(ConfKeys.SQL_ISSUE_SELECT_FROM_ID));
 			pstmt.setInt(1, id);
 			resultSet = pstmt.executeQuery();
 			if (resultSet.next()) {
@@ -94,7 +88,8 @@ public class IssueImplSql extends AbstractBaseDB implements IIssueDAO {
 				LOG.error("more than one instance of an object Issue with id:" + id);
 			}
 		} catch (SQLException e) {
-			throw new DaoException(config.get(ConfKeys.SQL_SELECT_ISSUE_FROM_ID), e);
+			LOG.error(getConfig().get(ConfKeys.SQL_ISSUE_SELECT_FROM_ID), e);
+			throw new DaoException(e);
 		} finally {
 			closeResource(resultSet);
 			closeResource(pstmt);
@@ -112,12 +107,12 @@ public class IssueImplSql extends AbstractBaseDB implements IIssueDAO {
 		try {
 			conn = getConnection();
 			stmt = conn.createStatement();
-			resultSet = stmt.executeQuery(config.get(ConfKeys.SQL_SELECT_ALL_ISSUES));
+			resultSet = stmt.executeQuery(getConfig().get(ConfKeys.SQL_ISSUE_SELECT_ALL));
 			while (resultSet.next()) {
 				issues.add(getIssue(resultSet));
 			}
 		} catch (SQLException e) {
-			LOG.error(e);
+			LOG.error(getConfig().get(ConfKeys.SQL_ISSUE_SELECT_ALL), e);
 			throw new DaoException(e);
 		} finally {
 			closeResource(resultSet);
@@ -141,14 +136,16 @@ public class IssueImplSql extends AbstractBaseDB implements IIssueDAO {
 		PreparedStatement pstmt = null;
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement(config.get(ConfKeys.SQL_SELECT_ISSUE_FROM_ID_ASSIGNED));
+			pstmt = conn.prepareStatement(getConfig().get(
+					ConfKeys.SQL_ISSUE_SELECT_FROM_ID_ASSIGNED));
 			pstmt.setInt(1, user.getId());
 			resultSet = pstmt.executeQuery();
 			while (resultSet.next()) {
 				issues.add(getIssue(resultSet));
 			}
 		} catch (SQLException e) {
-			throw new DaoException(config.get(ConfKeys.SQL_SELECT_ISSUE_FROM_ID_ASSIGNED), e);
+			LOG.error(getConfig().get(ConfKeys.SQL_ISSUE_SELECT_FROM_ID_ASSIGNED), e);
+			throw new DaoException(e);
 		} finally {
 			closeResource(resultSet);
 			closeResource(pstmt);
@@ -181,7 +178,7 @@ public class IssueImplSql extends AbstractBaseDB implements IIssueDAO {
 		try {
 			int id = 0;
 			conn = getConnection();
-			pstmt = conn.prepareStatement(config.get(ConfKeys.SQL_INSERT_NEW_ISSUE));
+			pstmt = conn.prepareStatement(getConfig().get(ConfKeys.SQL_ISSUE_INSERT_NEW));
 			java.sql.Date sqlDate = new java.sql.Date(newIssue.getCreateDate().getTime());
 			pstmt.setDate(++id, sqlDate);
 			pstmt.setInt(++id, newIssue.getCreatedBy().getId());
@@ -200,12 +197,47 @@ public class IssueImplSql extends AbstractBaseDB implements IIssueDAO {
 					: 0);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			throw new DaoException(config.get(ConfKeys.SQL_INSERT_NEW_ISSUE), e);
+			LOG.error(getConfig().get(ConfKeys.SQL_ISSUE_INSERT_NEW), e);
+			throw new DaoException(e);
 		} finally {
 			closeResource(pstmt);
 			closeResource(conn);
 		}
 
+	}
+
+	@Override
+	public void updateIssue(Issue update) throws DaoException {
+		Connection conn = null;
+		ResultSet resultSet = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = getConnection();
+			int id = 0;
+			pstmt = conn.prepareStatement(getConfig().get(ConfKeys.SQL_ISSUE_UPDATE_FROM_ID));
+			java.sql.Date date = new Date(update.getModifyDate().getTime());
+			pstmt.setDate(++id, date);
+			pstmt.setInt(++id, update.getModifiedBy().getId());
+			pstmt.setString(++id, update.getSummary());
+			pstmt.setString(++id, update.getDescription());
+			pstmt.setInt(++id, update.getStatus().getId());
+			pstmt.setInt(++id, update.getResolution() != null ? update.getResolution().getId()
+					: 0);
+			pstmt.setInt(++id, update.getPriority().getId());
+			pstmt.setInt(++id, update.getType().getId());
+			pstmt.setInt(++id, update.getProject().getId());
+			pstmt.setInt(++id, update.getBuild().getId());
+			pstmt.setInt(++id, update.getAssigned() != null ? update.getAssigned().getId() : 0);
+			pstmt.setInt(++id, update.getId());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			LOG.error(getConfig().get(ConfKeys.SQL_ISSUE_UPDATE_FROM_ID), e);
+			throw new DaoException(e);
+		} finally {
+			closeResource(resultSet);
+			closeResource(pstmt);
+			closeResource(conn);
+		}
 	}
 
 }

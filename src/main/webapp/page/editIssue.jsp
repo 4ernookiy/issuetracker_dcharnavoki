@@ -18,8 +18,10 @@
 			</h4>
 		</div>
 	</div>
-	<form name="createIssue" method="post" action="SaveIssue">
+	<form name="saveEditIssue" method="post" action="SaveEditIssue"> 
 
+	<input type="hidden" name="issueId" value="${key_issue.id}" >
+	
 		<div class="row">
 			<div class="span2">
 				<fmt:message key="view.issue.create" />
@@ -62,7 +64,7 @@
 			</div>
 			<div class="span8">
 				<input class="input-block-level" type="text" name="newSummary"
-					value="${key_issue.summary}"
+					value="${empty newSummary ? key_issue.summary : newSummary }" 
 					placeholder="<fmt:message key="view.issue.summary"/>">
 			</div>
 		</div>
@@ -74,7 +76,7 @@
 			<div class="span8">
 				<textarea class="input-block-level" type="text" rows="5"
 					name="newDescription"
-					placeholder="<fmt:message key="view.issue.description"/>">${key_issue.description}</textarea>
+					placeholder="<fmt:message key="view.issue.description"/>">${empty newSummary ? key_issue.description : newSummary}</textarea>
 			</div>
 		</div>
 
@@ -86,8 +88,26 @@
 				<select name="newStatus">
 					<c:forEach var="varItem" items="${statuses}">
 						<c:set var="selectItem"
-							value="${varItem.id eq key_issue.status.id ? 'selected' : ''}" />
+							value="${varItem.id eq (empty newStatus ? key_issue.status.id : newStatus.id) ? 'selected' : ''}" />
 						<option value="${varItem.id}"${selectItem} >${varItem.description}</option>
+					</c:forEach>
+				</select>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="span2">
+				<fmt:message key="view.issue.resolution" />
+			</div>
+			<div class="span8">
+				<select name="newResolition">
+					<option value="0">
+						<fmt:message key="view.selected" />
+					</option>
+					<c:forEach var="varItem" items="${resolutions}">
+						<c:set var="selectItem" 
+							value="${varItem.id eq (empty newResolition ? key_issue.resolution.id : newResolition.id) ? 'selected' : ''}" />
+						<option value="${varItem.id}" ${selectItem}>${varItem.description}</option>
 					</c:forEach>
 				</select>
 			</div>
@@ -101,7 +121,7 @@
 				<select name="newPriority">
 					<c:forEach var="varItem" items="${priorities}">
 						<c:set var="selectItem"
-							value="${key_issue.priority.id eq varItem.id ? 'selected' : ''}" />
+							value="${varItem.id eq (empty newPriority ? key_issue.priority.id : newPriority.id) ? 'selected' : ''}" />
 						<option value="${varItem.id}"${selectItem}>${varItem.description}</option>
 					</c:forEach>
 				</select>
@@ -116,7 +136,7 @@
 				<select name="newType">
 					<c:forEach var="varItem" items="${types}">
 						<c:set var="selectItem"
-							value="${key_issue.type.id eq varItem.id ? 'selected' : ''}" />
+							value="${varItem.id eq (empty newType ? key_issue.type.id : newType.id)? 'selected' : ''}" />
 						<option value="${varItem.id}"${selectItem} >${varItem.description}</option>
 					</c:forEach>
 				</select>

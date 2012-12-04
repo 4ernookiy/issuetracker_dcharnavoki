@@ -16,4 +16,12 @@ public interface ICommentDAO {
 	 * @throws DaoException the dao exception
 	 */
 	List<Comment> getCommentsForIssue(int issueId) throws DaoException;
+
+	/**
+	 * Adds the comment.
+	 *
+	 * @param newComment the comment
+	 * @throws DaoException the dao exception
+	 */
+	void addComment(Comment newComment) throws DaoException;
 }

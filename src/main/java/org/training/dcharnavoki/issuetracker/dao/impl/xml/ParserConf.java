@@ -57,7 +57,7 @@ public class ParserConf extends DefaultParser implements IConfDAO {
 		/**
 		 * From string.
 		 * @param string
-		 *            the string
+		 *           the string
 		 * @return the tags with attr
 		 */
 		public static TagsWithAttr fromString(String string) {
@@ -68,7 +68,7 @@ public class ParserConf extends DefaultParser implements IConfDAO {
 	/**
 	 * Instantiates a new parser conf.
 	 * @throws DaoException
-	 *             the dao exception
+	 *            the dao exception
 	 */
 	public ParserConf() throws DaoException {
 		super(FILE_XML);
@@ -96,8 +96,7 @@ public class ParserConf extends DefaultParser implements IConfDAO {
 	 * java.lang.String, java.lang.String)
 	 */
 	@Override
-	public void endElement(String uri, String localName, String qName)
-			throws SAXException {
+	public void endElement(String uri, String localName, String qName) throws SAXException {
 		super.endElement(uri, localName, qName);
 		if (tag == null) {
 			return;
@@ -126,8 +125,7 @@ public class ParserConf extends DefaultParser implements IConfDAO {
 	 * @see org.xml.sax.helpers.DefaultHandler#characters(char[], int, int)
 	 */
 	@Override
-	public void characters(char[] ch, int start, int length)
-			throws SAXException {
+	public void characters(char[] ch, int start, int length) throws SAXException {
 		if (tag == null) {
 			return;
 		}
@@ -156,15 +154,14 @@ public class ParserConf extends DefaultParser implements IConfDAO {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.training.dcharnavoki.issuetracker.dao.IConfDAO#getResolution(int)
+	 * @see org.training.dcharnavoki.issuetracker.dao.IConfDAO#getResolution(int)
 	 */
 	@Override
 	public Resolution getResolution(int rId) throws DaoException {
 		waitCompete();
-//		if (resolutions.get(rId) != null) {
-//		}
-//		throw new DaoException("getResolution fail - null");
+		// if (resolutions.get(rId) != null) {
+		// }
+		// throw new DaoException("getResolution fail - null");
 		return resolutions.get(rId);
 	}
 
@@ -178,28 +175,91 @@ public class ParserConf extends DefaultParser implements IConfDAO {
 		return types.get(tId);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see org.training.dcharnavoki.issuetracker.dao.IConfDAO#getStatuses()
+	 */
 	@Override
 	public List<Status> getStatuses() throws DaoException {
 		waitCompete();
 		return new ArrayList<Status>(statuses.values());
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see org.training.dcharnavoki.issuetracker.dao.IConfDAO#getPriorities()
+	 */
 	@Override
 	public List<Priority> getPriorities() throws DaoException {
 		waitCompete();
 		return new ArrayList<Priority>(priorities.values());
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see org.training.dcharnavoki.issuetracker.dao.IConfDAO#getResolutions()
+	 */
 	@Override
 	public List<Resolution> getResolutions() throws DaoException {
 		waitCompete();
 		return new ArrayList<Resolution>(resolutions.values());
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see org.training.dcharnavoki.issuetracker.dao.IConfDAO#getTypes()
+	 */
 	@Override
 	public List<Type> getTypes() throws DaoException {
 		waitCompete();
 		return new ArrayList<Type>(types.values());
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.training.dcharnavoki.issuetracker.dao.IConfDAO#addResolution(org.
+	 * training.dcharnavoki.issuetracker.beans.Resolution)
+	 */
+	@Override
+	public void addResolution(Resolution newResolution) throws DaoException {
+		waitCompete();
+		resolutions.put(newResolution.getId(), newResolution);
+	}
+
+	@Override
+	public void updateResolution(Resolution update) throws DaoException {
+		waitCompete();
+		resolutions.get(update.getId()).setDescription(update.getDescription());
+	}
+
+	@Override
+	public void updatePriority(Priority update) throws DaoException {
+		waitCompete();
+		priorities.get(update.getId()).setDescription(update.getDescription());
+	}
+
+	@Override
+	public void addPriority(Priority newItem) throws DaoException {
+		waitCompete();
+		priorities.put(newItem.getId(), newItem);
+	}
+
+	@Override
+	public void addType(Type newItem) throws DaoException {
+		waitCompete();
+		types.put(newItem.getId(), newItem);
+	}
+
+	@Override
+	public void updateType(Type update) throws DaoException {
+		waitCompete();
+		types.get(update.getId()).setDescription(update.getDescription());
+	}
+
+	@Override
+	public void updateType(Status update) throws DaoException {
+		waitCompete();
+		statuses.get(update.getId()).setDescription(update.getDescription());
 	}
 
 }

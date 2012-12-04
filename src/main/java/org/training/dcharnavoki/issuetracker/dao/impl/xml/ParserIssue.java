@@ -286,4 +286,10 @@ public class ParserIssue extends DefaultParser implements IIssueDAO {
 		issues.put(newIssue.getId(), newIssue);
 	}
 
+	@Override
+	public void updateIssue(Issue update) throws DaoException {
+		waitCompete();
+		issues.put(update.getId(), update);
+	}
+
 }

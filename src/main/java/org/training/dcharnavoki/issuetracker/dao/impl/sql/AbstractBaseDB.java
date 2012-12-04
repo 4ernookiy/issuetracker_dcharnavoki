@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 
 import org.apache.log4j.Logger;
 import org.training.dcharnavoki.issuetracker.dao.DaoException;
@@ -20,11 +21,19 @@ public class AbstractBaseDB {
 	/** The log. */
 	private static final Logger LOG = Logger.getLogger(AbstractBaseDB.class);
 
+	/** The factory. */
+	private DaoFactory factory = DaoFactory.getFactory();
+	/** The config. */
+	private ConfigApp config;
 	/** The connection. */
 	private Connection connection;
+	/** The driver. */
 	private String driver;
+	/** The url. */
 	private String url;
+	/** The login. */
 	private String login;
+	/** The password. */
 	private String password;
 
 	/**
@@ -34,7 +43,6 @@ public class AbstractBaseDB {
 	 */
 	public AbstractBaseDB() throws DaoException {
 		super();
-		ConfigApp config;
 		try {
 			config = DaoFactory.getConfigAplication();
 			driver = config.get(ConfKeys.DB_DRIVER);
@@ -55,7 +63,13 @@ public class AbstractBaseDB {
 	public Connection getConnection() throws DaoException {
 		try {
 			Class.forName(driver);
-			return DriverManager.getConnection(url, login, password);
+			Properties properties = new Properties();
+			properties.setProperty("user", login);
+			properties.setProperty("password", password);
+			properties.setProperty("useUnicode", "true");
+			properties.setProperty("characterEncoding", "utf8");
+			return DriverManager.getConnection(url, properties);
+			// return DriverManager.getConnection(url, login, password);
 		} catch (SQLException e) {
 			throw new DaoException(e);
 		} catch (ClassNotFoundException e) {
@@ -117,6 +131,22 @@ public class AbstractBaseDB {
 				LOG.error("Statement cannot be closed", e);
 			}
 		}
+	}
+
+	/**
+	 * Gets the factory.
+	 * @return the factory
+	 */
+	public DaoFactory getFactory() {
+		return factory;
+	}
+
+	/**
+	 * Gets the config.
+	 * @return the config
+	 */
+	public ConfigApp getConfig() {
+		return config;
 	}
 
 }

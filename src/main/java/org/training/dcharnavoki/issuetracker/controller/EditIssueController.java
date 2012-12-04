@@ -13,6 +13,7 @@ import org.training.dcharnavoki.issuetracker.beans.Issue;
 import org.training.dcharnavoki.issuetracker.beans.Message4Jsp;
 import org.training.dcharnavoki.issuetracker.beans.Priority;
 import org.training.dcharnavoki.issuetracker.beans.Project;
+import org.training.dcharnavoki.issuetracker.beans.Resolution;
 import org.training.dcharnavoki.issuetracker.beans.Status;
 import org.training.dcharnavoki.issuetracker.beans.Type;
 import org.training.dcharnavoki.issuetracker.beans.User;
@@ -36,6 +37,7 @@ public class EditIssueController extends AbstractBaseController {
 	private static final String PROJECTS = "projects";
 	private static final String USERS = "users";
 	private static final String STATUSES = "statuses";
+	private static final String RESOLUTION = "resolutions";
 
 	/*
 	 * (non-Javadoc)
@@ -60,12 +62,14 @@ public class EditIssueController extends AbstractBaseController {
 			List<Type> types = factory.getConfDAO().getTypes();
 			List<User> users = factory.getUserDAO().getAllUsers();
 			List<Status> statuses = factory.getConfDAO().getStatuses();
+			List<Resolution> resolutions = factory.getConfDAO().getResolutions();
 
 			request.setAttribute(PROJECTS, projects);
 			request.setAttribute(PRIORITIES, priorities);
 			request.setAttribute(TYPES, types);
 			request.setAttribute(USERS, users);
 			request.setAttribute(STATUSES, statuses);
+			request.setAttribute(RESOLUTION, resolutions);
 
 			List<Comment> comments = factory.getCommentDAO().getCommentsForIssue(issueId);
 			request.setAttribute(Keys.ISSUE.getKey(), issue);
