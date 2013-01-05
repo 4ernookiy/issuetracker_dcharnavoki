@@ -74,14 +74,13 @@ public class AddUserController extends AbstractBaseController {
 				jump(ConstJsp.URL_ADD_USER_JSP, request, response);
 				return;
 			}
-			int id = factory.getUserDAO().getIdForNewUser();
-			User newUser = new User(id);
+			User newUser = new User(0);
 			newUser.setFirstName(firstName);
 			newUser.setLastName(lastName);
 			newUser.setEmail(email);
 			newUser.setRole(role);
 			newUser.setPassword(HashUtil.getMD5(password));
-			factory.getUserDAO().addUser(newUser);
+			factory.getUserDAO().save(newUser);
 			request.getSession().setAttribute(Constant.MESSAGE,
 					new Message4Jsp(Message4Jsp.SUCCESS, "success.add-user"));
 			redirect(Constant.REDIRECT_REGISTER_JSP, request, response);

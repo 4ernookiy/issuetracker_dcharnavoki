@@ -1,28 +1,28 @@
 package org.training.dcharnavoki.issuetracker.beans;
 
+import javax.persistence.Entity;
+
 /**
  * The Class Resolution.
  */
+@Entity
 public class Resolution extends CommonBean {
 
 	/**
 	 * Instantiates a new resolution.
-	 *
-	 * @param id the id
 	 */
-	public Resolution(int id) {
-		super(id);
+	public Resolution() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
 	 * Instantiates a new resolution.
-	 *
-	 * @param id the id
-	 * @param description the description
+	 * @param id
+	 *            the id
 	 */
-	public Resolution(int id, String description) {
-		super(id, description);
-		// TODO Auto-generated constructor stub
+	public Resolution(int id) {
+		super(id);
 	}
 
 }

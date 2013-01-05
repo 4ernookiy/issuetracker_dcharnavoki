@@ -2,21 +2,21 @@
 <d4:users xmlns:d4="http://www.issuetracker.training.org/user"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://www.issuetracker.training.org/user user.xsd">
-  <user id="0">
+  <user id="1">
     <firstName>Ivan</firstName>
     <lastName>Sidoroff</lastName>
     <email>i@tut.by</email>
     <role>0</role>
     <password>bdd5b480b00f703b61c26ffcb7ec5e6b</password>
   </user>
-  <user id="1">
+  <user id="2">
     <firstName>Petr</firstName>
     <lastName>Petrov</lastName>
     <email>very.long.email.user@longname.com</email>
     <role>1</role>
     <password>bdd5b480b00f703b61c26ffcb7ec5e6b</password>
   </user>
-  <user id="2">
+  <user id="3">
   	<firstName>Vasya</firstName>
   	<lastName>Vasilev</lastName>
   	<email>v@tut.by</email>

@@ -195,4 +195,10 @@ public class ParserComment extends DefaultParser implements ICommentDAO {
 		return lists;
 	}
 
+	@Override
+	public void addComment(Comment newComment) throws DaoException {
+		waitCompete();
+		mapBean.put(newComment.getId(), newComment);
+	}
+
 }

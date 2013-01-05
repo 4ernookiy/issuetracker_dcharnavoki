@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="connection.url">jdbc:mysql://localhost/issuetracker2</property>
+    <property name="connection.username">root</property>
+    <property name="connection.password"></property>
+    <property name="connection.pool_size">10</property>
+    <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="show_sql">true</property>
+    <property name="use_sql_comments">true</property>
+    <property name="format_sql">true</property>
+    <property name="hbm2ddl.auto">validate</property>
+    <property name="current_session_context_class">thread</property>
+    <property name="hibernate.connection.autocommit">false</property>
+
+    <mapping class="org.training.dcharnavoki.issuetracker.beans.Priority"/>
+    <mapping class="org.training.dcharnavoki.issuetracker.beans.Status"/>
+    <mapping class="org.training.dcharnavoki.issuetracker.beans.Resolution"/>
+    <mapping class="org.training.dcharnavoki.issuetracker.beans.Type"/>
+    <mapping class="org.training.dcharnavoki.issuetracker.beans.User"/>
+    <mapping class="org.training.dcharnavoki.issuetracker.beans.Comment"/>
+    <mapping class="org.training.dcharnavoki.issuetracker.beans.Build"/>
+    <mapping class="org.training.dcharnavoki.issuetracker.beans.Project"/>
+    <mapping class="org.training.dcharnavoki.issuetracker.beans.Issue"/>
+  </session-factory>
+</hibernate-configuration>

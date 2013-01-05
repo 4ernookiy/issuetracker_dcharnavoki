@@ -23,15 +23,21 @@ import org.training.dcharnavoki.issuetracker.dao.DaoFactory;
  * The Class AssignedController.
  */
 public class CreateIssueController extends AbstractBaseController {
-	private static final Logger LOG = Logger
-			.getLogger(CreateIssueController.class);
 
+	/** The Constant LOG. */
+	private static final Logger LOG = Logger.getLogger(CreateIssueController.class);
+
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
-
+	/** The Constant TYPES. */
 	private static final String TYPES = "types";
+	/** The Constant PRIORITIES. */
 	private static final String PRIORITIES = "priorities";
+	/** The Constant PROJECTS. */
 	private static final String PROJECTS = "projects";
+	/** The Constant USERS. */
 	private static final String USERS = "users";
+	/** The Constant STATUSES. */
 	private static final String STATUSES = "statuses";
 
 	/*
@@ -42,16 +48,16 @@ public class CreateIssueController extends AbstractBaseController {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	protected void performTask(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void performTask(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		try {
 			DaoFactory factory = DaoFactory.getFactory();
-			List<Project> projects = factory.getProjectDAO().getProjects();
-			List<Priority> priorities = factory.getConfDAO().getPriorities();
-			List<Type> types = factory.getConfDAO().getTypes();
-			List<User> users = factory.getUserDAO().getAllUsers();
-			List<Status> statuses = factory.getConfDAO().getStatuses();
+			List<Project> projects = factory.getProjectDAO().findAll();
+			List<Priority> priorities = factory.getPriorityDAO().findAll();
+			List<Type> types = factory.getTypeDAO().findAll();
+			List<User> users = factory.getUserDAO().findAll();
+			List<Status> statuses = factory.getStatusDAO().findAll();
 
 			request.setAttribute(PROJECTS, projects);
 			request.setAttribute(PRIORITIES, priorities);
@@ -62,8 +68,8 @@ public class CreateIssueController extends AbstractBaseController {
 			jump(ConstJsp.URL_CREATE_ISSUE_JSP, request, response);
 		} catch (DaoException e) {
 			LOG.error(e);
-			request.setAttribute(Constant.MESSAGE, new Message4Jsp(
-					Message4Jsp.ERROR, e.getLocalizedMessage()));
+			request.setAttribute(Constant.MESSAGE,
+					new Message4Jsp(Message4Jsp.ERROR, e.getLocalizedMessage()));
 			jump(ConstJsp.URL_ERROR_JSP, request, response);
 		}
 	}

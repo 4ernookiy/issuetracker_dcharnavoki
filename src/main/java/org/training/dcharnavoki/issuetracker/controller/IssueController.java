@@ -39,7 +39,7 @@ public class IssueController extends AbstractBaseController {
 			String id = request.getParameter(Constant.ISSUE_ID);
 			int issueId = Integer.parseInt(id);
 			IIssueDAO issueDao = DaoFactory.getFactory().getIssueDAO();
-			Issue issue = issueDao.getIssue(issueId);
+			Issue issue = issueDao.findByID(issueId);
 			if (null == issue) {
 				throw new DaoException("issue from id(" + issueId + ") not found"); // ?????????????
 			}

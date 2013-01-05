@@ -1,63 +1,56 @@
 package org.training.dcharnavoki.issuetracker.beans;
 
+import javax.persistence.MappedSuperclass;
+
 /**
  * The Class CommonBean.
  */
-public class CommonBean {
-	/** The id. */
-	private final int id;
+@MappedSuperclass
+public class CommonBean extends Bean {
+
 	/** The description. */
 	private String description;
+
 	/**
 	 * Instantiates a new common bean.
-	 *
-	 * @param beanId the bean id
 	 */
-	public CommonBean(int beanId) {
+	public CommonBean() {
 		super();
-		this.id = beanId;
-		// TODO Auto-generated constructor stub
 	}
+
 	/**
 	 * Instantiates a new common bean.
-	 *
-	 * @param beanId the id
-	 * @param beanDescription the description
+	 * @param id
+	 *            the id
 	 */
-	public CommonBean(int beanId, String beanDescription) {
-		super();
-		this.id = beanId;
-		this.description = beanDescription;
+	public CommonBean(int id) {
+		super(id);
 	}
-	/**
-	 * Gets the id.
-	 *
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
+
 	/**
 	 * Gets the description.
-	 *
 	 * @return the description
 	 */
 	public String getDescription() {
 		return description;
 	}
+
 	/**
 	 * Sets the description.
-	 *
-	 * @param description the description to set
+	 * @param description
+	 *            the description to set
 	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return getClass().getSimpleName() + ":[id=" + id + ", description=" + description + "]";
+		return getClass().getSimpleName() + ":[id=" + getId() + ", description="
+				+ description + "]";
 	}
 }

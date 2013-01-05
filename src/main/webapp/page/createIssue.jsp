@@ -48,8 +48,8 @@
 					<c:forEach var="varItem" items="${statuses}">
 						<c:if test="${(varItem.id eq 1 ) or (varItem.id eq 2)}">
 							<c:set var="selectItem"
-								value="${newStatus eq varItem ? 'selected' : ''}" />
-							<option value="${varItem.id}"${selectItem}>${varItem.description}</option>
+								value="${newStatus.id eq varItem.id ? 'selected' : ''}" />
+							<option value="${varItem.id}" ${selectItem}>${varItem.description}</option>
 						</c:if>
 					</c:forEach>
 				</select>
@@ -64,8 +64,8 @@
 				<select name="newPriority">
 					<c:forEach var="varItem" items="${priorities}">
 						<c:set var="selectItem"
-							value="${newPriority eq varItem ? 'selected' : ''}" />
-						<option value="${varItem.id}"${selectItem}>${varItem.description}</option>
+							value="${newPriority.id eq varItem.id ? 'selected' : ''}" />
+						<option value="${varItem.id}" ${selectItem}>${varItem.description}</option>
 					</c:forEach>
 				</select>
 			</div>
@@ -79,8 +79,8 @@
 				<select name="newType">
 					<c:forEach var="varItem" items="${types}">
 						<c:set var="selectItem"
-							value="${newType eq varItem ? 'selected' : ''}" />
-						<option value="${varItem.id}"${selectItem} >${varItem.description}</option>
+							value="${newType.id eq varItem.id ? 'selected' : ''}" />
+						<option value="${varItem.id}" ${selectItem} >${varItem.description}</option>
 					</c:forEach>
 				</select>
 			</div>
@@ -100,7 +100,7 @@
 							<c:set var="pbId" value="${project.id}${delimeter}${build.id}" />
 							<c:set var="selectItem"
 								value="${newProject eq pbId ? 'selected' : ''}" />
-							<option value="${pbId}"${selectItem} >${project.name}&nbsp:&nbsp${build.description}</option>
+							<option value="${pbId}" ${selectItem} >${project.name}&nbsp:&nbsp${build.description}</option>
 						</c:forEach>
 					</c:forEach>
 				</select>
@@ -118,8 +118,8 @@
 					</option>
 					<c:forEach var="varItem" items="${users}">
 						<c:set var="selectItem"
-							value="${newAssigned eq varItem ? 'selected' : ''}" />
-						<option value="${varItem.id}"${selectItem} >${varItem.firstName}&nbsp${varItem.lastName}:&nbsp${varItem.email}</option>
+							value="${newAssigned.id eq varItem.id ? 'selected' : ''}" />
+						<option value="${varItem.id}" ${selectItem} >${varItem.firstName}&nbsp${varItem.lastName}:&nbsp${varItem.email}</option>
 					</c:forEach>
 				</select>
 			</div>

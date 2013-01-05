@@ -2,15 +2,20 @@ package org.training.dcharnavoki.issuetracker.beans;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 /**
  * The Class Comment.
  */
-public class Comment {
-	/** The id. */
-	private final int id;
+@Entity
+public class Comment extends Bean {
 	/** The issue id. */
 	private int issueId;
 	/** The user. */
+	@ManyToOne
+	@JoinColumn(name = "user", nullable = false)
 	private User user;
 	/** The date. */
 	private Date date;
@@ -19,12 +24,17 @@ public class Comment {
 
 	/**
 	 * Instantiates a new comment.
+	 */
+	public Comment() {
+		super();
+	}
+	/**
+	 * Instantiates a new comment.
 	 * @param id
 	 *            the id
 	 */
 	public Comment(int id) {
-		super();
-		this.id = id;
+		super(id);
 	}
 
 	/**
@@ -79,6 +89,8 @@ public class Comment {
 	}
 
 	/**
+	 * Gets the text.
+	 *
 	 * @return the text
 	 */
 	public String getText() {
@@ -86,24 +98,20 @@ public class Comment {
 	}
 
 	/**
-	 * @param text
-	 *            the text to set
+	 * Sets the text.
+	 *
+	 * @param text the text to set
 	 */
 	public void setText(String text) {
 		this.text = text;
 	}
 
-	/**
-	 * Gets the id.
-	 * @return the id
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
 	 */
-	public int getId() {
-		return id;
-	}
-
 	@Override
 	public String toString() {
-		return "Comment [id=" + id + ", for issue=" + issueId + ", user.email=" + user.getEmail()
+		return "Comment [id=" + getId() + ", for issue=" + issueId + ", user.email=" + user.getEmail()
 				+ ", text=" + text + "]\n";
 	}
 

@@ -2,49 +2,44 @@
 <d4:projects xmlns:d4="http://www.issuetracker.training.org/project"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://www.issuetracker.training.org/project project.xsd ">
-	<project id="0">
+	<project id="1">
 		<name>Visualisation</name>
 		<description>Display of graphic objects according to their description</description>
 		<userId>1</userId>
 		<builds>
-			<build id="0">3.2.3</build>
-			<build id="1">3.2.6</build>
-			<build id="2">3.2.7</build>
-			<build id="3">3.2.8</build>
+			<build id="1">3.2.3</build>
+			<build id="2">3.2.6</build>
+			<build id="3">3.2.7</build>
+			<build id="4">3.2.8</build>
 		</builds>
 	</project>
-	<project id="1">
+	<project id="2">
 		<name>SectionModel</name>
 		<description>Creation of events and states of objects according to their description</description>
 		<userId>1</userId>
 		<builds>
-			<build id="0">2.7.3</build>
-			<build id="1">2.7.4</build>
-			<build id="2">2.7.5</build>
-			<build id="3">2.7.6</build>
-			<build id="4">2.7.7</build>
-			<build id="5">2.7.8</build>
-			<build id="6">2.7.9</build>
+			<build id="1">2.7.3</build>
+			<build id="2">2.7.4</build>
+			<build id="3">2.7.5</build>
+			<build id="4">2.7.6</build>
 		</builds>
 	</project>
-	<project id="2">
+	<project id="3">
 		<name>TSPlayer</name>
 		<description>play again from impulses</description>
 		<userId>1</userId>
 		<builds>
 			<build id="0">1.0.3</build>
 			<build id="1">1.0.4</build>
-			<build id="2">1.0.5</build>
 		</builds>
 	</project>
-	<project id="3">
+	<project id="4">
 		<name>IS</name>
 		<description>receiving data over various communication channels</description>
 		<userId>1</userId>
 		<builds>
 			<build id="0">1.0.3</build>
 			<build id="1">1.0.4</build>
-			<build id="2">1.0.5</build>
 		</builds>
 	</project>
 </d4:projects>

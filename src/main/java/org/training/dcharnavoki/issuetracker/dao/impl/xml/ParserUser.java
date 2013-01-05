@@ -189,8 +189,7 @@ public class ParserUser extends DefaultParser implements IUserDAO {
 		return null;
 	}
 
-	@Override
-	public int getIdForNewUser() throws DaoException {
+	private int getIdForNewUser() throws DaoException {
 		// TODO Auto-generated method stub
 		waitCompete();
 		int maxId = 0;
@@ -205,13 +204,19 @@ public class ParserUser extends DefaultParser implements IUserDAO {
 
 	@Override
 	public void addUser(User newUser) throws DaoException {
-		users.put(newUser.getId(), newUser);
+		users.put(getIdForNewUser(), newUser);
 	}
 
 	@Override
 	public List<User> getAllUsers() throws DaoException {
 		waitCompete();
 		return new ArrayList<User>(users.values());
+	}
+
+	@Override
+	public void updateUser(User update) throws DaoException {
+		waitCompete();
+		users.put(update.getId(), update);
 	}
 
 }

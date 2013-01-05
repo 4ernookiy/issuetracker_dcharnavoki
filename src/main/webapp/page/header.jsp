@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"
 	language="java"%>
 <%@ page
 	import="org.training.dcharnavoki.issuetracker.constant.Constant"%>
@@ -14,6 +14,7 @@
 	scope="session" />
 <fmt:setLocale value="${language}" scope="request" />
 <fmt:setBundle basename="i18n.Messages" scope="request" />
+<fmt:requestEncoding value="utf-8"/>
 <!DOCTYPE html>
 <html lang="${language}">
 <head>
@@ -25,8 +26,10 @@
 	</fmt:message>
 </title>
 </head>
+<c:set var="roleAdmin" value="<%=Role.ADMIN%>" />
+
 <body>
-	<div class="navbar navbar-inverse navbar-static-top">
+	<div class="navbar navbar-static-top">
 		<div class="navbar-inner">
 			<a class="brand" href="Main"> Issue Tracker</a>
 			<c:if test="${not empty sessionScope.key_user}">
@@ -41,6 +44,25 @@
 						href="CreateIssue"><fmt:message key="view.menu.new-issue" />
 					</a>
 					</li>
+					<c:if test="${roleAdmin == key_user.role}">
+						<li class="${param.page == 4 ? 'active': ''}"><a
+							href="EditResolution"><fmt:message key="view.menu.resolution" />
+						</a>
+						</li>
+						<li class="${param.page == 5 ? 'active': ''}"><a
+							href="EditPriority"><fmt:message key="view.menu.priority" />
+						</a>
+						</li>
+						<li class="${param.page == 6 ? 'active': ''}"><a
+							href="EditType"><fmt:message key="view.menu.type" /> </a>
+						</li>
+						<li class="${param.page == 7 ? 'active': ''}"><a
+							href="EditStatus"><fmt:message key="view.menu.status" /> </a>
+						</li>
+						<li class="${param.page == 8 ? 'active': ''}"><a
+							href="Projects"><fmt:message key="view.menu.projects" /> </a>
+						</li>
+					</c:if>
 				</ul>
 			</c:if>
 			<c:choose>
@@ -58,21 +80,28 @@
 					</form>
 				</c:when>
 				<c:otherwise>
-					<c:set var="roleAdmin" value="<%=Role.ADMIN%>" />
 					<div class="navbar-form pull-right btn-group">
-						<a class="btn btn-primary" href="#"> <i
-							class="icon-user icon-white"></i> ${key_user.email}</a> <a
+						<a class="btn btn-primary" href="pageEditUser"> <i
+							class="icon-user icon-white"></i> ${key_user.email} </a> <a
 							class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
 							href="#"> <span class="caret"></span> </a>
 						<ul class="dropdown-menu">
-							<li><a href="#"><i class="icon-pencil"></i> <fmt:message
-										key="view.menu.edit" /> </a></li>
+							<li><a href="pageEditUser"><i class="icon-pencil"></i> <fmt:message
+										key="view.menu.edit" /> </a>
+							</li>
 							<c:if test="${roleAdmin == key_user.role}">
 								<li><a href="pageRegister"><i class="icon-plus-sign"></i>
-										<fmt:message key="view.menu.add-user" /> </a></li>
+										<fmt:message key="view.menu.add-user" /> </a>
+								</li>
+								<li><a href="CreateProject"><i class="icon-plus"></i> <fmt:message
+											key="view.menu.add-project" /> </a>
+								</li>
+<!-- 								 								<li><a href="pageCreateResolution"><i class="icon-plus"></i>
+										<fmt:message key="view.menu.add-resolution" /> </a></li> -->
 							</c:if>
 							<li><a href="Logout"><i class="icon-off"></i> <fmt:message
-										key="view.menu.logout" /> </a></li>
+										key="view.menu.logout" /> </a>
+							</li>
 
 							<!--<li><a href="#"><i class="icon-ban-circle"></i> Ban</a></li>
 								<li class="divider"></li>

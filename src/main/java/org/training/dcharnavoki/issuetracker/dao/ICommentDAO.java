@@ -7,13 +7,15 @@ import org.training.dcharnavoki.issuetracker.beans.Comment;
 /**
  * The Interface ICommentDAO.
  */
-public interface ICommentDAO {
+public interface ICommentDAO extends GenericDAO<Comment, Integer> {
+
 	/**
 	 * Gets the comments for issue.
 	 *
-	 * @param issueId the issue id
+	 * @param id the id
 	 * @return the comments for issue
 	 * @throws DaoException the dao exception
 	 */
-	List<Comment> getCommentsForIssue(int issueId) throws DaoException;
+	List<Comment> getCommentsForIssue(Integer id) throws DaoException;
+
 }

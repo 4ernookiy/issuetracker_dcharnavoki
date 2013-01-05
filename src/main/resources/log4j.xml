@@ -39,7 +39,5 @@
 	<root>
 		<priority value="DEBUG" />
 		<appender-ref ref="stdout" />
-		<appender-ref ref="a_error" />
-		<appender-ref ref="a_events" />
 	</root>
 </log4j:configuration>

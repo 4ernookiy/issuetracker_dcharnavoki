@@ -1,14 +1,30 @@
 package org.training.dcharnavoki.issuetracker.beans;
 
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+
 /**
  * The Class Priority.
  */
-public class Priority extends CommonBean {
+@Entity
+public class Priority extends CommonBean implements Serializable {
+
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 12L;
 
 	/**
 	 * Instantiates a new priority.
-	 *
-	 * @param id the id
+	 */
+	public Priority() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * Instantiates a new priority.
+	 * @param id
+	 *            the id
 	 */
 	public Priority(int id) {
 		super(id);
@@ -17,12 +33,15 @@ public class Priority extends CommonBean {
 
 	/**
 	 * Instantiates a new priority.
-	 *
-	 * @param id the id
-	 * @param description the description
+	 * @param id
+	 *            the id
+	 * @param description
+	 *            the description
 	 */
-	public Priority(int id, String description) {
-		super(id, description);
-		// TODO Auto-generated constructor stub
-	}
+//	public Priority(int id, String description) {
+//		super(id);
+//		setDescription(description);
+//	}
+
+
 }

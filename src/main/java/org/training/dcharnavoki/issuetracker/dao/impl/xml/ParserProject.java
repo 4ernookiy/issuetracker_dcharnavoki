@@ -134,8 +134,7 @@ public class ParserProject extends DefaultParser implements IProjectDAO {
 	 * java.lang.String, java.lang.String)
 	 */
 	@Override
-	public void endElement(String uri, String localName, String qName)
-			throws SAXException {
+	public void endElement(String uri, String localName, String qName) throws SAXException {
 		super.endElement(uri, localName, qName);
 		tag = Tags.fromString(qName);
 		if (tag == null) {
@@ -179,8 +178,7 @@ public class ParserProject extends DefaultParser implements IProjectDAO {
 	 * @see org.xml.sax.helpers.DefaultHandler#characters(char[], int, int)
 	 */
 	@Override
-	public void characters(char[] ch, int start, int length)
-			throws SAXException {
+	public void characters(char[] ch, int start, int length) throws SAXException {
 		if (tag == null) {
 			return;
 		}
@@ -211,4 +209,37 @@ public class ParserProject extends DefaultParser implements IProjectDAO {
 		return new ArrayList<Project>(projects.values());
 	}
 
+	@Override
+	public int getIdForNewProjects() throws DaoException {
+		waitCompete();
+		int maxId = 0;
+		List<Project> list = new ArrayList<Project>(projects.values());
+		for (Project item : list) {
+			if (item.getId() > maxId) {
+				maxId = item.getId();
+			}
+		}
+		return maxId + 1;
+	}
+
+	@Override
+	public void addProject(Project newProject) throws DaoException {
+		waitCompete();
+		projects.put(newProject.getId(), newProject);
+	}
+
+	@Override
+	public void addBuild(Build newBuild, int projectId) throws DaoException {
+		waitCompete();
+		projects.get(projectId).getBuilds().add(newBuild);
+	}
+
+	@Override
+	public void updateProject(Project update) throws DaoException {
+		waitCompete();
+		Project p = projects.get(update.getId());
+		p.setName(update.getName());
+		p.setDescription(update.getDescription());
+		p.setManager(update.getManager());
+	}
 }

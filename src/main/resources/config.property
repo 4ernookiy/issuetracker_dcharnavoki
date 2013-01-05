@@ -1,18 +1,60 @@
-; реализация xml, (sql)
+; реализация xml, sql, ..
 ; all sensitive case
-; impl: sql, xml
+; impl: sql, xml, hibernate
 impl = sql
-; jdbc:mysql://localhost/issuetracker?useUnicode=true&characterEncoding=UTF-8
-db.driver2 = org.gjt.mm.mysql.Driver
+; jdbc:mysql://localhost/issuetracker?useUnicode=true&characterEncoding=utf8
+;db.driver = org.gjt.mm.mysql.Driver
 db.driver = com.mysql.jdbc.Driver
-db.url=jdbc:mysql://localhost/issuetracker?useUnicode=true&characterEncoding=UTF-8
-db.user=kjuby
-db.password=gfhjkm
+db.url=jdbc:mysql://localhost/issuetracker2
+db.user=root
+db.password=
 pattern.email = (\d?[a-zA-Z\d\.\\_\-])+@([a-zA-Z\d]+(\.)?)+
-message.length = 10
+; You can turn off next line : .*(((?=.{2,})(?=.*[a-z])(?=.*[\d])).*)
+; for use pattern replase .no -> .yes
+pattern.password.no =[\d]?
+message.length.min = 2
 ; запросы
 ; issue
-SQL.SELECT.ALL.ISSUES = SELECT * FROM issues;
-SQL.SELECT.ISSUE.FROM.ID = SELECT * FROM issues WHERE id =?;
-SQL.SELECT.ISSUE.FROM.ID.ASSIGNED = SELECT * FROM issues WHERE assignedId =?;
-SQL.INSERT.NEW.ISSUE = INSERT INTO issues VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+SQL.CB.INSERT.NEW =INSERT INTO ? VALUES (NULL, ?);
+SQL.CB.UPDATE =UPDATE ? SET description = ? WHERE id = ?;
+
+SQL.ISSUE.SELECT.ALL = SELECT * FROM issues;
+SQL.ISSUE.SELECT.FROM.ID = SELECT * FROM issues WHERE id =?;
+SQL.ISSUE.SELECT.FROM.ID.ASSIGNED = SELECT * FROM issues WHERE assignedId =?;
+SQL.ISSUE.INSERT.NEW = INSERT INTO issues VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+SQL.ISSUE.UPDATE.FROM.ID = UPDATE issues SET modifyDate = ?, modifyBy = ?, summary = ?, description = ?, statusId = ?, resolutionId = ?, priorityId = ?, typeId = ?, projectId = ?, buildId = ?, assignedId = ? WHERE id = ?;
+; status
+SQL.CONF.STATUS.SELECT.ALL = SELECT * FROM statuses;
+SQL.CONF.STATUS.SELECT.FROM.ID = SELECT * FROM statuses WHERE id=?;
+SQL.CONF.STATUS.UPDATE =UPDATE statuses SET description = ? WHERE id = ?;
+; priority
+SQL.CONF.PRIORITY.INSERT.NEW =INSERT INTO ? VALUES (NULL, ?);
+SQL.CONF.PRIORITY.UPDATE =UPDATE priorities SET description = ? WHERE id = ?;
+; resolution
+SQL.CONF.RESOLUTION.SELECT.ALL = SELECT * FROM resolutions;
+SQL.CONF.RESOLUTION.SELECT.FROM.ID = SELECT * FROM resolutions WHERE id=?;
+SQL.CONF.RESOLUTION.INSERT.NEW =INSERT INTO resolutions VALUES (NULL, ?);
+SQL.CONF.RESOLUTION.UPDATE =UPDATE resolutions SET description = ? WHERE id = ?;
+; type
+SQL.CONF.TYPE.SELECT.ALL = SELECT * FROM types;
+SQL.CONF.TYPE.SELECT.FROM.ID = SELECT * FROM types WHERE id=?;
+SQL.CONF.TYPE.INSERT.NEW =INSERT INTO types VALUES (NULL, ?);
+SQL.CONF.TYPE.UPDATE =UPDATE types SET description = ? WHERE id = ?;
+;project
+SQL.PROJECT.SELECT.FROM.ID =SELECT * FROM projects WHERE id=?;
+SQL.PROJECT.SELECT.ALL =SELECT * FROM projects;
+SQL.PROJECT.INSERT.NEW =INSERT INTO projects VALUES (NULL, ?, ?, ?);
+SQL.PROJECT.SELECT.MAX.ID =SELECT MAX(id) as pId FROM projects;
+SQL.PROJECT.UPDATE =UPDATE projects SET name = ?, description= ?, userId= ? WHERE id = ?;
+;
+SQL.BUILD.SELECT.FROM.ID =SELECT * FROM builds WHERE projectId=?;
+SQL.BUILD.INSERT.NEW =INSERT INTO builds VALUES (NULL, ?, ?);
+;user
+SQL.USER.SELECT.ALL = SELECT * FROM users;
+SQL.USER.SELECT.FROM.ID = SELECT * FROM users WHERE id =?;
+SQL.USER.SELECT.FROM.EMAIL = SELECT * FROM users WHERE email = ?;
+SQL.USER.INSERT.NEW =INSERT INTO users VALUES (NULL, ?, ?, ?, ?, ?);
+SQL.USER.UPDATE =UPDATE users SET firstName= ?, lastName= ?, email= ?, role= ?, password= ? WHERE id = ?;
+; comments
+SQL.COMMENT.SELECT.FROM.ID = SELECT * FROM comments WHERE issueId =?;
+SQL.COMMENT.INSERT.NEW =INSERT INTO comments VALUES (NULL, ?, ?, ?, ?);

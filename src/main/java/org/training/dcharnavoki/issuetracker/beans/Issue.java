@@ -2,38 +2,70 @@ package org.training.dcharnavoki.issuetracker.beans;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 /**
  * The Class Issue.
  */
+@Entity
 public class Issue extends CommonBean {
 	/** The create date. */
 	private Date createDate;
 	/** The modify date. */
 	private Date modifyDate;
 	/** The created by. */
+	@ManyToOne
+	@JoinColumn(name = "createdBy", nullable = false)
 	private User createdBy;
 	/** The modified by. */
+	@ManyToOne
+	@JoinColumn(name = "modifiedBy", nullable = false)
 	private User modifiedBy;
 	/** The summary. */
 	private String summary;
 	/** The status. */
+	@ManyToOne
+	@JoinColumn(name = "status", nullable = false)
 	private Status status;
 	/** The resolution. */
+	@ManyToOne
+	@JoinColumn(name = "resolution", nullable = true)
 	private Resolution resolution;
 	/** The type. */
+	@ManyToOne
+	@JoinColumn(name = "type", nullable = false)
 	private Type type;
 	/** The priority. */
+	@ManyToOne
+	@JoinColumn(name = "priority", nullable = false)
 	private Priority priority;
 	/** The project. */
+	@ManyToOne
+	@JoinColumn(name = "project", nullable = false)
 	private Project project;
 	/** The build. */
+	@ManyToOne
+	@JoinColumn(name = "build", nullable = false)
 	private Build build;
 	/** The assigned. */
+	@ManyToOne
+	@JoinColumn(name = "assigned", nullable = true)
 	private User assigned;
+
 	/**
 	 * Instantiates a new issue.
-	 *
-	 * @param issueId the id
+	 */
+	public Issue() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * Instantiates a new issue.
+	 * @param issueId
+	 *            the id
 	 */
 	public Issue(int issueId) {
 		super(issueId);
@@ -41,7 +73,6 @@ public class Issue extends CommonBean {
 
 	/**
 	 * Gets the creates the date.
-	 *
 	 * @return the createDate
 	 */
 	public Date getCreateDate() {
@@ -50,8 +81,8 @@ public class Issue extends CommonBean {
 
 	/**
 	 * Sets the creates the date.
-	 *
-	 * @param createDate the createDate to set
+	 * @param createDate
+	 *            the createDate to set
 	 */
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
@@ -59,7 +90,6 @@ public class Issue extends CommonBean {
 
 	/**
 	 * Gets the modify date.
-	 *
 	 * @return the modifyDate
 	 */
 	public Date getModifyDate() {
@@ -68,8 +98,8 @@ public class Issue extends CommonBean {
 
 	/**
 	 * Sets the modify date.
-	 *
-	 * @param modifyDate the modifyDate to set
+	 * @param modifyDate
+	 *            the modifyDate to set
 	 */
 	public void setModifyDate(Date modifyDate) {
 		this.modifyDate = modifyDate;
@@ -77,7 +107,6 @@ public class Issue extends CommonBean {
 
 	/**
 	 * Gets the created by.
-	 *
 	 * @return the createdBy
 	 */
 	public User getCreatedBy() {
@@ -86,8 +115,8 @@ public class Issue extends CommonBean {
 
 	/**
 	 * Sets the created by.
-	 *
-	 * @param createdBy the createdBy to set
+	 * @param createdBy
+	 *            the createdBy to set
 	 */
 	public void setCreatedBy(User createdBy) {
 		this.createdBy = createdBy;
@@ -95,7 +124,6 @@ public class Issue extends CommonBean {
 
 	/**
 	 * Gets the modified by.
-	 *
 	 * @return the modifiedBy
 	 */
 	public User getModifiedBy() {
@@ -104,8 +132,8 @@ public class Issue extends CommonBean {
 
 	/**
 	 * Sets the modified by.
-	 *
-	 * @param modifiedBy the modifiedBy to set
+	 * @param modifiedBy
+	 *            the modifiedBy to set
 	 */
 	public void setModifiedBy(User modifiedBy) {
 		this.modifiedBy = modifiedBy;
@@ -113,7 +141,6 @@ public class Issue extends CommonBean {
 
 	/**
 	 * Gets the summary.
-	 *
 	 * @return the summary
 	 */
 	public String getSummary() {
@@ -122,17 +149,15 @@ public class Issue extends CommonBean {
 
 	/**
 	 * Sets the summary.
-	 *
-	 * @param summary the summary to set
+	 * @param summary
+	 *            the summary to set
 	 */
 	public void setSummary(String summary) {
 		this.summary = summary;
 	}
 
-
 	/**
 	 * Gets the status.
-	 *
 	 * @return the status
 	 */
 	public Status getStatus() {
@@ -141,8 +166,8 @@ public class Issue extends CommonBean {
 
 	/**
 	 * Sets the status.
-	 *
-	 * @param status the status to set
+	 * @param status
+	 *            the status to set
 	 */
 	public void setStatus(Status status) {
 		this.status = status;
@@ -150,7 +175,6 @@ public class Issue extends CommonBean {
 
 	/**
 	 * Gets the resolution.
-	 *
 	 * @return the resolution
 	 */
 	public Resolution getResolution() {
@@ -159,8 +183,8 @@ public class Issue extends CommonBean {
 
 	/**
 	 * Sets the resolution.
-	 *
-	 * @param resolution the resolution to set
+	 * @param resolution
+	 *            the resolution to set
 	 */
 	public void setResolution(Resolution resolution) {
 		this.resolution = resolution;
@@ -168,7 +192,6 @@ public class Issue extends CommonBean {
 
 	/**
 	 * Gets the type.
-	 *
 	 * @return the type
 	 */
 	public Type getType() {
@@ -177,8 +200,8 @@ public class Issue extends CommonBean {
 
 	/**
 	 * Sets the type.
-	 *
-	 * @param type the type to set
+	 * @param type
+	 *            the type to set
 	 */
 	public void setType(Type type) {
 		this.type = type;
@@ -186,7 +209,6 @@ public class Issue extends CommonBean {
 
 	/**
 	 * Gets the priority.
-	 *
 	 * @return the priority
 	 */
 	public Priority getPriority() {
@@ -195,8 +217,8 @@ public class Issue extends CommonBean {
 
 	/**
 	 * Sets the priority.
-	 *
-	 * @param priority the priority to set
+	 * @param priority
+	 *            the priority to set
 	 */
 	public void setPriority(Priority priority) {
 		this.priority = priority;
@@ -204,7 +226,6 @@ public class Issue extends CommonBean {
 
 	/**
 	 * Gets the project.
-	 *
 	 * @return the project
 	 */
 	public Project getProject() {
@@ -213,8 +234,8 @@ public class Issue extends CommonBean {
 
 	/**
 	 * Sets the project.
-	 *
-	 * @param project the project to set
+	 * @param project
+	 *            the project to set
 	 */
 	public void setProject(Project project) {
 		this.project = project;
@@ -222,7 +243,6 @@ public class Issue extends CommonBean {
 
 	/**
 	 * Gets the builds the.
-	 *
 	 * @return the build
 	 */
 	public Build getBuild() {
@@ -231,8 +251,8 @@ public class Issue extends CommonBean {
 
 	/**
 	 * Sets the builds the.
-	 *
-	 * @param build the build to set
+	 * @param build
+	 *            the build to set
 	 */
 	public void setBuild(Build build) {
 		this.build = build;
@@ -240,7 +260,6 @@ public class Issue extends CommonBean {
 
 	/**
 	 * Gets the assigned.
-	 *
 	 * @return the assigned
 	 */
 	public User getAssigned() {
@@ -249,26 +268,25 @@ public class Issue extends CommonBean {
 
 	/**
 	 * Sets the assigned.
-	 *
-	 * @param assigned the assigned to set
+	 * @param assigned
+	 *            the assigned to set
 	 */
 	public void setAssigned(User assigned) {
 		this.assigned = assigned;
 	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Issue [id=" + getId() + ", createDate=" + createDate
-				+ ", modifyDate=" + modifyDate + ", createdBy=" + createdBy
-				+ ", modifiedBy=" + modifiedBy + ", summary=" + summary
-				+ ", description=" + getDescription() + ", status=" + status
-				+ ", resolution=" + resolution + ", type=" + type
-				+ ", priority=" + priority + ", project=" + project
-				+ ", build=" + build + ", assigned=" + assigned + "]";
+		return "Issue [id=" + getId() + ", createDate=" + createDate + ", modifyDate="
+				+ modifyDate + ", createdBy=" + createdBy + ", modifiedBy=" + modifiedBy
+				+ ", summary=" + summary + ", description=" + getDescription() + ", status="
+				+ status + ", resolution=" + resolution + ", type=" + type + ", priority="
+				+ priority + ", project=" + project + ", build=" + build + ", assigned="
+				+ assigned + "]";
 	}
 
 }

@@ -2,76 +2,63 @@ package org.training.dcharnavoki.issuetracker.beans;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
 /**
  * The Class Project.
  */
-public class Project {
-	/** The id. */
-	private final int id;
+@Entity
+public class Project extends CommonBean {
 	/** The name. */
 	private String name;
-	/** The description. */
-	private String description;
 	/** The builds. */
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "projectId")
 	private List<Build> builds;
 	/** The manager. */
+	@ManyToOne
+	@JoinColumn(name = "manager", nullable = false)
 	private User manager;
 
 	/**
 	 * Instantiates a new project.
-	 *
-	 * @param projectId the id
 	 */
-	public Project(int projectId) {
+	public Project() {
 		super();
-		this.id = projectId;
 	}
 
 	/**
-	 * Gets the id.
-	 *
-	 * @return the id
+	 * Instantiates a new project.
+	 * @param projectId
+	 *            the id
 	 */
-	public int getId() {
-		return id;
+	public Project(int projectId) {
+		super(projectId);
 	}
 
 	/**
 	 * Gets the name.
-	 *
 	 * @return the name
 	 */
 	public String getName() {
 		return name;
 	}
+
 	/**
 	 * Sets the name.
-	 *
-	 * @param name the name to set
+	 * @param name
+	 *            the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
-	/**
-	 * Gets the description.
-	 *
-	 * @return the description
-	 */
-	public String getDescription() {
-		return description;
-	}
-	/**
-	 * Sets the description.
-	 *
-	 * @param description the description to set
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
 
 	/**
 	 * Gets the builds.
-	 *
 	 * @return the builds
 	 */
 	public List<Build> getBuilds() {
@@ -80,8 +67,8 @@ public class Project {
 
 	/**
 	 * Sets the builds.
-	 *
-	 * @param builds the builds to set
+	 * @param builds
+	 *            the builds to set
 	 */
 	public void setBuilds(List<Build> builds) {
 		this.builds = builds;
@@ -89,37 +76,39 @@ public class Project {
 
 	/**
 	 * Gets the manager.
-	 *
 	 * @return the manager
 	 */
 	public User getManager() {
 		return manager;
 	}
+
 	/**
 	 * Sets the manager.
-	 *
-	 * @param manager the manager to set
+	 * @param manager
+	 *            the manager to set
 	 */
 	public void setManager(User manager) {
 		this.manager = manager;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.training.dcharnavoki.issuetracker.beans.CommonBean#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Project [" + id + ", " + name + ", description="
-				+ description + ", builds=" + builds + ", manager=" + manager
-				+ "]";
+		return "Project [" + getId() + ", " + name + ", description=" + getDescription()
+				+ ", builds=" + builds + ", manager=" + getManager() + "]";
 	}
+
 	/**
 	 * Gets the builds the.
-	 *
-	 * @param buildId the id
+	 * @param buildId
+	 *            the id
 	 * @return the builds the
 	 */
 	public Build getBuild(int buildId) {
-		for (Build build: builds) {
+		for (Build build : builds) {
 			if (build.getId() == buildId) {
 				return build;
 			}

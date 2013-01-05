@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
-//import java.util.Locale;
-//import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.training.dcharnavoki.issuetracker.beans.Issue;
 import org.training.dcharnavoki.issuetracker.beans.Message4Jsp;
+import org.training.dcharnavoki.issuetracker.beans.Priority;
 import org.training.dcharnavoki.issuetracker.constant.ConstJsp;
 import org.training.dcharnavoki.issuetracker.constant.Constant;
 import org.training.dcharnavoki.issuetracker.constant.Constant.Keys;
@@ -27,23 +26,39 @@ public class MainController extends AbstractBaseController {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = Logger.getLogger(MainController.class);
+
 	/*
 	 * (non-Javadoc)
 	 */
 	@Override
-	protected void performTask(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void performTask(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
-			IIssueDAO issueDao = DaoFactory.getFactory().getIssueDAO();
-			List<Issue> issues = issueDao.getAllIssues();
-			ListIterator<Issue> iterator = issues.listIterator(issues.size());
-			List<Issue> smallList = new ArrayList<Issue>();
-			int count = 1;
-			while (iterator.hasPrevious()
-					&& count++ <= Constant.MAX_ROWS_FOR_VIEW) {
-				smallList.add(iterator.previous());
-			}
-			request.setAttribute(Keys.ISSUES.getKey(), smallList);
+			DaoFactory df = DaoFactory.getFactory();
+			// Comment cm = new Comment();
+			// cm.setText("dvdfvdfdvd");
+			// cm.setDate(new Date());
+			// User user = df.getUserDAO().getUser("i@tut.by");
+			// cm.setUser(user);
+			// df.getCommentDAO().save(cm);
+			Priority p = new Priority(18);
+			p.setDescription("description");
+			df.getPriorityDAO().update(p);
+			List<Priority> entitys = df.getPriorityDAO().findAll();
+			System.out.println(entitys);
+//			System.out.println(p);
+
+			// IIssueDAO issueDao = DaoFactory.getFactory().getIssueDAO();
+			// List<Issue> issues = issueDao.findAll();
+			// ListIterator<Issue> iterator =
+			// issues.listIterator(issues.size());
+			// List<Issue> smallList = new ArrayList<Issue>();
+			// int count = 1;
+			// while (iterator.hasPrevious() && count++ <=
+			// Constant.MAX_ROWS_FOR_VIEW) {
+			// smallList.add(iterator.previous());
+			// }
+			// request.setAttribute(Keys.ISSUES.getKey(), smallList);
 			jump(ConstJsp.URL_MAIN_JSP, request, response);
 		} catch (DaoException e) {
 			LOG.error(e);

@@ -18,10 +18,11 @@ public final class HashUtil {
 	private HashUtil() {
 		super();
 	}
+
 	/**
 	 * Gets the m d5.
-	 *
-	 * @param data the data
+	 * @param data
+	 *            the data
 	 * @return the m d5
 	 */
 	public static String getMD5(final String data) {
@@ -38,9 +39,7 @@ public final class HashUtil {
 			}
 			return hashtext;
 		} catch (NoSuchAlgorithmException e) {
-			if (LOG.isDebugEnabled()) {
-				LOG.debug(e);
-			}
+			LOG.error(e);
 			return e.getMessage();
 		}
 	}

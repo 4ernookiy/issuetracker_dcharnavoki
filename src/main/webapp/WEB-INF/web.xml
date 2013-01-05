@@ -23,6 +23,18 @@
     <servlet-class>org.training.dcharnavoki.issuetracker.controller.user.AddUserController</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>SaveUserController</servlet-name>
+    <servlet-class>org.training.dcharnavoki.issuetracker.controller.user.SaveUserController</servlet-class>
+    <init-param>
+      <param-name>description.max.lenght</param-name>
+      <param-value>30</param-value>
+    </init-param>
+  </servlet>
+  <servlet>
+    <servlet-name>ChangePasswordController</servlet-name>
+    <servlet-class>org.training.dcharnavoki.issuetracker.controller.user.ChangePasswordController</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>IssueController</servlet-name>
     <servlet-class>org.training.dcharnavoki.issuetracker.controller.IssueController</servlet-class>
   </servlet>
@@ -39,9 +51,133 @@
     <servlet-class>org.training.dcharnavoki.issuetracker.controller.EditIssueController</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>SaveEditIssueController</servlet-name>
+    <servlet-class>org.training.dcharnavoki.issuetracker.controller.SaveEditIssueController</servlet-class>
+  </servlet>
+  <servlet>
+    <description></description>
+    <display-name>CreateProjectController</display-name>
+    <servlet-name>CreateProjectController</servlet-name>
+    <servlet-class>org.training.dcharnavoki.issuetracker.controller.CreateProjectController</servlet-class>
+  </servlet>
+  <servlet>
+    <description></description>
+    <display-name>SaveProjectController</display-name>
+    <servlet-name>SaveProjectController</servlet-name>
+    <servlet-class>org.training.dcharnavoki.issuetracker.controller.SaveProjectController</servlet-class>
+    <init-param>
+      <param-name>description.max.lenght</param-name>
+      <param-value>100</param-value>
+    </init-param>
+  </servlet>
+  <servlet>
+    <description></description>
+    <display-name>SaveResolutionController</display-name>
+    <servlet-name>SaveResolutionController</servlet-name>
+    <servlet-class>org.training.dcharnavoki.issuetracker.controller.SaveResolutionController</servlet-class>
+    <init-param>
+      <param-name>description.max.lenght</param-name>
+      <param-value>30</param-value>
+    </init-param>
+  </servlet>
+  <servlet>
+    <description></description>
+    <display-name>EditResolutionController</display-name>
+    <servlet-name>EditResolutionController</servlet-name>
+    <servlet-class>org.training.dcharnavoki.issuetracker.controller.EditResolutionController</servlet-class>
+  </servlet>
+  <servlet>
+    <description></description>
+    <display-name>EditPriorityController</display-name>
+    <servlet-name>EditPriorityController</servlet-name>
+    <servlet-class>org.training.dcharnavoki.issuetracker.controller.EditPriorityController</servlet-class>
+  </servlet>
+  <servlet>
+    <description></description>
+    <display-name>SavePriorityController</display-name>
+    <servlet-name>SavePriorityController</servlet-name>
+    <servlet-class>org.training.dcharnavoki.issuetracker.controller.SavePriorityController</servlet-class>
+    <init-param>
+      <param-name>description.max.lenght</param-name>
+      <param-value>30</param-value>
+    </init-param>
+  </servlet>
+  <servlet>
+    <description></description>
+    <display-name>EditTypeController</display-name>
+    <servlet-name>EditTypeController</servlet-name>
+    <servlet-class>org.training.dcharnavoki.issuetracker.controller.EditTypeController</servlet-class>
+  </servlet>
+  <servlet>
+    <description></description>
+    <display-name>SaveTypeController</display-name>
+    <servlet-name>SaveTypeController</servlet-name>
+    <servlet-class>org.training.dcharnavoki.issuetracker.controller.SaveTypeController</servlet-class>
+    <init-param>
+      <param-name>description.max.lenght</param-name>
+      <param-value>30</param-value>
+    </init-param>
+  </servlet>
+  <servlet>
+    <description></description>
+    <display-name>EditStatusController</display-name>
+    <servlet-name>EditStatusController</servlet-name>
+    <servlet-class>org.training.dcharnavoki.issuetracker.controller.EditStatusController</servlet-class>
+  </servlet>
+  <servlet>
+    <description></description>
+    <display-name>SaveStatusController</display-name>
+    <servlet-name>SaveStatusController</servlet-name>
+    <servlet-class>org.training.dcharnavoki.issuetracker.controller.SaveStatusController</servlet-class>
+    <init-param>
+      <param-name>description.max.lenght</param-name>
+      <param-value>30</param-value>
+    </init-param>
+  </servlet>
+  <servlet>
+    <description></description>
+    <display-name>ProjectsController</display-name>
+    <servlet-name>ProjectsController</servlet-name>
+    <servlet-class>org.training.dcharnavoki.issuetracker.controller.ProjectsController</servlet-class>
+  </servlet>
+  <servlet>
+    <description></description>
+    <display-name>EditProjectController</display-name>
+    <servlet-name>EditProjectController</servlet-name>
+    <servlet-class>org.training.dcharnavoki.issuetracker.controller.EditProjectController</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>RegisterJsp</servlet-name>
     <jsp-file>/registerUser.jsp</jsp-file>
   </servlet>
+  <servlet>
+    <servlet-name>EditUserJsp</servlet-name>
+    <jsp-file>/editUser.jsp</jsp-file>
+  </servlet>
+  <servlet>
+    <servlet-name>ChangePasswordJsp</servlet-name>
+    <jsp-file>/changePassword.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RegisterJsp</servlet-name>
+    <url-pattern>/pageRegister</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>EditUserJsp</servlet-name>
+    <url-pattern>/pageEditUser</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ChangePasswordJsp</servlet-name>
+    <url-pattern>/pageChangePassword</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CreateProjectController</servlet-name>
+    <url-pattern>/CreateProject</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SaveProjectController</servlet-name>
+    <url-pattern>/SaveProject</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>MainController</servlet-name>
     <url-pattern>/Main</url-pattern>
@@ -59,16 +195,20 @@
     <url-pattern>/AddUser</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
+    <servlet-name>SaveUserController</servlet-name>
+    <url-pattern>/SaveUser</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ChangePasswordController</servlet-name>
+    <url-pattern>/ChangePassword</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
     <servlet-name>IssueController</servlet-name>
     <url-pattern>/Issue</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>AssignedController</servlet-name>
     <url-pattern>/Assigned</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>RegisterJsp</servlet-name>
-    <url-pattern>/pageRegister</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>CreateIssueController</servlet-name>
@@ -82,6 +222,50 @@
     <servlet-name>EditIssueController</servlet-name>
     <url-pattern>/EditIssue</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SaveEditIssueController</servlet-name>
+    <url-pattern>/SaveEditIssue</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SaveResolutionController</servlet-name>
+    <url-pattern>/SaveResolution</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>EditResolutionController</servlet-name>
+    <url-pattern>/EditResolution</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>EditPriorityController</servlet-name>
+    <url-pattern>/EditPriority</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SavePriorityController</servlet-name>
+    <url-pattern>/SavePriority</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>EditTypeController</servlet-name>
+    <url-pattern>/EditType</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SaveTypeController</servlet-name>
+    <url-pattern>/SaveType</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>EditStatusController</servlet-name>
+    <url-pattern>/EditStatus</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SaveStatusController</servlet-name>
+    <url-pattern>/SaveStatus</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ProjectsController</servlet-name>
+    <url-pattern>/Projects</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>EditProjectController</servlet-name>
+    <url-pattern>/EditProject</url-pattern>
+  </servlet-mapping>
   <error-page>
     <error-code>404</error-code>
     <location>/page/error/e404.jsp</location>
@@ -94,20 +278,20 @@
     <exception-type>java.lang.Throwable</exception-type>
     <location>/page/error.jsp</location>
   </error-page>
-  <welcome-file-list>
-    <welcome-file>Main</welcome-file>
-  </welcome-file-list>
   <filter>
     <display-name>SetCharFilter</display-name>
     <filter-name>SetCharFilter</filter-name>
     <filter-class>org.training.dcharnavoki.issuetracker.filter.SetCharFilter</filter-class>
     <init-param>
-    	<param-name>encoding</param-name>
-    	<param-value>UTF-8</param-value>
+      <param-name>encoding</param-name>
+      <param-value>utf-8</param-value>
     </init-param>
   </filter>
   <filter-mapping>
     <filter-name>SetCharFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+  <welcome-file-list>
+    <welcome-file>Main</welcome-file>
+  </welcome-file-list>
 </web-app>

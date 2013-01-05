@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 
 import org.apache.log4j.Logger;
 import org.training.dcharnavoki.issuetracker.dao.DaoException;
@@ -20,27 +21,33 @@ public class AbstractBaseDB {
 	/** The log. */
 	private static final Logger LOG = Logger.getLogger(AbstractBaseDB.class);
 
+	/** The config. */
+	private ConfigApp config;
 	/** The connection. */
 	private Connection connection;
+	/** The driver. */
 	private String driver;
+	/** The url. */
 	private String url;
-	private String login;
-	private String password;
+	/** The properties. */
+	private Properties properties;
 
 	/**
 	 * Instantiates a new abstract base db.
-	 * @throws DaoException
-	 *             the dao exception
+	 *
+	 * @throws DaoException the dao exception
 	 */
 	public AbstractBaseDB() throws DaoException {
 		super();
-		ConfigApp config;
 		try {
 			config = DaoFactory.getConfigAplication();
 			driver = config.get(ConfKeys.DB_DRIVER);
 			url = config.get(ConfKeys.DB_URL);
-			login = config.get(ConfKeys.DB_USER);
-			password = config.get(ConfKeys.DB_PASSWORD);
+			properties = new Properties();
+			properties.setProperty("user", config.get(ConfKeys.DB_USER));
+			properties.setProperty("password", config.get(ConfKeys.DB_PASSWORD));
+			properties.setProperty("useUnicode", "true");
+			properties.setProperty("characterEncoding", "utf8");
 		} catch (DaoException e) {
 			throw e;
 		}
@@ -55,7 +62,8 @@ public class AbstractBaseDB {
 	public Connection getConnection() throws DaoException {
 		try {
 			Class.forName(driver);
-			return DriverManager.getConnection(url, login, password);
+			return DriverManager.getConnection(url, properties);
+			// return DriverManager.getConnection(url, login, password);
 		} catch (SQLException e) {
 			throw new DaoException(e);
 		} catch (ClassNotFoundException e) {
@@ -117,6 +125,14 @@ public class AbstractBaseDB {
 				LOG.error("Statement cannot be closed", e);
 			}
 		}
+	}
+
+	/**
+	 * Gets the config.
+	 * @return the config
+	 */
+	public ConfigApp getConfig() {
+		return config;
 	}
 
 }

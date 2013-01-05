@@ -1,9 +1,20 @@
 package org.training.dcharnavoki.issuetracker.beans;
 
+import javax.persistence.Entity;
+
 /**
  * The Class Type.
  */
+@Entity
 public class Type extends CommonBean {
+
+	/**
+	 * Instantiates a new type.
+	 */
+	public Type() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * Instantiates a new type.
@@ -12,17 +23,6 @@ public class Type extends CommonBean {
 	 */
 	public Type(int id) {
 		super(id);
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * Instantiates a new type.
-	 *
-	 * @param id the id
-	 * @param description the description
-	 */
-	public Type(int id, String description) {
-		super(id, description);
 		// TODO Auto-generated constructor stub
 	}
 

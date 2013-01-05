@@ -71,6 +71,5 @@
 			</table>
 		</c:otherwise>
 	</c:choose>
-	<br>
 </div>
 <jsp:include page="footer.jsp"></jsp:include>
