@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.issuetracker.training.org/base"
-	xmlns:d4="http://www.issuetracker.training.org/base">
-
-	<element name="base">
-		<complexType>
-			<sequence>
-				<element name="comments" type="d4:Comments" minOccurs="1" maxOccurs="1" />
-			</sequence>
-		</complexType>
-	</element>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.issuetracker.training.org/Comment"
+	xmlns:d4="http://www.issuetracker.training.org/Comment">
 
 	<complexType name="Comment">
 		<sequence>
@@ -27,4 +19,5 @@
 		</sequence>
 	</complexType>
 
+	<element name="comments" type="d4:Comments"></element>
 </schema>

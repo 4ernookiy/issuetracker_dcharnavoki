@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+		targetNamespace="http://www.issuetracker.training.org/Build"
+		xmlns:d4="http://www.issuetracker.training.org/Build">
+
+    <element name="builds" type="d4:Builds"></element>
+
+    <complexType name="Builds">
+    	<sequence>
+    		<element name="build" type="d4:Build" maxOccurs="unbounded" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="Build">
+    	<sequence>
+    		<element name="projectId" type="int"></element>
+    		<element name="description" type="string"></element>
+    	</sequence>
+    	<attribute name="id" type="int"></attribute>
+    </complexType>
+</schema>

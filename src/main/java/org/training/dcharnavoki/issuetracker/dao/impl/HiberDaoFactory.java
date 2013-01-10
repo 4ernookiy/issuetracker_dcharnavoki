@@ -2,7 +2,7 @@ package org.training.dcharnavoki.issuetracker.dao.impl;
 
 import org.training.dcharnavoki.issuetracker.dao.DaoFactory;
 import org.training.dcharnavoki.issuetracker.dao.impl.hibernate.BuildImplHiber;
-import org.training.dcharnavoki.issuetracker.dao.impl.hibernate.CommentDAOHiber;
+import org.training.dcharnavoki.issuetracker.dao.impl.hibernate.CommentImplHiber;
 import org.training.dcharnavoki.issuetracker.dao.impl.hibernate.IssueImplHiber;
 import org.training.dcharnavoki.issuetracker.dao.impl.hibernate.PriorityImplHiber;
 import org.training.dcharnavoki.issuetracker.dao.impl.hibernate.ProjectImplHiber;
@@ -25,7 +25,7 @@ public class HiberDaoFactory extends DaoFactory {
 		setStatusDAO(new StatusImplHiber());
 		setTypeDAO(new TypeImplHiber());
 		setUserDAO(new UserImplHiber());
-		setCommentDAO(new CommentDAOHiber());
+		setCommentDAO(new CommentImplHiber());
 		setBuildDAO(new BuildImplHiber());
 		setProjectDAO(new ProjectImplHiber());
 		setIssueDAO(new IssueImplHiber());

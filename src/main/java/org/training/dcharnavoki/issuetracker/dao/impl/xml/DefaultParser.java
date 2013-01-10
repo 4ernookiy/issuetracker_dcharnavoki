@@ -16,7 +16,7 @@ import org.xml.sax.helpers.DefaultHandler;
 /**
  * The Class DefaultParser.
  */
-public class DefaultParser extends DefaultHandler {
+public  abstract class DefaultParser extends DefaultHandler {
 	/** The Constant LOGGER. */
 	private final Logger log = Logger.getLogger(getClass());
 	/** The complete. */

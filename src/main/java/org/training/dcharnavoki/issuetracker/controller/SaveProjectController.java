@@ -106,7 +106,7 @@ public class SaveProjectController extends AbstractBaseController {
 				return;
 			}
 
-			Build build = new Build(0);
+			Build build = new Build();
 			if (!isUpdate) {
 				project = new Project();
 				project.setName(name);

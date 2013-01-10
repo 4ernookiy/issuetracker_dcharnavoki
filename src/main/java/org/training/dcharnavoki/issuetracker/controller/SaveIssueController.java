@@ -81,8 +81,7 @@ public class SaveIssueController extends AbstractBaseController {
 			int projectId = Integer.parseInt(projectAndBildStr.split(Constant.DELIMETER)[0]);
 			Project project = factory.getProjectDAO().findByID(projectId);
 			int buildId = Integer.parseInt(projectAndBildStr.split(Constant.DELIMETER)[1]);
-			Build build = project.getBuild(buildId);
-
+			Build build = factory.getBuildDAO().findByID(buildId);
 			int assignedId = Integer.parseInt(assignedStr);
 			User assigned = factory.getUserDAO().findByID(assignedId);
 

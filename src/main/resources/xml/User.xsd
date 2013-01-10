@@ -9,7 +9,6 @@
 			</sequence>
 		</complexType>
 	</element>
-
 	<simpleType name="Email">
 		<restriction base="string">
 			<pattern value="(\d?[a-zA-Z\d\.\\_\-])+@([a-zA-Z\d]+(\.)?)+">

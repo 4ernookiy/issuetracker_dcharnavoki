@@ -7,20 +7,20 @@
     <lastName>Sidoroff</lastName>
     <email>i@tut.by</email>
     <role>0</role>
-    <password>bdd5b480b00f703b61c26ffcb7ec5e6b</password>
+    <password>c4ca4238a0b923820dcc509a6f75849b</password>
   </user>
   <user id="2">
     <firstName>Petr</firstName>
     <lastName>Petrov</lastName>
-    <email>very.long.email.user@longname.com</email>
+    <email>p@tut.by</email>
     <role>1</role>
-    <password>bdd5b480b00f703b61c26ffcb7ec5e6b</password>
+    <password>c4ca4238a0b923820dcc509a6f75849b</password>
   </user>
   <user id="3">
   	<firstName>Vasya</firstName>
   	<lastName>Vasilev</lastName>
   	<email>v@tut.by</email>
   	<role>1</role>
-  	<password>bdd5b480b00f703b61c26ffcb7ec5e6b</password>
+  	<password>c4ca4238a0b923820dcc509a6f75849b</password>
   </user>
 </d4:users>

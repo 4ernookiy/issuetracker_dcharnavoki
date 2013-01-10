@@ -28,6 +28,7 @@ public class Comment extends Bean {
 	public Comment() {
 		super();
 	}
+
 	/**
 	 * Instantiates a new comment.
 	 * @param id
@@ -90,7 +91,6 @@ public class Comment extends Bean {
 
 	/**
 	 * Gets the text.
-	 *
 	 * @return the text
 	 */
 	public String getText() {
@@ -99,20 +99,21 @@ public class Comment extends Bean {
 
 	/**
 	 * Sets the text.
-	 *
-	 * @param text the text to set
+	 * @param text
+	 *            the text to set
 	 */
 	public void setText(String text) {
 		this.text = text;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Comment [id=" + getId() + ", for issue=" + issueId + ", user.email=" + user.getEmail()
-				+ ", text=" + text + "]\n";
+		return "Comment [id=" + getId() + ", date:" + getDate() + ", for issue=" + issueId
+				+ ", user.email=" + user.getEmail() + ", text=" + text + "]\n";
 	}
 
 }

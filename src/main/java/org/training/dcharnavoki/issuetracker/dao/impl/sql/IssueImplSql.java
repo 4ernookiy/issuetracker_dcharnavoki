@@ -1,11 +1,9 @@
 package org.training.dcharnavoki.issuetracker.dao.impl.sql;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,120 +11,29 @@ import org.apache.log4j.Logger;
 import org.training.dcharnavoki.issuetracker.beans.Issue;
 import org.training.dcharnavoki.issuetracker.beans.User;
 import org.training.dcharnavoki.issuetracker.dao.DaoException;
-import org.training.dcharnavoki.issuetracker.dao.IConfDAO;
+import org.training.dcharnavoki.issuetracker.dao.DaoFactory;
 import org.training.dcharnavoki.issuetracker.dao.IIssueDAO;
-import org.training.dcharnavoki.issuetracker.dao.IProjectDAO;
 import org.training.dcharnavoki.issuetracker.dao.IUserDAO;
-import org.training.dcharnavoki.issuetracker.start.preparing.ConfigApp.ConfKeys;
 
 /**
  * The Class IssueImplSql.
  */
-public class IssueImplSql extends AbstractBaseDB implements IIssueDAO {
+public class IssueImplSql extends GenericDAOSql<Issue> implements IIssueDAO {
+
+	/** The Constant LOG. */
 	private static final Logger LOG = Logger.getLogger(IssueImplSql.class);
 
 	/**
 	 * Instantiates a new issue impl sql.
-	 * @throws DaoException
-	 *             the dao exception
+	 *
+	 * @throws DaoException the dao exception
 	 */
 	public IssueImplSql() throws DaoException {
-		super();
+		super(Issue.class);
 	}
 
-	private Issue getIssue(ResultSet resultSet) throws DaoException, SQLException {
-		IUserDAO userDAO = getFactory().getUserDAO();
-		IProjectDAO projectDAO = getFactory().getProjectDAO();
-		IConfDAO confDAO = getFactory().getConfDAO();
-		int id = 0;
-		Issue issue = null;
-		issue = new Issue(resultSet.getInt("id"));
-		issue.setCreateDate(resultSet.getDate("createDate"));
-		id = resultSet.getInt("createdBy");
-		issue.setCreatedBy(userDAO.getUser(id));
-		issue.setModifyDate(resultSet.getDate("modifyDate"));
-		id = resultSet.getInt("modifyBy");
-		issue.setModifiedBy(userDAO.getUser(id));
-		issue.setSummary(resultSet.getString("summary"));
-		issue.setDescription(resultSet.getString("description"));
-		id = resultSet.getInt("statusId");
-		issue.setStatus(confDAO.getStatus(id));
-		id = resultSet.getInt("resolutionId");
-		issue.setResolution(confDAO.getResolution(id));
-		id = resultSet.getInt("typeId");
-		issue.setType(confDAO.getType(id));
-		id = resultSet.getInt("priorityId");
-		issue.setPriority(confDAO.getPriority(id));
-		id = resultSet.getInt("projectId");
-		issue.setProject(projectDAO.getProject(id));
-		id = resultSet.getInt("buildId");
-		issue.setBuild(issue.getProject().getBuild(id));
-		id = resultSet.getInt("assignedId");
-		issue.setAssigned(userDAO.getUser(id));
-		return issue;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see org.training.dcharnavoki.issuetracker.dao.IIssueDAO#getIssue(int)
-	 */
-	@Override
-	public Issue getIssue(int id) throws DaoException {
-		Issue issue = null;
-		Connection conn = null;
-		ResultSet resultSet = null;
-		PreparedStatement pstmt = null;
-		try {
-			conn = getConnection();
-			pstmt = conn.prepareStatement(getConfig().get(ConfKeys.SQL_ISSUE_SELECT_FROM_ID));
-			pstmt.setInt(1, id);
-			resultSet = pstmt.executeQuery();
-			if (resultSet.next()) {
-				issue = getIssue(resultSet);
-			}
-			if (resultSet.next()) {
-				LOG.error("more than one instance of an object Issue with id:" + id);
-			}
-		} catch (SQLException e) {
-			LOG.error(getConfig().get(ConfKeys.SQL_ISSUE_SELECT_FROM_ID), e);
-			throw new DaoException(e);
-		} finally {
-			closeResource(resultSet);
-			closeResource(pstmt);
-			closeResource(conn);
-		}
-		return issue;
-	}
-
-	@Override
-	public List<Issue> getAllIssues() throws DaoException {
-		Connection conn = null;
-		Statement stmt = null;
-		List<Issue> issues = new ArrayList<Issue>();
-		ResultSet resultSet = null;
-		try {
-			conn = getConnection();
-			stmt = conn.createStatement();
-			resultSet = stmt.executeQuery(getConfig().get(ConfKeys.SQL_ISSUE_SELECT_ALL));
-			while (resultSet.next()) {
-				issues.add(getIssue(resultSet));
-			}
-		} catch (SQLException e) {
-			LOG.error(getConfig().get(ConfKeys.SQL_ISSUE_SELECT_ALL), e);
-			throw new DaoException(e);
-		} finally {
-			closeResource(resultSet);
-			closeResource(stmt);
-			closeResource(conn);
-		}
-		return issues;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see
-	 * org.training.dcharnavoki.issuetracker.dao.IIssueDAO#getIssuesForUser(org
-	 * .training.dcharnavoki.issuetracker.beans.User)
+	/* (non-Javadoc)
+	 * @see org.training.dcharnavoki.issuetracker.dao.IIssueDAO#getIssuesForUser(org.training.dcharnavoki.issuetracker.beans.User)
 	 */
 	@Override
 	public List<Issue> getIssuesForUser(User user) throws DaoException {
@@ -134,17 +41,17 @@ public class IssueImplSql extends AbstractBaseDB implements IIssueDAO {
 		Connection conn = null;
 		ResultSet resultSet = null;
 		PreparedStatement pstmt = null;
+		String query = "SELECT * FROM Issue WHERE assigned = ?;";
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement(getConfig().get(
-					ConfKeys.SQL_ISSUE_SELECT_FROM_ID_ASSIGNED));
+			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, user.getId());
 			resultSet = pstmt.executeQuery();
 			while (resultSet.next()) {
-				issues.add(getIssue(resultSet));
+				issues.add(getEntity(resultSet));
 			}
 		} catch (SQLException e) {
-			LOG.error(getConfig().get(ConfKeys.SQL_ISSUE_SELECT_FROM_ID_ASSIGNED), e);
+			LOG.error(query, e);
 			throw new DaoException(e);
 		} finally {
 			closeResource(resultSet);
@@ -154,90 +61,125 @@ public class IssueImplSql extends AbstractBaseDB implements IIssueDAO {
 		return issues;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see
-	 * org.training.dcharnavoki.issuetracker.dao.IIssueDAO#getIdForNewIssue()
+	/* (non-Javadoc)
+	 * @see org.training.dcharnavoki.issuetracker.dao.impl.sql.GenericDAOSql#getInstance()
 	 */
 	@Override
-	public int getIdForNewIssue() throws DaoException {
-		// TODO Auto-generated method stub SELECT MAX(id) FROM issues
-		return 0;
+	public Issue getInstance() {
+		return new Issue();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see
-	 * org.training.dcharnavoki.issuetracker.dao.IIssueDAO#addIssue(org.training
-	 * .dcharnavoki.issuetracker.beans.Issue)
+	/* (non-Javadoc)
+	 * @see org.training.dcharnavoki.issuetracker.dao.impl.sql.GenericDAOSql#saveEntity(java.sql.PreparedStatement, java.lang.Object)
 	 */
 	@Override
-	public void addIssue(Issue newIssue) throws DaoException {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		try {
-			int id = 0;
-			conn = getConnection();
-			pstmt = conn.prepareStatement(getConfig().get(ConfKeys.SQL_ISSUE_INSERT_NEW));
-			java.sql.Date sqlDate = new java.sql.Date(newIssue.getCreateDate().getTime());
-			pstmt.setDate(++id, sqlDate);
-			pstmt.setInt(++id, newIssue.getCreatedBy().getId());
-			pstmt.setDate(++id, new java.sql.Date(newIssue.getModifyDate().getTime()));
-			pstmt.setInt(++id, newIssue.getModifiedBy().getId());
-			pstmt.setString(++id, newIssue.getSummary());
-			pstmt.setString(++id, newIssue.getDescription());
-			pstmt.setInt(++id, newIssue.getStatus().getId());
-			pstmt.setInt(++id, newIssue.getResolution() != null ? newIssue.getResolution()
-					.getId() : 0);
-			pstmt.setInt(++id, newIssue.getPriority().getId());
-			pstmt.setInt(++id, newIssue.getType().getId());
-			pstmt.setInt(++id, newIssue.getProject().getId());
-			pstmt.setInt(++id, newIssue.getBuild().getId());
-			pstmt.setInt(++id, newIssue.getAssigned() != null ? newIssue.getAssigned().getId()
-					: 0);
-			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			LOG.error(getConfig().get(ConfKeys.SQL_ISSUE_INSERT_NEW), e);
-			throw new DaoException(e);
-		} finally {
-			closeResource(pstmt);
-			closeResource(conn);
-		}
-
+	protected PreparedStatement saveEntity(PreparedStatement pstm, Issue entity)
+			throws SQLException {
+		int id = 0;
+		pstm.setDate(++id, new java.sql.Date(entity.getCreateDate().getTime()));
+		pstm.setDate(++id, new java.sql.Date(entity.getModifyDate().getTime()));
+		pstm.setInt(++id, entity.getCreatedBy().getId());
+		pstm.setInt(++id, entity.getModifiedBy().getId());
+		pstm.setString(++id, entity.getSummary());
+		pstm.setString(++id, entity.getDescription());
+		pstm.setInt(++id, entity.getStatus().getId());
+		pstm.setInt(++id, entity.getResolution() != null ? entity.getResolution().getId() : 0);
+		pstm.setInt(++id, entity.getType().getId());
+		pstm.setInt(++id, entity.getPriority().getId());
+		pstm.setInt(++id, entity.getProject().getId());
+		pstm.setInt(++id, entity.getBuild().getId());
+		pstm.setInt(++id, entity.getAssigned() != null ? entity.getAssigned().getId() : 0);
+		return pstm;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.training.dcharnavoki.issuetracker.dao.impl.sql.GenericDAOSql#updateEntity(java.sql.PreparedStatement, java.lang.Object)
+	 */
 	@Override
-	public void updateIssue(Issue update) throws DaoException {
-		Connection conn = null;
-		ResultSet resultSet = null;
-		PreparedStatement pstmt = null;
+	protected PreparedStatement updateEntity(PreparedStatement pstm, Issue entity)
+			throws SQLException {
+		int id = 0;
+		pstm.setDate(++id,  new java.sql.Date(entity.getModifyDate().getTime()));
+		pstm.setInt(++id, entity.getModifiedBy().getId());
+		pstm.setString(++id, entity.getSummary());
+		pstm.setString(++id, entity.getDescription());
+		pstm.setInt(++id, entity.getStatus().getId());
+		pstm.setInt(++id, entity.getResolution() != null ? entity.getResolution().getId() : 0);
+		pstm.setInt(++id, entity.getPriority().getId());
+		pstm.setInt(++id, entity.getType().getId());
+		pstm.setInt(++id, entity.getProject().getId());
+		pstm.setInt(++id, entity.getBuild().getId());
+		pstm.setInt(++id, entity.getAssigned() != null ? entity.getAssigned().getId() : 0);
+		pstm.setInt(++id, entity.getId());
+		return pstm;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.training.dcharnavoki.issuetracker.dao.impl.sql.GenericDAOSql#getEntity(java.sql.ResultSet)
+	 */
+	@Override
+	protected Issue getEntity(ResultSet resultSet) throws SQLException {
 		try {
-			conn = getConnection();
+			DaoFactory factory = DaoFactory.getFactory();
+			IUserDAO userDAO = factory.getUserDAO();
 			int id = 0;
-			pstmt = conn.prepareStatement(getConfig().get(ConfKeys.SQL_ISSUE_UPDATE_FROM_ID));
-			java.sql.Date date = new Date(update.getModifyDate().getTime());
-			pstmt.setDate(++id, date);
-			pstmt.setInt(++id, update.getModifiedBy().getId());
-			pstmt.setString(++id, update.getSummary());
-			pstmt.setString(++id, update.getDescription());
-			pstmt.setInt(++id, update.getStatus().getId());
-			pstmt.setInt(++id, update.getResolution() != null ? update.getResolution().getId()
-					: 0);
-			pstmt.setInt(++id, update.getPriority().getId());
-			pstmt.setInt(++id, update.getType().getId());
-			pstmt.setInt(++id, update.getProject().getId());
-			pstmt.setInt(++id, update.getBuild().getId());
-			pstmt.setInt(++id, update.getAssigned() != null ? update.getAssigned().getId() : 0);
-			pstmt.setInt(++id, update.getId());
-			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			LOG.error(getConfig().get(ConfKeys.SQL_ISSUE_UPDATE_FROM_ID), e);
-			throw new DaoException(e);
-		} finally {
-			closeResource(resultSet);
-			closeResource(pstmt);
-			closeResource(conn);
+			Issue issue = getInstance();
+			int issueId = resultSet.getInt("id");
+			issue.setId(issueId);
+			issue.setCreateDate(resultSet.getDate("createDate"));
+			id = resultSet.getInt("createdBy");
+			issue.setCreatedBy(userDAO.findByID(id));
+			issue.setModifyDate(resultSet.getDate("modifyDate"));
+			id = resultSet.getInt("modifiedBy");
+			issue.setModifiedBy(userDAO.findByID(id));
+			issue.setSummary(resultSet.getString("summary"));
+			issue.setDescription(resultSet.getString("description"));
+			id = resultSet.getInt("status");
+			issue.setStatus(factory.getStatusDAO().findByID(id));
+			id = resultSet.getInt("resolution");
+			issue.setResolution(factory.getResolutionDAO().findByID(id));
+			id = resultSet.getInt("type");
+			issue.setType(factory.getTypeDAO().findByID(id));
+			id = resultSet.getInt("priority");
+			issue.setPriority(factory.getPriorityDAO().findByID(id));
+			id = resultSet.getInt("project");
+			issue.setProject(factory.getProjectDAO().findByID(id));
+			id = resultSet.getInt("build");
+			issue.setBuild(factory.getBuildDAO().findByID(id));
+			id = resultSet.getInt("assigned");
+			issue.setAssigned(userDAO.findByID(id));
+			return issue;
+		} catch (DaoException e) {
+			throw new SQLException(e);
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see org.training.dcharnavoki.issuetracker.dao.impl.sql.GenericDAOSql#getSqlInsert()
+	 */
+	@Override
+	public String getSqlInsert() throws DaoException {
+		return "INSERT INTO " + getKlass().getSimpleName()
+				+ " VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+	}
+
+	/* (non-Javadoc)
+	 * @see org.training.dcharnavoki.issuetracker.dao.impl.sql.GenericDAOSql#getSqlUpdate()
+	 */
+	@Override
+	public String getSqlUpdate() throws DaoException {
+		return "UPDATE "
+				+ getKlass().getSimpleName()
+				+ " SET modifyDate = ?, modifiedBy = ?, summary = ?, description = ?, status = ?, resolution = ?, "
+				+ "priority = ?, type = ?, project = ?, build = ?, assigned = ? WHERE id = ?;";
+	}
+
+	/* (non-Javadoc)
+	 * @see org.training.dcharnavoki.issuetracker.dao.impl.sql.GenericDAOSql#getSqlDelete()
+	 */
+	@Override
+	public String getSqlDelete() throws DaoException {
+		return null;
 	}
 
 }

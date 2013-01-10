@@ -10,6 +10,7 @@ public class Build extends CommonBean {
 
 	/** The project id. */
 	private int projectId;
+
 	/**
 	 * Instantiates a new builds the.
 	 */
@@ -41,6 +42,11 @@ public class Build extends CommonBean {
 	 */
 	public void setProjectId(int projectId) {
 		this.projectId = projectId;
+	}
+
+	@Override
+	public String toString() {
+		return super.toString() + "projectId=" + projectId + "]";
 	}
 
 }

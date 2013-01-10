@@ -23,8 +23,6 @@ public class AbstractBaseDB {
 
 	/** The config. */
 	private ConfigApp config;
-	/** The connection. */
-	private Connection connection;
 	/** The driver. */
 	private String driver;
 	/** The url. */

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<d4:commonBeans xmlns:d4="http://www.issuetracker.training.org/Priority" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.issuetracker.training.org/Priority Type.xsd ">
+  <bean id="1">
+    <description>Cosmetic</description>
+  </bean>
+  <bean id="2">
+    <description>Bug</description>
+  </bean>
+  <bean id="3">
+    <description>Feature</description>
+  </bean>
+  <bean id="4">
+    <description>Performance</description>
+  </bean>
+</d4:commonBeans>

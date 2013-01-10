@@ -97,22 +97,8 @@ public class Project extends CommonBean {
 	 */
 	@Override
 	public String toString() {
-		return "Project [" + getId() + ", " + name + ", description=" + getDescription()
+		return "\nProject [" + getId() + ", " + name + ", description=" + getDescription()
 				+ ", builds=" + builds + ", manager=" + getManager() + "]";
 	}
 
-	/**
-	 * Gets the builds the.
-	 * @param buildId
-	 *            the id
-	 * @return the builds the
-	 */
-	public Build getBuild(int buildId) {
-		for (Build build : builds) {
-			if (build.getId() == buildId) {
-				return build;
-			}
-		}
-		return null;
-	}
 }

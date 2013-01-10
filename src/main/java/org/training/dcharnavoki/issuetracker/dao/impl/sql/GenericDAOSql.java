@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.training.dcharnavoki.issuetracker.beans.Bean;
 import org.training.dcharnavoki.issuetracker.dao.DaoException;
 import org.training.dcharnavoki.issuetracker.dao.GenericDAO;
 
@@ -17,7 +18,7 @@ import org.training.dcharnavoki.issuetracker.dao.GenericDAO;
  * @param <T>
  *            the generic type
  */
-public abstract class GenericDAOSql<T> extends AbstractBaseDB implements
+public abstract class GenericDAOSql<T extends Bean> extends AbstractBaseDB implements
 		GenericDAO<T, Integer> {
 	/** The log. */
 	private static final Logger LOG = Logger.getLogger(GenericDAOSql.class);
@@ -191,12 +192,7 @@ public abstract class GenericDAOSql<T> extends AbstractBaseDB implements
 			pst = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			connection.setAutoCommit(false);
 			pst = updateEntity(pst, entity);
-			// int added =
 			pst.executeUpdate();
-			// if (added == 0) {
-			// throw new DaoException("failed querry" + getSqlInsert());
-			// result = true;
-			// }
 			connection.commit();
 		} catch (SQLException e) {
 			LOG.error(e);
@@ -220,7 +216,22 @@ public abstract class GenericDAOSql<T> extends AbstractBaseDB implements
 	 */
 	@Override
 	public void deleteEntity(T entity) throws DaoException {
-		throw new DaoException("this metod not implements");
+		Connection connection = null;
+		PreparedStatement pst = null;
+		String query = "DELETE FROM " + getKlass().getSimpleName() + " WHERE id = ?";
+		try {
+			connection = getConnection();
+			LOG.info(query);
+			pst = connection.prepareStatement(query);
+			pst.setInt(1, entity.getId());
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			LOG.error(e);
+			throw new DaoException(e);
+		} finally {
+			closeResource(pst);
+			closeResource(connection);
+		}
 	}
 
 	/*

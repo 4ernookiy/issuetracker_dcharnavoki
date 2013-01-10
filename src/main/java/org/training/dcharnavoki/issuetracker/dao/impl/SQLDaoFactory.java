@@ -2,15 +2,15 @@ package org.training.dcharnavoki.issuetracker.dao.impl;
 
 import org.training.dcharnavoki.issuetracker.dao.DaoException;
 import org.training.dcharnavoki.issuetracker.dao.DaoFactory;
-import org.training.dcharnavoki.issuetracker.dao.impl.hibernate.CommentDAOHiber;
-import org.training.dcharnavoki.issuetracker.dao.impl.hibernate.IssueImplHiber;
-import org.training.dcharnavoki.issuetracker.dao.impl.hibernate.ProjectImplHiber;
-import org.training.dcharnavoki.issuetracker.dao.impl.hibernate.UserImplHiber;
 import org.training.dcharnavoki.issuetracker.dao.impl.sql.BuildImplSql;
+import org.training.dcharnavoki.issuetracker.dao.impl.sql.CommentImplSql;
+import org.training.dcharnavoki.issuetracker.dao.impl.sql.IssueImplSql;
 import org.training.dcharnavoki.issuetracker.dao.impl.sql.PriorityImplSql;
+import org.training.dcharnavoki.issuetracker.dao.impl.sql.ProjectImplSql;
 import org.training.dcharnavoki.issuetracker.dao.impl.sql.ResolutionImplSql;
 import org.training.dcharnavoki.issuetracker.dao.impl.sql.StatusImplSql;
 import org.training.dcharnavoki.issuetracker.dao.impl.sql.TypeImplSql;
+import org.training.dcharnavoki.issuetracker.dao.impl.sql.UserImplSql;
 
 /**
  * A factory for creating SQLDao objects.
@@ -29,11 +29,10 @@ public class SQLDaoFactory extends DaoFactory {
 		setStatusDAO(new StatusImplSql());
 		setTypeDAO(new TypeImplSql());
 		setBuildDAO(new BuildImplSql());
-
-//		setUserDAO(new UserImplHiber());
-//		setCommentDAO(new CommentDAOHiber());
-//		setProjectDAO(new ProjectImplHiber());
-//		setIssueDAO(new IssueImplHiber());
+		setCommentDAO(new CommentImplSql());
+		setUserDAO(new UserImplSql());
+		setProjectDAO(new ProjectImplSql());
+		setIssueDAO(new IssueImplSql());
 		}
 
 }

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Янв 07 2013 г., 22:41
+-- Время создания: Янв 08 2013 г., 13:08
 -- Версия сервера: 5.5.25
 -- Версия PHP: 5.3.13
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `build` (
   `projectId` int(11) NOT NULL,
   `description` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
 -- Дамп данных таблицы `build`
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `date` datetime NOT NULL,
   `text` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
 -- Дамп данных таблицы `comment`
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `issue` (
   `build` int(11) NOT NULL,
   `assigned` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Дамп данных таблицы `issue`
@@ -104,39 +104,6 @@ INSERT INTO `issue` (`id`, `createDate`, `modifyDate`, `createdBy`, `modifiedBy`
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `issues`
---
-
-CREATE TABLE IF NOT EXISTS `issues` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `createDate` datetime NOT NULL,
-  `createdBy` int(11) NOT NULL,
-  `modifyDate` datetime NOT NULL,
-  `modifyBy` int(11) NOT NULL,
-  `summary` text NOT NULL,
-  `description` text NOT NULL,
-  `statusId` int(11) NOT NULL,
-  `resolutionId` int(11) NOT NULL,
-  `priorityId` int(11) NOT NULL,
-  `typeId` int(11) NOT NULL,
-  `projectId` int(11) NOT NULL,
-  `buildId` int(11) NOT NULL,
-  `assignedId` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
-
---
--- Дамп данных таблицы `issues`
---
-
-INSERT INTO `issues` (`id`, `createDate`, `createdBy`, `modifyDate`, `modifyBy`, `summary`, `description`, `statusId`, `resolutionId`, `priorityId`, `typeId`, `projectId`, `buildId`, `assignedId`) VALUES
-(4, '2012-12-04 00:00:00', 1, '2012-12-04 00:00:00', 1, 'нет событий о приближении поезда', 'при вступлении поезда на второй блок участок , программа не выдает сообщение в систему ГИД', 1, 0, 3, 2, 8, 11, 0),
-(5, '2012-12-04 00:00:00', 1, '2012-12-04 00:00:00', 1, 'архитектура раобты с бд', 'налицо большое количество копипаста', 1, 0, 4, 1, 9, 12, 0),
-(6, '2012-12-04 00:00:00', 1, '2012-12-04 00:00:00', 1, 'Нет возможности отослать данные по резервному каналу', 'не происходит переключение на резервный канал, в результате посылка по резервному каналу IPX не возможна', 5, 3, 2, 2, 1, 1, 3);
-
--- --------------------------------------------------------
-
---
 -- Структура таблицы `priority`
 --
 
@@ -144,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `priority` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `description` varchar(64) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
 
 --
 -- Дамп данных таблицы `priority`
@@ -154,9 +121,7 @@ INSERT INTO `priority` (`id`, `description`) VALUES
 (1, 'Critical'),
 (2, 'Major'),
 (3, 'Important'),
-(4, 'Minor'),
-(18, 'description'),
-(19, 'description');
+(4, 'Minor');
 
 -- --------------------------------------------------------
 
@@ -170,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `project` (
   `description` varchar(255) NOT NULL,
   `manager` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Дамп данных таблицы `project`

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+		targetNamespace="http://www.issuetracker.training.org/Priority"
+		xmlns:d4="http://www.issuetracker.training.org/Priority">
+
+    <element name="commonBeans" type="d4:CommonBeans"></element>
+
+    <complexType name="CommonBean">
+    	<sequence>
+    		<element name="description" type="string" maxOccurs="1" minOccurs="1"></element>
+    	</sequence>
+    	<attribute name="id" type="int" use="required"></attribute>
+    </complexType>
+
+    <complexType name="CommonBeans">
+    	<sequence>
+    		<element name="bean" type="d4:CommonBean" maxOccurs="unbounded" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+</schema>

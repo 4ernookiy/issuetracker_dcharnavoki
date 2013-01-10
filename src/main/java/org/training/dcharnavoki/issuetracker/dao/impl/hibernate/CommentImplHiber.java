@@ -14,19 +14,18 @@ import org.training.dcharnavoki.issuetracker.util.HibernateUtil;
 /**
  * The Class CommentDAO.
  */
-public class CommentDAOHiber extends GenericDAOHiber<Comment, Integer> implements ICommentDAO {
+public class CommentImplHiber extends GenericDAOHiber<Comment, Integer> implements ICommentDAO {
 
 	/**
 	 * Instantiates a new comment dao.
 	 */
-	public CommentDAOHiber() {
+	public CommentImplHiber() {
 		super(Comment.class, HibernateUtil.getSessionFactory());
 	}
 
 	@Override
 	public List<Comment> getCommentsForIssue(Integer id) throws DaoException {
 		Session session = null;
-		Comment comment = null;
 		List<Comment> comments = new ArrayList<Comment>();
 		try {
 			session = getSessionFactory().openSession();

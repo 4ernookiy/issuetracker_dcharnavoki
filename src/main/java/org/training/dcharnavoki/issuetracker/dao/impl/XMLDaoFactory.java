@@ -2,90 +2,36 @@ package org.training.dcharnavoki.issuetracker.dao.impl;
 
 import org.training.dcharnavoki.issuetracker.dao.DaoException;
 import org.training.dcharnavoki.issuetracker.dao.DaoFactory;
-import org.training.dcharnavoki.issuetracker.dao.ICommentDAO;
-import org.training.dcharnavoki.issuetracker.dao.IConfDAO;
-import org.training.dcharnavoki.issuetracker.dao.IIssueDAO;
-import org.training.dcharnavoki.issuetracker.dao.IProjectDAO;
-import org.training.dcharnavoki.issuetracker.dao.IUserDAO;
-import org.training.dcharnavoki.issuetracker.dao.impl.xml.ParserComment;
-import org.training.dcharnavoki.issuetracker.dao.impl.xml.ParserConf;
-import org.training.dcharnavoki.issuetracker.dao.impl.xml.ParserIssue;
-import org.training.dcharnavoki.issuetracker.dao.impl.xml.ParserProject;
-import org.training.dcharnavoki.issuetracker.dao.impl.xml.ParserUser;
+import org.training.dcharnavoki.issuetracker.dao.impl.xml.BuildImplXml;
+import org.training.dcharnavoki.issuetracker.dao.impl.xml.CommentImplXml;
+import org.training.dcharnavoki.issuetracker.dao.impl.xml.IssueImplXml;
+import org.training.dcharnavoki.issuetracker.dao.impl.xml.PriorityImplXml;
+import org.training.dcharnavoki.issuetracker.dao.impl.xml.ProjectImplXml;
+import org.training.dcharnavoki.issuetracker.dao.impl.xml.ResolutionImplXml;
+import org.training.dcharnavoki.issuetracker.dao.impl.xml.StatusImplXml;
+import org.training.dcharnavoki.issuetracker.dao.impl.xml.TypeImplXml;
+import org.training.dcharnavoki.issuetracker.dao.impl.xml.UserImplXml;
 
 /**
  * DAO Factory that creates ConferenceDao for memory usage.
  */
 public class XMLDaoFactory extends DaoFactory {
-	/** The comment dao. */
-	private ICommentDAO commentDAO = null;
-	/** The conf dao. */
-	private IConfDAO confDAO = null;
-	/** The issue dao. */
-	private IIssueDAO issueDAO = null;
-	/** The project dao. */
-	private IProjectDAO projectDAO = null;
-	/** The user dao. */
-	private IUserDAO userDAO = null;
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.training.dcharnavoki.issuetracker.dao.DaoFactory#getCommentDAO()
+	/**
+	 * Instantiates a new xML dao factory.
+	 *
+	 * @throws DaoException the dao exception
 	 */
-	@Override
-	public ICommentDAO getCommentDAO() throws DaoException {
-		if (commentDAO == null) {
-			commentDAO = new ParserComment();
+	public XMLDaoFactory() throws DaoException {
+		super();
+		setPriorityDAO(new PriorityImplXml());
+		setResolutionDAO(new ResolutionImplXml());
+		setStatusDAO(new StatusImplXml());
+		setTypeDAO(new TypeImplXml());
+		setBuildDAO(new BuildImplXml());
+		setUserDAO(new UserImplXml());
+		setProjectDAO(new ProjectImplXml());
+		setCommentDAO(new CommentImplXml());
+		setIssueDAO(new IssueImplXml());
 		}
-		return commentDAO;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see org.training.dcharnavoki.issuetracker.dao.DaoFactory#getConfDAO()
-	 */
-	@Override
-	public IConfDAO getConfDAO()  throws DaoException {
-		if (confDAO == null) {
-			confDAO = new ParserConf();
-		}
-		return confDAO;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see org.training.dcharnavoki.issuetracker.dao.DaoFactory#getIssueDAO()
-	 */
-	@Override
-	public IIssueDAO getIssueDAO() throws DaoException {
-		if (issueDAO == null) {
-			issueDAO = new ParserIssue();
-		}
-		return issueDAO;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see org.training.dcharnavoki.issuetracker.dao.DaoFactory#getProjectDAO()
-	 */
-	@Override
-	public IProjectDAO getProjectDAO() throws DaoException {
-		if (projectDAO == null) {
-			projectDAO = new ParserProject();
-		}
-		return projectDAO;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see org.training.dcharnavoki.issuetracker.dao.DaoFactory#getUserDAO()
-	 */
-	@Override
-	public IUserDAO getUserDAO() throws DaoException {
-		if (userDAO == null) {
-			userDAO = new ParserUser();
-		}
-		return userDAO;
-	}
-
 }

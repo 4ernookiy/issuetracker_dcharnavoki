@@ -16,22 +16,9 @@
     		<element name="name" type="string"/>
     		<element name="description" type="string"/>
     		<element name="userId" type="int"/>
-    		<element name="builds" type="d4:Builds"/>
     	</sequence>
     	<attribute name="id" type="int" use="required"/>
     </complexType>
 
-    <complexType name="Builds">
-    	<sequence>
-    		<element name="build" type="d4:Build" maxOccurs="unbounded" minOccurs="1"/>
-    	</sequence>
-    </complexType>
 
-    <complexType name="Build">
-    	<simpleContent>
-    		<extension base="string">
-    			<attribute name="id" type="string" use="required"/>
-    		</extension>
-    	</simpleContent>
-    </complexType>
 </schema>

@@ -2,7 +2,6 @@ package org.training.dcharnavoki.issuetracker.dao.impl.xml;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -10,45 +9,31 @@ import org.training.dcharnavoki.issuetracker.beans.Comment;
 import org.training.dcharnavoki.issuetracker.dao.DaoException;
 import org.training.dcharnavoki.issuetracker.dao.DaoFactory;
 import org.training.dcharnavoki.issuetracker.dao.ICommentDAO;
-import org.training.dcharnavoki.issuetracker.dao.IUserDAO;
 import org.xml.sax.SAXException;
 
 /**
- * The Class ParserComment.
+ * The Class CommentImplXml.
  */
-public class ParserComment extends DefaultParser implements ICommentDAO {
-
-	/** The Constant FILE_XML. */
-	private static final String FILE_XML = "/xml/comment.xml";
-
-	/** The user dao. */
-	private final IUserDAO userDao = DaoFactory.getFactory().getUserDAO();
+public class CommentImplXml extends GenericDAOXml<Comment> implements ICommentDAO {
 
 	/** The tag. */
 	private Tags tag;
 
 	/** The value tag. */
 	private String valueTag;
-
 	/** The comment. */
 	private Comment comment;
 
 	/** The id. */
 	private int id;
 
-	/** The tmp. */
-	private String tmp;
-
-	/** The map bean. */
-	private Map<Integer, Comment> mapBean = new HashMap<Integer, Comment>();
-
 	/**
-	 * Instantiates a new parser comment.
+	 * Instantiates a new comment impl xml.
 	 * @throws DaoException
 	 *             the dao exception
 	 */
-	public ParserComment() throws DaoException {
-		super(FILE_XML);
+	public CommentImplXml() throws DaoException {
+		super("/xml/Comment.xml", Comment.class);
 	}
 
 	/**
@@ -58,8 +43,6 @@ public class ParserComment extends DefaultParser implements ICommentDAO {
 
 		/** The comment. */
 		COMMENT,
-		/** The id. */
-		ID,
 		/** The issueid. */
 		ISSUEID,
 		/** The addedby. */
@@ -102,14 +85,13 @@ public class ParserComment extends DefaultParser implements ICommentDAO {
 
 		switch (tag) {
 		case COMMENT:
-			tmp = attributes.getValue("id").trim();
-			id = Integer.parseInt(tmp);
-			comment = new Comment(id);
+			String tmp = attributes.getValue("id").trim();
+			int bid = Integer.parseInt(tmp);
+			comment = new Comment(bid);
 			tag = null;
 			break;
 		default:
 		}
-
 	}
 
 	/*
@@ -118,8 +100,7 @@ public class ParserComment extends DefaultParser implements ICommentDAO {
 	 * java.lang.String, java.lang.String)
 	 */
 	@Override
-	public void endElement(String uri, String localName, String qName)
-			throws SAXException {
+	public void endElement(String uri, String localName, String qName) throws SAXException {
 		super.endElement(uri, localName, qName);
 		tag = Tags.fromString(qName);
 		if (tag == null) {
@@ -134,7 +115,7 @@ public class ParserComment extends DefaultParser implements ICommentDAO {
 		case ADDEDBY:
 			id = Integer.parseInt(valueTag);
 			try {
-				comment.setUser(userDao.getUser(id));
+				comment.setUser(DaoFactory.getFactory().getUserDAO().findByID(id));
 			} catch (DaoException e) {
 				throw new SAXException(e);
 			}
@@ -146,7 +127,7 @@ public class ParserComment extends DefaultParser implements ICommentDAO {
 			comment.setText(valueTag);
 			break;
 		case COMMENT:
-			mapBean.put(comment.getId(), comment);
+			getEntities().put(comment.getId(), comment);
 			comment = null;
 			break;
 		default:
@@ -159,46 +140,30 @@ public class ParserComment extends DefaultParser implements ICommentDAO {
 	 * @see org.xml.sax.helpers.DefaultHandler#characters(char[], int, int)
 	 */
 	@Override
-	public void characters(char[] ch, int start, int length)
-			throws SAXException {
-		if (tag == null) {
+	public void characters(char[] ch, int start, int length) throws SAXException {
+		if (tag == null || Tags.COMMENT == tag) {
 			return;
 		}
-
-		switch (tag) {
-		case COMMENT:
-			break;
-		default:
-			valueTag = new String(ch, start, length).trim();
-			break;
-		}
+		valueTag = new String(ch, start, length).trim();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * @see
 	 * org.training.dcharnavoki.issuetracker.dao.ICommentDAO#getCommentsForIssue
-	 * (int)
+	 * (java.lang.Integer)
 	 */
 	@Override
-	public List<Comment> getCommentsForIssue(int issueId) throws DaoException {
-		waitCompete();
-		List<Comment> lists = new ArrayList<Comment>();
-		Iterator<Comment> iter = mapBean.values().iterator();
-		Comment commentTmp;
-		while (iter.hasNext()) {
-			commentTmp = iter.next();
-			if (commentTmp.getIssueId() == issueId) {
-				lists.add(commentTmp);
+	public List<Comment> getCommentsForIssue(Integer issueId) throws DaoException {
+		List<Comment> comments = new ArrayList<Comment>();
+		List<Comment> all;
+		all = DaoFactory.getFactory().getCommentDAO().findAll();
+		for (Comment comt : all) {
+			if (comt.getIssueId() == issueId) {
+				comments.add(comt);
 			}
 		}
-		return lists;
-	}
-
-	@Override
-	public void addComment(Comment newComment) throws DaoException {
-		waitCompete();
-		mapBean.put(newComment.getId(), newComment);
+		return comments;
 	}
 
 }

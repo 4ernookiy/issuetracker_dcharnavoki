@@ -6,7 +6,7 @@ import javax.persistence.MappedSuperclass;
  * The Class CommonBean.
  */
 @MappedSuperclass
-public class CommonBean extends Bean {
+public abstract class CommonBean extends Bean {
 
 	/** The description. */
 	private String description;
@@ -50,7 +50,7 @@ public class CommonBean extends Bean {
 	 */
 	@Override
 	public String toString() {
-		return getClass().getSimpleName() + ":[id=" + getId() + ", description="
+		return "\n" + getClass().getSimpleName() + ":[id=" + getId() + ", description="
 				+ description + "]";
 	}
 }
